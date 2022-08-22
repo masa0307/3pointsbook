@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function groupuser(){
+        return $this->belongsTo(GroupUser::class);
+    }
+
+    public function memo(){
+        return $this->belongsTo(Memo::class);
+    }
 }
