@@ -13,7 +13,7 @@ module.exports = {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: "#D1EBCC",
+                primary: "#C7EDBA",
             },
         },
     },
