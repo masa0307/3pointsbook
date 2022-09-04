@@ -1,5 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/display-booklist.js": "/js/display-booklist.js",
-    "/css/app.css": "/css/app.css"
+    "/js/add-book.js": "/js/add-book.js",
+    "/js/search-book.js": "/js/search-book.js",
+    "/css/app.css": "/css/app.css",
+    "/js/top.js": "/js/top.js"
 }
