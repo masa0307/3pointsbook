@@ -17,7 +17,11 @@ class Book extends Model
         'state'
     ];
 
-    public function book(){
-        return $this->hasMany(Book::class);
+    public function genre(){
+        return $this->belongsTo(Genre::class);
+    }
+
+    public function memo(){
+        return $this->hasMany(Memo::class);
     }
 }

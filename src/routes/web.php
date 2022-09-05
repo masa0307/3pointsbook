@@ -24,6 +24,7 @@ Route::get('/book/manual', [BookController::class, 'manual'])->middleware(['auth
 Route::post('/book/temporaryStore', [BookController::class, 'temporaryStore'])->middleware(['auth']);
 Route::get('/book/create', [BookController::class, 'create'])->middleware(['auth'])->name('book.create');
 Route::post('/book/store', [BookController::class, 'store'])->middleware(['auth'])->name('book.store');
+Route::get('/show/{book}', [BookController::class, 'show'])->name('book.show');
 
 
 

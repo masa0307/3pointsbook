@@ -10,7 +10,9 @@ class BookController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $selectedBook = Book::oldest('created_at')->first();
+        $genre_name = $selectedBook->genre->genre_name;
+        return view('index', compact('selectedBook', 'genre_name'));
     }
 
     public function search(){
@@ -54,6 +56,7 @@ class BookController extends Controller
             $store_book->author = $request->author;
             $store_book->genre_id = $request->genre_id;
             $store_book->state = $request->state;
+            $store_book->image_path = "https://placehold.jp/200x300.png";
             $store_book->save();
         }
 
@@ -61,5 +64,10 @@ class BookController extends Controller
             Book::where('state', null)->delete();
         };
         return redirect()->route('book.index');
+    }
+
+    public function show(Book $book){
+        $genre_name = $book->genre->genre_name;
+        return view('index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
     }
 }
