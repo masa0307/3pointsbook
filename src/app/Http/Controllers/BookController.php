@@ -13,20 +13,18 @@ class BookController extends Controller
         $selectedBook = Book::oldest('created_at')->first();
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-            return view('index', compact('selectedBook', 'genre_name'));
+            return view('book.index', compact('selectedBook', 'genre_name'));
         }else{
-            return view('index', compact('selectedBook'));
+            return view('book.index', compact('selectedBook'));
         }
-
-
     }
 
     public function search(){
-        return view('search');
+        return view('book.search');
     }
 
      public function manual(){
-        return view('manual');
+        return view('book.manual');
     }
 
     public function temporaryStore(Request $request){
@@ -45,7 +43,7 @@ class BookController extends Controller
 
     public function create(){
         $temporary_store_book = Book::latest('created_at')->first();
-        return view('create', compact("temporary_store_book"));
+        return view('book.create', compact("temporary_store_book"));
     }
 
     public function store(Request $request){
@@ -74,7 +72,7 @@ class BookController extends Controller
 
     public function show(Book $book){
         $genre_name = $book->genre->genre_name;
-        return view('index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
+        return view('book.index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
     }
 
     public function destroy($id){
