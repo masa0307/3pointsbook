@@ -60,11 +60,18 @@
         </section>
 
         <section>
-            <h2>読書中</h2>
-            <img src="{{$selectedBook->image_path}}">
-            <p>{{$selectedBook->title}}</p>
-            <p>{{$selectedBook->author}}</p>
-            <p>{{$genre_name}}</p>
+            @if($selectedBook)
+                <h2>読書中</h2>
+                <img src="{{$selectedBook->image_path}}">
+                <p>{{$selectedBook->title}}</p>
+                <p>{{$selectedBook->author}}</p>
+                <p>{{$genre_name}}</p>
+                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" value="削除">
+                </form>
+            @endif
         </section>
     </div>
 

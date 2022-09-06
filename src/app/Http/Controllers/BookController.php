@@ -11,8 +11,14 @@ class BookController extends Controller
     public function index()
     {
         $selectedBook = Book::oldest('created_at')->first();
-        $genre_name = $selectedBook->genre->genre_name;
-        return view('index', compact('selectedBook', 'genre_name'));
+        if($selectedBook){
+            $genre_name = $selectedBook->genre->genre_name;
+            return view('index', compact('selectedBook', 'genre_name'));
+        }else{
+            return view('index', compact('selectedBook'));
+        }
+
+
     }
 
     public function search(){
@@ -69,5 +75,12 @@ class BookController extends Controller
     public function show(Book $book){
         $genre_name = $book->genre->genre_name;
         return view('index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
+    }
+
+    public function destroy($id){
+        $book = Book::find($id);
+        $book->delete();
+
+        return redirect()->route('book.index');
     }
 }
