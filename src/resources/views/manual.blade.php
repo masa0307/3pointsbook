@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/top.js') }}" defer></script>
+    <script src="{{ asset('js/add-book.js') }}" defer></script>
 
 </head>
 <body>
@@ -29,7 +29,7 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="#" class="dropdown marker block">{{$book->title}}</a>
+                                        <a href="{{route('book.show', $book->id)}}" class="dropdown marker block">{{$book->title}}</a>
                                         <ul class="pl-6 hidden dropdown__list">
                                             <li><a href="#" class="marker block">読書メモ</a></li>
                                             <li><a href="#" class="marker block">アクションリスト</a></li>
@@ -49,7 +49,7 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='気になる')
                                     <li class="mt-2">
-                                        <a href="#" class="marker block">{{$book->title}}</a>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
                                     </li>
                                 @endif
                             @endforeach
