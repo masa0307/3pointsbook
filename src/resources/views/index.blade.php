@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/top.js') }}" defer></script>
+    <script src="{{ asset('js/add-book.js') }}" defer></script>
+    <script src="{{ asset('js/display-booklist.js') }}" defer></script>
 
 </head>
 <body>
@@ -29,8 +30,8 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="#" class="dropdown marker block">{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown__list">
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <ul class="pl-6 hidden dropdown">
                                             <li><a href="#" class="marker block">読書メモ</a></li>
                                             <li><a href="#" class="marker block">アクションリスト</a></li>
                                             <li><a href="#" class="marker block">振り返り</a></li>
@@ -49,7 +50,7 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='気になる')
                                     <li class="mt-2">
-                                        <a href="#" class="marker block">{{$book->title}}</a>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
                                     </li>
                                 @endif
                             @endforeach
@@ -57,6 +58,21 @@
                     </li>
                 </ul>
             </div>
+        </section>
+
+        <section>
+            @if($selectedBook)
+                <h2>読書中</h2>
+                <img src="{{$selectedBook->image_path}}">
+                <p id="title">{{$selectedBook->title}}</p>
+                <p>{{$selectedBook->author}}</p>
+                <p>{{$genre_name}}</p>
+                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" value="削除">
+                </form>
+            @endif
         </section>
     </div>
 

@@ -10,19 +10,23 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
-        return view('index', compact("books"));
+        $selectedBook = Book::oldest('created_at')->first();
+        if($selectedBook){
+            $genre_name = $selectedBook->genre->genre_name;
+            return view('index', compact('selectedBook', 'genre_name'));
+        }else{
+            return view('index', compact('selectedBook'));
+        }
+
+
     }
 
     public function search(){
-        $books= Book::all();
-        return view('search', compact("books"));
+        return view('search');
     }
 
      public function manual(){
-        $books= Book::all();
-        $genres = Genre::all();
-        return view('manual', compact("books", "genres"));
+        return view('manual');
     }
 
     public function temporaryStore(Request $request){
@@ -40,14 +44,11 @@ class BookController extends Controller
     }
 
     public function create(){
-        $books = Book::all();
-        $genres = Genre::all();
         $temporary_store_book = Book::latest('created_at')->first();
-        return view('create', compact("temporary_store_book", "books", "genres"));
+        return view('create', compact("temporary_store_book"));
     }
 
     public function store(Request $request){
-        $books= Book::all();
         if(parse_url(url()->previous())['path'] == "/book/create"){
             $temporary_store_book = Book::latest('created_at')->first();
             $temporary_store_book->title = $request->title;
@@ -61,12 +62,25 @@ class BookController extends Controller
             $store_book->author = $request->author;
             $store_book->genre_id = $request->genre_id;
             $store_book->state = $request->state;
+            $store_book->image_path = "https://placehold.jp/200x300.png";
             $store_book->save();
         }
 
         if(Book::where('state', null)){
             Book::where('state', null)->delete();
         };
-        return redirect()->route('book.index')->with(compact('books'));
+        return redirect()->route('book.index');
+    }
+
+    public function show(Book $book){
+        $genre_name = $book->genre->genre_name;
+        return view('index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
+    }
+
+    public function destroy($id){
+        $book = Book::find($id);
+        $book->delete();
+
+        return redirect()->route('book.index');
     }
 }

@@ -15,14 +15,6 @@ mix.js("resources/js/app.js", "public/js")
     .js("resources/js/display-booklist.js", "public/js")
     .js("resources/js/add-book.js", "public/js")
     .js("resources/js/search-book.js", "public/js")
-    .babel(
-        [
-            "public/js/display-booklist.js",
-            "public/js/add-book.js",
-            "public/js/search-book.js",
-        ],
-        "public/js/top.js"
-    )
     .postCss("resources/css/app.css", "public/css", [
         require("tailwindcss"),
         require("autoprefixer"),
