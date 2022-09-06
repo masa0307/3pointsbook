@@ -27,7 +27,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         //
         View::composers([
             \App\Http\ViewComposers\BookComposer::class => '*',
-            \App\Http\ViewComposers\GenreComposer::class => ['create', 'manual'],
+            \App\Http\ViewComposers\GenreComposer::class => ['book.create', 'book.manual'],
         ]);
     }
 }

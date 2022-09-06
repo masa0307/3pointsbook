@@ -18,15 +18,19 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/book', [BookController::class, 'index'])->middleware(['verified'])->name('book.index');
-Route::get('/book/search', [BookController::class, 'search'])->middleware(['auth'])->name('book.search');
-Route::get('/book/manual', [BookController::class, 'manual'])->middleware(['auth'])->name('book.manual');
-Route::post('/book/temporaryStore', [BookController::class, 'temporaryStore'])->middleware(['auth']);
-Route::get('/book/create', [BookController::class, 'create'])->middleware(['auth'])->name('book.create');
-Route::post('/book/store', [BookController::class, 'store'])->middleware(['auth'])->name('book.store');
-Route::get('/book/show/{book}', [BookController::class, 'show'])->name('book.show');
-Route::delete('/book/destroy/{id}', [BookController::class, 'destroy'])->name('book.destroy');
 
+
+
+Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
+    Route::get('/', [BookController::class, 'index'])->middleware(['verified'])->name('index');
+    Route::get('/search', [BookController::class, 'search'])->middleware(['auth'])->name('search');
+    Route::get('/manual', [BookController::class, 'manual'])->middleware(['auth'])->name('manual');
+    Route::post('/temporaryStore', [BookController::class, 'temporaryStore'])->middleware(['auth']);
+    Route::get('/create', [BookController::class, 'create'])->middleware(['auth'])->name('create');
+    Route::post('/store', [BookController::class, 'store'])->middleware(['auth'])->name('store');
+    Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
+    Route::delete('/destroy/{id}', [BookController::class, 'destroy'])->name('destroy');
+});
 
 
 Route::get('/dashboard', function () {
