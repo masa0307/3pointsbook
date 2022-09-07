@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/display-booklist.js') }}" defer></script>
 
 </head>
 <body>
@@ -30,9 +29,9 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown">
-                                            <li><a href="{{route('book-memo.create', $book->id)}}" class="marker block">読書メモ</a></li>
+                                        <a href="{{route('book.show', $book->id)}}" class="dropdown marker block">{{$book->title}}</a>
+                                        <ul class="pl-6 hidden dropdown__list">
+                                            <li><a href="#" class="marker block">読書メモ</a></li>
                                             <li><a href="#" class="marker block">アクションリスト</a></li>
                                             <li><a href="#" class="marker block">振り返り</a></li>
                                         </ul>
@@ -61,23 +60,33 @@
         </section>
 
         <section>
-            @if($selectedBook)
-                <h2>読書中</h2>
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
-                </form>
-            @endif
+            <h2>読書メモ</h2>
+            <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST">
+                @csrf
+                <div>
+                    <label for="before_reading_content" class="block">読書前</label>
+                    <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載"></textarea>
+                </div>
+                <input type="submit" value="保存する">
+            </form>
+            <form action="{{route('book-memo.store')}}" method="POST">
+                @csrf
+                <div>
+                    <label for="reading_content" class="block">読書中</label>
+                    <textarea name="reading_content" id="reading_content" cols="80" rows="5" placeholder="※自由なメモを記載"></textarea>
+                </div>
+                <input type="submit" value="保存する">
+            </form>
+            <form action="{{route('book-memo.store')}}" method="POST">
+                @csrf
+                <div>
+                    <label for="after_reading_content" class="block">読書前</label>
+                    <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載"></textarea>
+                </div>
+                <input type="submit" value="保存する">
+            </form>
         </section>
     </div>
-
-
-
 </body>
 </html>
 
