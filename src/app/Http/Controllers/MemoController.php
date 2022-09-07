@@ -10,12 +10,21 @@ use Illuminate\Support\Facades\Auth;
 class MemoController extends Controller
 {
     //
-    public function index(){
-        return view('book-memo.index');
+    public function index($id){
+        $book = Memo::where('book_id',$id)->first();
+        $before_reading_content = $book->before_reading_content;
+        return view('book-memo.index', compact('before_reading_content', 'id'));
     }
 
     public function create($id){
-        return view('book-memo.create', compact('id'));
+        $book = Memo::where('book_id',$id)->first();
+        if($book){
+            $before_reading_content = $book->before_reading_content;
+            return view('book-memo.index', compact('before_reading_content', 'id'));
+        }else{
+            $before_reading_content = null;
+            return view('book-memo.create',  compact('before_reading_content', 'id'));
+        }
     }
 
     public function store(Request $request){
@@ -26,6 +35,16 @@ class MemoController extends Controller
         $store_book_memo->user_id = Auth::id();
         $store_book_memo->book_id = $request->book_id;
         $store_book_memo->save();
-        return redirect()->route('book-memo.index');
+        return redirect()->route('book-memo.index', ['id'=>$store_book_memo->book_id]);
     }
+
+    public function update(Request $request){
+        $store_book_memo = Memo::where('book_id',$request->book_id)->first();
+        $store_book_memo->before_reading_content = $request->before_reading_content;
+        $store_book_memo->reading_content = $request->reading_content;
+        $store_book_memo->after_reading_content = $request->after_reading_content;
+        $store_book_memo->save();
+        return redirect()->route('book-memo.index', ['id'=>$store_book_memo->book_id]);
+    }
+
 }

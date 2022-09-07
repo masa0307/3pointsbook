@@ -34,9 +34,10 @@ Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
 });
 
 Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {
-    Route::get('/', [MemoController::class, 'index'])->middleware(['auth'])->name('index');
+    Route::get('/{id}', [MemoController::class, 'index'])->middleware(['auth'])->name('index');
     Route::get('/create/{id}', [MemoController::class, 'create'])->middleware(['auth'])->name('create');
     Route::post('/store', [MemoController::class, 'store'])->middleware(['auth'])->name('store');
+    Route::post('/update', [MemoController::class, 'update'])->middleware(['auth'])->name('update');
 });
 
 

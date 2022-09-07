@@ -61,14 +61,26 @@
 
         <section>
             <h2>読書メモ</h2>
-            <form action="{{route('book-memo.store')}}" method="POST">
-                @csrf
-                <div>
-                    <label for="before_reading_content" class="block">読書前</label>
-                    <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載"></textarea>
-                </div>
-                <input type="submit" value="保存する">
-            </form>
+            @if($before_reading_content)
+                <form action="{{route('book-memo.update', ['book_id'=>$id])}}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="before_reading_content" class="block">読書前</label>
+                        <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5">{{$before_reading_content}}</textarea>
+                    </div>
+                    <input type="submit" value="上書きする">
+                </form>
+            @else
+                <form action="{{route('book-memo.store', ['book_id'=>$book->id])}}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="before_reading_content" class="block">読書前</label>
+                        <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載"></textarea>
+                    </div>
+                    <input type="submit" value="保存する">
+                </form>
+            @endif
+
             <form action="{{route('book-memo.store')}}" method="POST">
                 @csrf
                 <div>
