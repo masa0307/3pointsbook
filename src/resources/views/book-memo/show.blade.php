@@ -63,31 +63,31 @@
             <h2>読書メモ</h2>
             @if($before_reading_content)
                 <h3>読書前</h3>
-                <a href="{{route('book-memo.create', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                 <textarea  cols="80" rows="5" readonly>{{$before_reading_content}}</textarea>
             @elseif(!$before_reading_content)
                 <h3>読書前</h3>
-                <a href="{{route('book-memo.create', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                 <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
             @endif
 
             @if($reading_content)
                 <h3>読書中</h3>
-                <a href="{{route('book-memo.create', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                 <textarea  cols="80" rows="5" readonly>{{$reading_content}}</textarea>
             @elseif(!$reading_content)
                 <h3>読書中</h3>
-                <a href="{{route('book-memo.create', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                 <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
             @endif
 
             @if($after_reading_content)
                 <h3>読書後</h3>
-                <a href="{{route('book-memo.create', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                 <textarea  cols="80" rows="5" readonly>{{$after_reading_content}}</textarea>
             @elseif(!$after_reading_content)
                 <h3>読書後</h3>
-                <a href="{{route('book-memo.create', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                 <textarea  cols="80" rows="5" readonly placeholder="※読書前に記載した３点に関して得た情報を記載"></textarea>
             @endif
         </section>

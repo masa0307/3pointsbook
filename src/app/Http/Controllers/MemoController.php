@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class MemoController extends Controller
 {
     //
-    public function index($id){
+    public function show($id){
         $store_book_memo  = Memo::where('book_id',$id)->first();
         if($store_book_memo ){
             $before_reading_content = $store_book_memo ->before_reading_content;
@@ -22,10 +22,10 @@ class MemoController extends Controller
             $after_reading_content = null;
         }
 
-        return view('book-memo.index',  compact('before_reading_content','reading_content','after_reading_content', 'id'));
+        return view('book-memo.show',  compact('before_reading_content','reading_content','after_reading_content', 'id'));
     }
 
-    public function create($id){
+    public function edit($id){
         $store_book_memo  = Memo::where('book_id',$id)->first();
         if($store_book_memo ){
             $before_reading_content = $store_book_memo ->before_reading_content;
@@ -37,7 +37,7 @@ class MemoController extends Controller
             $after_reading_content = null;
         }
 
-        return view('book-memo.create',  compact('before_reading_content','reading_content','after_reading_content', 'id'));
+        return view('book-memo.edit',  compact('before_reading_content','reading_content','after_reading_content', 'id'));
     }
 
     public function store(Request $request){
@@ -54,11 +54,11 @@ class MemoController extends Controller
         $store_book_memo->book_id = $request->book_id;
         $store_book_memo->save();
 
-        return redirect()->route('book-memo.index', ['id'=>$store_book_memo->book_id]);
+        return redirect()->route('book-memo.show', ['id'=>$store_book_memo->book_id]);
     }
 
     public function update(Request $request){
-        $store_book_memo = Memo::where('book_id',$request->book_id)->first();
+        $store_book_memo = Memo::where('book_id',$request->id)->first();
         if($request->before_reading_content){
             $store_book_memo->before_reading_content = $request->before_reading_content;
         }elseif($request->reading_content){
@@ -68,7 +68,7 @@ class MemoController extends Controller
         }
         $store_book_memo->save();
 
-        return redirect()->route('book-memo.index', ['id'=>$store_book_memo->book_id]);
+        return redirect()->route('book-memo.show', ['id'=>$store_book_memo->book_id]);
     }
 
 }

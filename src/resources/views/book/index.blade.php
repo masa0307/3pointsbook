@@ -32,7 +32,7 @@
                                     <li class="mt-2">
                                         <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
                                         <ul class="pl-6 hidden dropdown">
-                                            <li><a href="{{route('book-memo.index', $book->id)}}" class="marker block">読書メモ</a></li>
+                                            <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
                                             <li><a href="#" class="marker block">アクションリスト</a></li>
                                             <li><a href="#" class="marker block">振り返り</a></li>
                                         </ul>

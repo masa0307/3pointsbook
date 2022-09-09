@@ -62,7 +62,8 @@
         <section>
             <h2>読書メモ</h2>
             @if($before_reading_content)
-                <form action="{{route('book-memo.update', ['book_id'=>$id])}}" method="POST">
+                <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
+                    @method('PATCH')
                     @csrf
                     <div>
                         <label for="before_reading_content" class="block">読書前</label>
@@ -82,7 +83,8 @@
             @endif
 
             @if($reading_content)
-                <form action="{{route('book-memo.update', ['book_id'=>$id])}}" method="POST">
+                <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
+                    @method('PATCH')
                     @csrf
                     <div>
                         <label for="reading_content" class="block">読書中</label>
@@ -102,7 +104,8 @@
             @endif
 
             @if($after_reading_content)
-                <form action="{{route('book-memo.update', ['book_id'=>$id])}}" method="POST">
+                <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
+                    @method('PATCH')
                     @csrf
                     <div>
                         <label for="after_reading_content" class="block">読書後</label>
