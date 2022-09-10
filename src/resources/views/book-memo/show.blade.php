@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
+    <script src="{{ asset('js/marker-memolist.js') }}" defer></script>
 
 </head>
 <body>
@@ -29,8 +30,8 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="dropdown marker block">{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown__list">
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <ul class="pl-6 hidden dropdown">
                                             <li><a href="#" class="marker block">読書メモ</a></li>
                                             <li><a href="#" class="marker block">アクションリスト</a></li>
                                             <li><a href="#" class="marker block">振り返り</a></li>
@@ -60,10 +61,10 @@
         </section>
 
         <section>
-            <h2>読書メモ</h2>
+            <h2 id="book-memo">読書メモ</h2>
             @if($before_reading_content)
                 <h3>読書前</h3>
-                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}" id="edit">編集</a>
                 <textarea  cols="80" rows="5" readonly>{{$before_reading_content}}</textarea>
             @elseif(!$before_reading_content)
                 <h3>読書前</h3>

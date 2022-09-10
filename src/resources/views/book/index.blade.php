@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/display-booklist.js') }}" defer></script>
+    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
 
 </head>
 <body>
