@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\MemoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,13 @@ Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
     Route::post('/store', [BookController::class, 'store'])->middleware(['auth'])->name('store');
     Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
     Route::delete('/destroy/{id}', [BookController::class, 'destroy'])->name('destroy');
+});
+
+Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {
+    Route::get('/show/{id}', [MemoController::class, 'show'])->middleware(['auth'])->name('show');
+    Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('edit');
+    Route::post('/store', [MemoController::class, 'store'])->middleware(['auth'])->name('store');
+    Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth'])->name('update');
 });
 
 

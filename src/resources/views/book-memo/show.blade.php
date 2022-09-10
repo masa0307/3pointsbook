@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
+    <script src="{{ asset('js/marker-memolist.js') }}" defer></script>
 
 </head>
 <body>
@@ -32,7 +32,7 @@
                                     <li class="mt-2">
                                         <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
                                         <ul class="pl-6 hidden dropdown">
-                                            <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
+                                            <li><a href="#" class="marker block">読書メモ</a></li>
                                             <li><a href="#" class="marker block">アクションリスト</a></li>
                                             <li><a href="#" class="marker block">振り返り</a></li>
                                         </ul>
@@ -61,23 +61,38 @@
         </section>
 
         <section>
-            @if($selectedBook)
-                <h2>読書中</h2>
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
-                </form>
+            <h2 id="book-memo">読書メモ</h2>
+            @if($before_reading_content)
+                <h3>読書前</h3>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}" id="edit">編集</a>
+                <textarea  cols="80" rows="5" readonly>{{$before_reading_content}}</textarea>
+            @elseif(!$before_reading_content)
+                <h3>読書前</h3>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
+            @endif
+
+            @if($reading_content)
+                <h3>読書中</h3>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                <textarea  cols="80" rows="5" readonly>{{$reading_content}}</textarea>
+            @elseif(!$reading_content)
+                <h3>読書中</h3>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
+            @endif
+
+            @if($after_reading_content)
+                <h3>読書後</h3>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                <textarea  cols="80" rows="5" readonly>{{$after_reading_content}}</textarea>
+            @elseif(!$after_reading_content)
+                <h3>読書後</h3>
+                <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                <textarea  cols="80" rows="5" readonly placeholder="※読書前に記載した３点に関して得た情報を記載"></textarea>
             @endif
         </section>
     </div>
-
-
-
 </body>
 </html>
 

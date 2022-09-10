@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
-/*!******************************************!*\
-  !*** ./resources/js/display-booklist.js ***!
-  \******************************************/
+/*!*****************************************!*\
+  !*** ./resources/js/marker-booklist.js ***!
+  \*****************************************/
 var dropdowns = document.querySelectorAll(".dropdown");
 var markers = document.querySelectorAll(".marker");
 var title = document.getElementById("title");
