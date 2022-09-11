@@ -16,13 +16,20 @@ class MemoController extends Controller
             $before_reading_content = $store_book_memo ->before_reading_content;
             $reading_content = $store_book_memo ->reading_content;
             $after_reading_content = $store_book_memo ->after_reading_content;
+            $actionlist1_content = $store_book_memo ->actionlist1_content;
+            $actionlist2_content = $store_book_memo ->actionlist2_content;
+            $actionlist3_content = $store_book_memo ->actionlist3_content;
+
         }else{
             $before_reading_content = null;
             $reading_content = null;
             $after_reading_content = null;
+            $actionlist1_content = null;
+            $actionlist2_content = null;
+            $actionlist3_content = null;
         }
 
-        return view('book-memo.show',  compact('before_reading_content','reading_content','after_reading_content', 'id'));
+        return view('memo.show',  compact('before_reading_content','reading_content','after_reading_content', 'actionlist1_content', 'actionlist2_content','actionlist3_content','id'));
     }
 
     public function edit($id){
@@ -31,13 +38,20 @@ class MemoController extends Controller
             $before_reading_content = $store_book_memo ->before_reading_content;
             $reading_content = $store_book_memo ->reading_content;
             $after_reading_content = $store_book_memo ->after_reading_content;
+            $actionlist1_content = $store_book_memo ->actionlist1_content;
+            $actionlist2_content = $store_book_memo ->actionlist2_content;
+            $actionlist3_content = $store_book_memo ->actionlist3_content;
         }else{
             $before_reading_content = null;
             $reading_content = null;
             $after_reading_content = null;
+            $actionlist1_content = null;
+            $actionlist2_content = null;
+            $actionlist3_content = null;
+
         }
 
-        return view('book-memo.edit',  compact('before_reading_content','reading_content','after_reading_content', 'id'));
+        return view('memo.edit',  compact('before_reading_content','reading_content','after_reading_content','actionlist1_content', 'actionlist2_content','actionlist3_content', 'id'));
     }
 
     public function store(Request $request){
@@ -49,12 +63,20 @@ class MemoController extends Controller
             $store_book_memo->reading_content = $request->reading_content;
         }elseif($request->after_reading_content){
             $store_book_memo->after_reading_content = $request->after_reading_content;
+        }elseif($request->actionlist1_content){
+            $store_book_memo->actionlist1_content = $request->actionlist1_content;
+            $store_book_memo->actionlist2_content = $request->actionlist2_content;
+            $store_book_memo->actionlist3_content = $request->actionlist3_content;
         }
         $store_book_memo->user_id = Auth::id();
         $store_book_memo->book_id = $request->book_id;
         $store_book_memo->save();
 
-        return redirect()->route('book-memo.show', ['id'=>$store_book_memo->book_id]);
+        if($request->before_reading_content || $request->reading_content || $request->after_reading_content){
+            return redirect()->route('book-memo.show', ['id'=>$store_book_memo->book_id]);
+        }elseif($request->actionlist1_content || $request->actionlist2_content || $request->actionlist3_content){
+            return redirect()->route('action-list.show', ['id'=>$store_book_memo->book_id]);
+        }
     }
 
     public function update(Request $request){
@@ -65,10 +87,18 @@ class MemoController extends Controller
             $store_book_memo->reading_content = $request->reading_content;
         }elseif($request->after_reading_content){
             $store_book_memo->after_reading_content = $request->after_reading_content;
+        }elseif($request->actionlist1_content){
+            $store_book_memo->actionlist1_content = $request->actionlist1_content;
+            $store_book_memo->actionlist2_content = $request->actionlist2_content;
+            $store_book_memo->actionlist3_content = $request->actionlist3_content;
         }
         $store_book_memo->save();
 
-        return redirect()->route('book-memo.show', ['id'=>$store_book_memo->book_id]);
+        if($request->before_reading_content || $request->reading_content || $request->after_reading_content){
+            return redirect()->route('book-memo.show', ['id'=>$store_book_memo->book_id]);
+        }elseif($request->actionlist1_content || $request->actionlist2_content || $request->actionlist3_content){
+            return redirect()->route('action-list.show', ['id'=>$store_book_memo->book_id]);
+        }
     }
 
 }
