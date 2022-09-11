@@ -63,58 +63,58 @@
         <section>
             @if(strpos(url()->full(),'book-memo')!== false)
                 <h2 id="book-memo">読書メモ</h2>
-                @if($before_reading_content)
+                @if($is_store_memo)
                     <h3>読書前</h3>
                     <a href="{{route('book-memo.edit', ['id'=>$id])}}" id="edit">編集</a>
-                    <textarea  cols="80" rows="5" readonly>{{$before_reading_content}}</textarea>
-                @elseif(!$before_reading_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->before_reading_content}}</textarea>
+                @else
                     <h3>読書前</h3>
                     <a href="{{route('book-memo.edit', ['id'=>$id])}}" id="edit">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
                 @endif
 
-                @if($reading_content)
+                @if($is_store_memo)
                     <h3>読書中</h3>
                     <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
-                    <textarea  cols="80" rows="5" readonly>{{$reading_content}}</textarea>
-                @elseif(!$reading_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->reading_content}}</textarea>
+                @else
                     <h3>読書中</h3>
                     <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
                 @endif
 
-                @if($after_reading_content)
+                @if($is_store_memo)
                     <h3>読書後</h3>
                     <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
-                    <textarea  cols="80" rows="5" readonly>{{$after_reading_content}}</textarea>
-                @elseif(!$after_reading_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->after_reading_content}}</textarea>
+                @else
                     <h3>読書後</h3>
                     <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※読書前に記載した３点に関して得た情報を記載"></textarea>
                 @endif
             @elseif(strpos(url()->full(),'action-list')!== false)
                 <h2 id="book-memo">アクションリスト</h2>
-                @if($actionlist1_content)
+                @if($is_store_memo)
                     <h3>アクションリスト１</h3>
-                    <textarea  cols="80" rows="5" readonly>{{$actionlist1_content}}</textarea>
-                @elseif(!$actionlist1_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist1_content}}</textarea>
+                @else
                     <h3>アクションリスト１</h3>
                     <textarea  cols="80" rows="5" readonly placeholder="※行動に移すことを記載"></textarea>
                 @endif
 
-                @if($actionlist2_content)
+                @if($is_store_memo)
                     <h3>アクションリスト２</h3>
-                    <textarea  cols="80" rows="5" readonly>{{$actionlist2_content}}</textarea>
-                @elseif(!$actionlist2_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist2_content}}</textarea>
+                @else
                     <h3>アクションリスト２</h3>
                     <textarea  cols="80" rows="5" readonly placeholder="※行動に移すことを記載"></textarea>
                 @endif
 
-                @if($actionlist3_content)
+                @if($is_store_memo)
                     <h3>アクションリスト３</h3>
                     <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit">編集</a>
-                    <textarea  cols="80" rows="5" readonly>{{$actionlist3_content}}</textarea>
-                @elseif(!$actionlist3_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist3_content}}</textarea>
+                @else
                     <h3>アクションリスト３</h3>
                     <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※行動に移すことを記載"></textarea>
@@ -122,27 +122,27 @@
 
             @elseif(strpos(url()->full(),'feedback-list')!== false)
                 <h2 id="book-memo">振り返り</h2>
-                @if($feedback1_content)
+                @if($is_store_memo)
                     <h3>Q.アクションリスト１を実施した結果は？</h3>
-                    <textarea  cols="80" rows="5" readonly>{{$feedback1_content}}</textarea>
-                @elseif(!$feedback1_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback1_content}}</textarea>
+                @else
                     <h3>Q.アクションリスト１を実施した結果は？</h3>
                     <textarea  cols="80" rows="5" readonly placeholder="※振り返りを記載"></textarea>
                 @endif
 
-                @if($feedback2_content)
+                @if($is_store_memo)
                     <h3>Q.アクションリスト２を実施した結果は？</h3>
-                    <textarea  cols="80" rows="5" readonly>{{$feedback2_content}}</textarea>
-                @elseif(!$feedback2_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback2_content}}</textarea>
+                @else
                     <h3>Q.アクションリスト２を実施した結果は？</h3>
                     <textarea  cols="80" rows="5" readonly placeholder="※振り返りを記載"></textarea>
                 @endif
 
-                @if($feedback3_content)
+                @if($is_store_memo)
                     <h3>Q.アクションリスト３を実施した結果は？</h3>
                     <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit">編集</a>
-                    <textarea  cols="80" rows="5" readonly>{{$feedback3_content}}</textarea>
-                @elseif(!$feedback3_content)
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback3_content}}</textarea>
+                @else
                     <h3>Q.アクションリスト３を実施した結果は？</h3>
                     <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※振り返りを記載"></textarea>
