@@ -47,6 +47,13 @@ Route::group(['prefix' => 'action-list', 'as' => 'action-list.'], function () {
     Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth'])->name('update');
 });
 
+Route::group(['prefix' => 'feedback-list', 'as' => 'feedback-list.'], function () {
+    Route::get('/show/{id}', [MemoController::class, 'show'])->middleware(['auth'])->name('show');
+    Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('edit');
+    Route::post('/store', [MemoController::class, 'store'])->middleware(['auth'])->name('store');
+    Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth'])->name('update');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

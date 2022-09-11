@@ -34,7 +34,7 @@
                                         <ul class="pl-6 hidden dropdown">
                                             <li><a href="{{ route('book-memo.show', $book->id) }}" class="marker block">読書メモ</a></li>
                                             <li><a href="{{ route('action-list.show', $book->id) }}" class="marker block">アクションリスト</a></li>
-                                            <li><a href="" class="marker block">振り返り</a></li>
+                                            <li><a href="{{ route('feedback-list.show', $book->id) }}" class="marker block">振り返り</a></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -118,6 +118,34 @@
                     <h3>アクションリスト３</h3>
                     <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※行動に移すことを記載"></textarea>
+                @endif
+
+            @elseif(strpos(url()->full(),'feedback-list')!== false)
+                <h2 id="book-memo">振り返り</h2>
+                @if($feedback1_content)
+                    <h3>Q.アクションリスト１を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$feedback1_content}}</textarea>
+                @elseif(!$feedback1_content)
+                    <h3>Q.アクションリスト１を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly placeholder="※振り返りを記載"></textarea>
+                @endif
+
+                @if($feedback2_content)
+                    <h3>Q.アクションリスト２を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$feedback2_content}}</textarea>
+                @elseif(!$feedback2_content)
+                    <h3>Q.アクションリスト２を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly placeholder="※振り返りを記載"></textarea>
+                @endif
+
+                @if($feedback3_content)
+                    <h3>Q.アクションリスト３を実施した結果は？</h3>
+                    <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit">編集</a>
+                    <textarea  cols="80" rows="5" readonly>{{$feedback3_content}}</textarea>
+                @elseif(!$feedback3_content)
+                    <h3>Q.アクションリスト３を実施した結果は？</h3>
+                    <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit">編集</a>
+                    <textarea  cols="80" rows="5" readonly placeholder="※振り返りを記載"></textarea>
                 @endif
             @endif
 
