@@ -62,13 +62,13 @@
         <section>
             @if(strpos(url()->full(),'book-memo')!== false)
                 <h2>読書メモ</h2>
-                @if($before_reading_content)
+                @if($store_memo->before_reading_content)
                     <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
                         @csrf
                         <div>
                             <label for="before_reading_content" class="block">読書前</label>
-                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5">{{$before_reading_content}}</textarea>
+                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5">{{$store_memo->before_reading_content}}</textarea>
                         </div>
                         <input type="submit" value="上書きする">
                     </form>
@@ -83,13 +83,13 @@
                     </form>
                 @endif
 
-                @if($reading_content)
+                @if($store_memo->reading_content)
                     <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
                         @csrf
                         <div>
                             <label for="reading_content" class="block">読書中</label>
-                            <textarea name="reading_content" id="reading_content" cols="80" rows="5">{{$reading_content}}</textarea>
+                            <textarea name="reading_content" id="reading_content" cols="80" rows="5">{{$store_memo->reading_content}}</textarea>
                         </div>
                         <input type="submit" value="上書きする">
                     </form>
@@ -104,13 +104,13 @@
                     </form>
                 @endif
 
-                @if($after_reading_content)
+                @if($store_memo->after_reading_content)
                     <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
                         @csrf
                         <div>
                             <label for="after_reading_content" class="block">読書後</label>
-                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5">{{$after_reading_content}}</textarea>
+                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5">{{$store_memo->after_reading_content}}</textarea>
                         </div>
                         <input type="submit" value="上書きする">
                     </form>
@@ -126,21 +126,21 @@
                 @endif
             @elseif(strpos(url()->full(),'action-list')!== false)
                 <h2>アクションリスト</h2>
-                @if($actionlist1_content)
+                @if($store_memo->actionlist1_content)
                     <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
                         @csrf
                         <div>
                             <label for="actionlist1_content" class="block">アクションリスト１</label>
-                            <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5">{{$actionlist1_content}}</textarea>
+                            <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5">{{$store_memo->actionlist1_content}}</textarea>
                         </div>
                         <div>
                             <label for="actionlist2_content" class="block">アクションリスト２</label>
-                            <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5">{{$actionlist2_content}}</textarea>
+                            <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5">{{$store_memo->actionlist2_content}}</textarea>
                         </div>
                         <div>
                             <label for="actionlist3_content" class="block">アクションリスト３</label>
-                            <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5">{{$actionlist3_content}}</textarea>
+                            <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5">{{$store_memo->actionlist3_content}}</textarea>
                         </div>
                         <input type="submit" value="上書きする">
                     </form>
@@ -164,21 +164,21 @@
                 @endif
             @elseif(strpos(url()->full(),'feedback-list')!== false)
                 <h2>振り返り</h2>
-                @if($feedback1_content)
+                @if($store_memo->feedback1_content)
                     <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
                         @csrf
                         <div>
                             <label for="feedback1_content" class="block">振り返り１</label>
-                            <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5">{{$feedback1_content}}</textarea>
+                            <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5">{{$store_memo->feedback1_content}}</textarea>
                         </div>
                         <div>
                             <label for="feedback2_content" class="block">振り返り２</label>
-                            <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5">{{$feedback2_content}}</textarea>
+                            <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5">{{$store_memo->feedback2_content}}</textarea>
                         </div>
                         <div>
                             <label for="feedback3_content" class="block">振り返り３</label>
-                            <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5">{{$feedback3_content}}</textarea>
+                            <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5">{{$store_memo->feedback3_content}}</textarea>
                         </div>
                         <input type="submit" value="上書きする">
                     </form>
