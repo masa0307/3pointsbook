@@ -65,31 +65,31 @@
                 <h2 id="book-memo">読書メモ</h2>
                 @if($is_store_memo)
                     <h3>読書前</h3>
-                    <a href="{{route('book-memo.edit', ['id'=>$id])}}" id="edit">編集</a>
+                    <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit">編集</a>
                     <textarea  cols="80" rows="5" readonly>{{$store_memo->before_reading_content}}</textarea>
                 @else
                     <h3>読書前</h3>
-                    <a href="{{route('book-memo.edit', ['id'=>$id])}}" id="edit">編集</a>
+                    <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
                 @endif
 
                 @if($is_store_memo)
                     <h3>読書中</h3>
-                    <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                    <a href="{{route('book-memo-during.edit', ['id'=>$id])}}">編集</a>
                     <textarea  cols="80" rows="5" readonly>{{$store_memo->reading_content}}</textarea>
                 @else
                     <h3>読書中</h3>
-                    <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                    <a href="{{route('book-memo-during.edit', ['id'=>$id])}}">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載"></textarea>
                 @endif
 
                 @if($is_store_memo)
                     <h3>読書後</h3>
-                    <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                    <a href="{{route('book-memo-after.edit', ['id'=>$id])}}">編集</a>
                     <textarea  cols="80" rows="5" readonly>{{$store_memo->after_reading_content}}</textarea>
                 @else
                     <h3>読書後</h3>
-                    <a href="{{route('book-memo.edit', ['id'=>$id])}}">編集</a>
+                    <a href="{{route('book-memo-after.edit', ['id'=>$id])}}">編集</a>
                     <textarea  cols="80" rows="5" readonly placeholder="※読書前に記載した３点に関して得た情報を記載"></textarea>
                 @endif
             @elseif(strpos(url()->full(),'action-list')!== false)

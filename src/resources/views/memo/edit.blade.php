@@ -60,7 +60,7 @@
         </section>
 
         <section>
-            @if(strpos(url()->full(),'book-memo')!== false)
+            @if(strpos(url()->full(),'before')!== false)
                 <h2>読書メモ</h2>
                 @if($store_memo->before_reading_content)
                     <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
@@ -82,7 +82,7 @@
                         <input type="submit" value="保存する">
                     </form>
                 @endif
-
+            @elseif(strpos(url()->full(),'during')!== false)
                 @if($store_memo->reading_content)
                     <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
@@ -103,7 +103,7 @@
                         <input type="submit" value="保存する">
                     </form>
                 @endif
-
+            @elseif(strpos(url()->full(),'after')!== false)
                 @if($store_memo->after_reading_content)
                     <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
                         @method('PATCH')
