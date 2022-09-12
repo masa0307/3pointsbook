@@ -9,12 +9,17 @@ markers.forEach((marker) => {
 });
 
 dropdowns.forEach((dropdown) => {
-    let memoID = dropdown.previousElementSibling.href.slice(-3);
-    let editID = document.getElementById("edit").href.slice(-3);
-    console.log(memoID);
-    console.log(editID);
-    if (memoID == editID) {
-        console.log(true);
-        dropdown.style.display = "block";
+    let checkCurrentUrl = location.href.match(/edit/);
+    let anchorLinkBookId = dropdown.previousElementSibling.href.slice(-3);
+    if (checkCurrentUrl) {
+        let submitLinkBookId = document.form.action.slice(-3);
+        if (anchorLinkBookId == submitLinkBookId) {
+            dropdown.style.display = "block";
+        }
+    } else {
+        let editBookId = document.getElementById("edit").href.slice(-3);
+        if (anchorLinkBookId == editBookId) {
+            dropdown.style.display = "block";
+        }
     }
 });

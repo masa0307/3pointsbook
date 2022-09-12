@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
+    <script src="{{ asset('js/marker-memolist.js') }}" defer></script>
 
 </head>
 <body>
@@ -29,11 +30,11 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="dropdown marker block">{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown__list">
-                                            <li><a href="#" class="marker block">読書メモ</a></li>
-                                            <li><a href="#" class="marker block">アクションリスト</a></li>
-                                            <li><a href="#" class="marker block">振り返り</a></li>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <ul class="pl-6 hidden dropdown">
+                                            <li><a href="{{ route('book-memo.show', $book->id) }}" class="marker block">読書メモ</a></li>
+                                            <li><a href="{{ route('action-list.show', $book->id) }}" class="marker block">アクションリスト</a></li>
+                                            <li><a href="{{ route('feedback-list.show', $book->id) }}" class="marker block">振り返り</a></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -61,9 +62,9 @@
 
         <section>
             @if(strpos(url()->full(),'before')!== false)
-                <h2>読書メモ</h2>
-                @if($store_memo->before_reading_content)
-                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
+                <h2 id="book-memo">読書メモ</h2>
+                @if($is_store_memo)
+                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form">
                         @method('PATCH')
                         @csrf
                         <div>
@@ -73,7 +74,7 @@
                         <input type="submit" value="上書きする">
                     </form>
                 @else
-                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST">
+                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form">
                         @csrf
                         <div>
                             <label for="before_reading_content" class="block">読書前</label>
@@ -83,8 +84,9 @@
                     </form>
                 @endif
             @elseif(strpos(url()->full(),'during')!== false)
+                <h2 id="book-memo">読書メモ</h2>
                 @if($store_memo->reading_content)
-                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
+                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form">
                         @method('PATCH')
                         @csrf
                         <div>
@@ -94,7 +96,7 @@
                         <input type="submit" value="上書きする">
                     </form>
                 @else
-                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST">
+                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form">
                         @csrf
                         <div>
                             <label for="reading_content" class="block">読書中</label>
@@ -104,8 +106,9 @@
                     </form>
                 @endif
             @elseif(strpos(url()->full(),'after')!== false)
+                <h2 id="book-memo">読書メモ</h2>
                 @if($store_memo->after_reading_content)
-                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST">
+                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form">
                         @method('PATCH')
                         @csrf
                         <div>
@@ -115,7 +118,7 @@
                         <input type="submit" value="上書きする">
                     </form>
                 @else
-                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST">
+                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form">
                         @csrf
                         <div>
                             <label for="after_reading_content" class="block">読書後</label>
@@ -125,9 +128,9 @@
                     </form>
                 @endif
             @elseif(strpos(url()->full(),'action-list')!== false)
-                <h2>アクションリスト</h2>
+                <h2 id="book-memo">アクションリスト</h2>
                 @if($store_memo->actionlist1_content)
-                    <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST">
+                    <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST" name="form">
                         @method('PATCH')
                         @csrf
                         <div>
@@ -145,7 +148,7 @@
                         <input type="submit" value="上書きする">
                     </form>
                 @else
-                    <form action="{{route('action-list.store', ['book_id'=>$id])}}" method="POST">
+                    <form action="{{route('action-list.store', ['book_id'=>$id])}}" method="POST" name="form">
                         @csrf
                         <div>
                             <label for="actionlist1_content" class="block">アクションリスト１</label>
@@ -163,9 +166,9 @@
                     </form>
                 @endif
             @elseif(strpos(url()->full(),'feedback-list')!== false)
-                <h2>振り返り</h2>
+                <h2 id="book-memo">振り返り</h2>
                 @if($store_memo->feedback1_content)
-                    <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST">
+                    <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST" name="form">
                         @method('PATCH')
                         @csrf
                         <div>
@@ -183,7 +186,7 @@
                         <input type="submit" value="上書きする">
                     </form>
                 @else
-                    <form action="{{route('feedback-list.store', ['book_id'=>$id])}}" method="POST">
+                    <form action="{{route('feedback-list.store', ['book_id'=>$id])}}" method="POST" name="form">
                         @csrf
                         <div>
                             <label for="feedback1_content" class="block">振り返り１</label>
