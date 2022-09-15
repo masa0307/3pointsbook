@@ -63,6 +63,11 @@
         <section>
             @if(strpos(url()->full(),'book-memo')!== false)
                 <h2 id="book-memo">読書メモ</h2>
+                @if (session('errors'))
+                    <div>
+                        {{ session('errors')->first('none_before_reading_content') }}
+                    </div>
+                @endif
                 @if($is_store_memo)
                     <h3>読書前</h3>
                     <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit">編集</a>
@@ -94,6 +99,12 @@
                 @endif
             @elseif(strpos(url()->full(),'action-list')!== false)
                 <h2 id="book-memo">アクションリスト</h2>
+                @if (session('errors'))
+                    <div>
+                        {{ session('errors')->first('none_book_memo') }}
+                        {{ session('errors')->first('none_action_list1_content') }}
+                    </div>
+                @endif
                 @if($is_store_memo)
                     <h3>アクションリスト１</h3>
                     <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist1_content}}</textarea>
@@ -122,6 +133,13 @@
 
             @elseif(strpos(url()->full(),'feedback-list')!== false)
                 <h2 id="book-memo">振り返り</h2>
+                @if (session('errors'))
+                    <div>
+                        {{ session('errors')->first('none_book_memo') }}
+                        {{ session('errors')->first('none_action_list') }}
+                        {{ session('errors')->first('none_feedback_list1_content') }}
+                    </div>
+                @endif
                 @if($is_store_memo)
                     <h3>Q.アクションリスト１を実施した結果は？</h3>
                     <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback1_content}}</textarea>

@@ -42,22 +42,22 @@ Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {
 
 Route::group(['prefix' => 'book-memo'], function () {
     Route::get('before/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('book-memo-before.edit');
-    Route::get('during/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('book-memo-during.edit');
-    Route::get('after/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('book-memo-after.edit');
+    Route::get('during/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth', 'check.book-memo'])->name('book-memo-during.edit');
+    Route::get('after/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth', 'check.book-memo'])->name('book-memo-after.edit');
 });
 
 Route::group(['prefix' => 'action-list', 'as' => 'action-list.'], function () {
     Route::get('/show/{id}', [MemoController::class, 'show'])->middleware(['auth'])->name('show');
-    Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('edit');
-    Route::post('/store', [MemoController::class, 'store'])->middleware(['auth'])->name('store');
-    Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth'])->name('update');
+    Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth', 'check.edit-action-list'])->name('edit');
+    Route::post('/store', [MemoController::class, 'store'])->middleware(['auth', 'check.store-action-list'])->name('store');
+    Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth', 'check.store-action-list'])->name('update');
 });
 
 Route::group(['prefix' => 'feedback-list', 'as' => 'feedback-list.'], function () {
     Route::get('/show/{id}', [MemoController::class, 'show'])->middleware(['auth'])->name('show');
-    Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth'])->name('edit');
-    Route::post('/store', [MemoController::class, 'store'])->middleware(['auth'])->name('store');
-    Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth'])->name('update');
+    Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth', 'check.edit-feedback-list'])->name('edit');
+    Route::post('/store', [MemoController::class, 'store'])->middleware(['auth', 'check.store-feedback-list'])->name('store');
+    Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth', 'check.store-feedback-list'])->name('update');
 });
 
 

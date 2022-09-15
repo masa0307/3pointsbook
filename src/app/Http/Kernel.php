@@ -63,5 +63,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'check.book-memo' =>\App\Http\Middleware\CheckEditBookMemo::class,
+        'check.store-action-list' =>\App\Http\Middleware\CheckStoreActionlist::class,
+        'check.edit-action-list' =>\App\Http\Middleware\CheckEditActionlist::class,
+        'check.store-feedback-list' =>\App\Http\Middleware\CheckStoreFeedbacklist::class,
+        'check.edit-feedback-list' =>\App\Http\Middleware\CheckEditFeedbacklist::class,
+
     ];
 }
