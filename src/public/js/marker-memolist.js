@@ -12,14 +12,21 @@ markers.forEach(function (marker) {
   }
 });
 dropdowns.forEach(function (dropdown) {
-  var memoID = dropdown.previousElementSibling.href.slice(-3);
-  var editID = document.getElementById("edit").href.slice(-3);
-  console.log(memoID);
-  console.log(editID);
+  var checkCurrentUrl = location.href.match(/edit/);
+  var anchorLinkBookId = dropdown.previousElementSibling.href.slice(-3);
 
-  if (memoID == editID) {
-    console.log(true);
-    dropdown.style.display = "block";
+  if (checkCurrentUrl) {
+    var submitLinkBookId = document.form.action.slice(-3);
+
+    if (anchorLinkBookId == submitLinkBookId) {
+      dropdown.style.display = "block";
+    }
+  } else {
+    var editBookId = document.getElementById("edit").href.slice(-3);
+
+    if (anchorLinkBookId == editBookId) {
+      dropdown.style.display = "block";
+    }
   }
 });
 /******/ })()
