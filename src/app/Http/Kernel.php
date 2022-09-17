@@ -68,6 +68,6 @@ class Kernel extends HttpKernel
         'check.edit-action-list' =>\App\Http\Middleware\CheckEditActionlist::class,
         'check.store-feedback-list' =>\App\Http\Middleware\CheckStoreFeedbacklist::class,
         'check.edit-feedback-list' =>\App\Http\Middleware\CheckEditFeedbacklist::class,
-
+        'check.update-password' =>\App\Http\Middleware\CheckUpdatePassword::class,
     ];
 }

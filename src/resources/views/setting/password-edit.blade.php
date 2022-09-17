@@ -33,8 +33,8 @@
                             <a href="{{route('login-password.edit', Auth::id())}}" class="block">パスワードの変更</a>
                             <a href="#" class="block">本の並び替え</a>
                             <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <input type="submit" value="ログアウト">
+                                @csrf
+                                <input type="submit" value="ログアウト">
                             </form>
                         </div>
                     </div>
@@ -80,23 +80,26 @@
         </section>
 
         <section>
-            @if($selectedBook)
-                <h2>読書中</h2>
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
-                </form>
-            @endif
+            <form action="{{ route('login-password.update', Auth::id()) }}" method="POST">
+                @method('PATCH')
+                @csrf
+                @if (session('errors'))
+                    <div>
+                        {{ session('errors')->first('not_match_password') }}
+                    </div>
+                @endif
+                <div>
+                    <p>現在</p>
+                    <input type="password" name="current_password" placeholder="パスワード">
+                </div>
+                <div>
+                    <p>変更後</p>
+                    <input type="password" name="update_password" placeholder="パスワード">
+                </div>
+                <input type="submit" value="変更">
+            </form>
         </section>
     </div>
-
-
-
 </body>
 </html>
 
