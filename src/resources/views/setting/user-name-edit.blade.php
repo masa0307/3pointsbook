@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
+    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
 
 </head>
@@ -48,11 +49,11 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="dropdown marker block">{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown__list">
-                                            <li><a href="#" class="marker block">読書メモ</a></li>
-                                            <li><a href="#" class="marker block">アクションリスト</a></li>
-                                            <li><a href="#" class="marker block">振り返り</a></li>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <ul class="pl-6 hidden dropdown">
+                                            <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
+                                            <li><a href="{{route('action-list.show', $book->id)}}" class="marker block">アクションリスト</a></li>
+                                            <li><a href="{{route('feedback-list.show', $book->id)}}" class="marker block">振り返り</a></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -79,41 +80,24 @@
         </section>
 
         <section>
-            <h2>本の登録</h2>
-            <form action="{{route('book.store')}}" method="POST">
+            <form action="{{ route('user-name.update', Auth::id()) }}" method="POST">
+                @method('PATCH')
                 @csrf
                 <div>
-                    <label for="title" class="block">タイトル（必須）</label>
-                    <input name="title" type="text" value="{{$temporary_store_book->title}}" id="title" class="block">
+                    <p>現在</p>
+                    <p>{{ $user_name }}</p>
                 </div>
                 <div>
-                    <label for="titleKana" class="block">タイトル（カナ）（必須）</label>
-                    <input name="title_kana" type="text" value="{{$temporary_store_book->title_kana}}" id="titleKana" class="block">
+                    <p>変更後</p>
+                    <input type="text" name="user_name" placeholder="ユーザー名称">
                 </div>
-                <div>
-                    <label for="author" class="block">著者名（必須）</label>
-                    <input name="author" type="text" value="{{$temporary_store_book->author}}" id="author" class="block">
-                </div>
-                <div>
-                    <label for="genre" class="block">ジャンル（任意）（選択式）</label>
-                    <select name="genre_id" id="genre" class="block">
-                        @foreach($genres as $genre)
-                            <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <input type="text" name="session">
-                <div>
-                    <label for="state" class="block">状態（必須）（選択式：気になる or 読書中）</label>
-                    <select name="state" id="state" class="block">
-                        <option value="気になる">気になる</option>
-                        <option value="読書中">読書中</option>
-                    </select>
-                </div>
-                <input type="submit" value="保存する">
+                <input type="submit" value="変更">
             </form>
         </section>
     </div>
+
+
+
 </body>
 </html>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemoController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,6 +59,26 @@ Route::group(['prefix' => 'feedback-list', 'as' => 'feedback-list.'], function (
     Route::get('/edit/{id}', [MemoController::class, 'edit'])->middleware(['auth', 'check.edit-feedback-list'])->name('edit');
     Route::post('/store', [MemoController::class, 'store'])->middleware(['auth', 'check.store-feedback-list'])->name('store');
     Route::patch('/update/{id}', [MemoController::class, 'update'])->middleware(['auth', 'check.store-feedback-list'])->name('update');
+});
+
+Route::group(['prefix' => 'user-name', 'as' => 'user-name.'], function () {
+    Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [SettingController::class, 'update'])->name('update');
+});
+
+Route::group(['prefix' => 'email', 'as' => 'email.'], function () {
+    Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [SettingController::class, 'update'])->name('update');
+});
+
+Route::group(['prefix' => 'password', 'as' => 'login-password.'], function () {
+    Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [SettingController::class, 'update'])->middleware('check.update-password')->name('update');
+});
+
+Route::group(['prefix' => 'book-sort', 'as' => 'book-sort.'], function () {
+    Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [SettingController::class, 'update'])->name('update');
 });
 
 

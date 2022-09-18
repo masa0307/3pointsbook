@@ -4,5 +4,6 @@
     "/js/add-book.js": "/js/add-book.js",
     "/js/search-book.js": "/js/search-book.js",
     "/js/marker-memolist.js": "/js/marker-memolist.js",
+    "/js/set-application.js": "/js/set-application.js",
     "/css/app.css": "/css/app.css"
 }

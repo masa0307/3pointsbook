@@ -17324,6 +17324,7 @@ function _searchBook() {
           case 5:
             books = _context.sent;
             bookInformations = books.Items;
+            console.log(bookInformations);
             bookInformations.forEach(function (bookInformation) {
               var fragment = document.createDocumentFragment();
               var div = document.createElement("div");
@@ -17332,22 +17333,26 @@ function _searchBook() {
               var authorParagraph = document.createElement("p");
               var inputImg = document.createElement("input");
               var inputTitle = document.createElement("input");
+              var inputTitleKana = document.createElement("input");
               var inputAuthor = document.createElement("input");
               div.classList.add("searchResult");
               inputImg.classList.add("hidden");
               inputTitle.classList.add("hidden");
+              inputTitleKana.classList.add("hidden");
               inputAuthor.classList.add("hidden");
               img.src = bookInformation.Item.mediumImageUrl;
               titleParagraph.innerHTML = bookInformation.Item.title;
               authorParagraph.innerHTML = bookInformation.Item.author;
               inputImg.setAttribute("value", bookInformation.Item.mediumImageUrl);
               inputTitle.setAttribute("value", bookInformation.Item.title);
+              inputTitleKana.setAttribute("value", bookInformation.Item.titleKana);
               inputAuthor.setAttribute("value", bookInformation.Item.author);
               fragment.append(img);
               fragment.append(titleParagraph);
               fragment.append(authorParagraph);
               fragment.append(inputImg);
               fragment.append(inputTitle);
+              fragment.append(inputTitleKana);
               fragment.append(inputAuthor);
               div.append(fragment);
               var searchWindow = document.getElementById("searchWindow");
@@ -17360,11 +17365,12 @@ function _searchBook() {
                 var bookElements = e.currentTarget.childNodes;
                 var bookImageSrc = bookElements[3].value;
                 var bookTitle = bookElements[4].value;
-                var bookAuthor = bookElements[5].value;
+                var bookTitleKana = bookElements[5].value;
+                var bookAuthor = bookElements[6].value;
                 var postData = new FormData();
-                console.log(postData);
                 postData.append("img", bookImageSrc);
                 postData.append("title", bookTitle);
+                postData.append("title_kana", bookTitleKana);
                 postData.append("author", bookAuthor);
                 fetch("/book/temporaryStore", {
                   method: "POST",
@@ -17378,7 +17384,7 @@ function _searchBook() {
               });
             });
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }

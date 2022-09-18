@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
+    <script src="{{ asset('js/set-application.js') }}" defer></script>
 
 </head>
 <body>
@@ -18,6 +19,24 @@
                     <a href="{{route('book.search')}}" class="block">本を検索する</a>
                     <a href="{{route('book.manual')}}" class="block">本を手動で登録する</a>
                     <button id="addBookClose">キャンセル</button>
+                </div>
+                <button id="settingScreenOpen">⚙</button>
+                <div id="settingMenu" class="hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="settingScreenClose">×</span>
+                        </div>
+                        <div class="modal-body">
+                            <a href="{{route('user-name.edit', Auth::id())}}" class="block">ユーザー名称の変更</a>
+                            <a href="{{route('email.edit', Auth::id())}}" class="block">メールアドレスの変更</a>
+                            <a href="{{route('login-password.edit', Auth::id())}}" class="block">パスワードの変更</a>
+                            <a href="{{route('book-sort.edit', Auth::id())}}" class="block">本の並び替え</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <input type="submit" value="ログアウト">
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -66,7 +85,10 @@
                 <div>
                     <label for="title" class="block">タイトル（必須）</label>
                     <input name="title" type="text" id="title" class="block">
-
+                </div>
+                <div>
+                    <label for="titleKana" class="block">タイトル（カナ）（必須）</label>
+                    <input name="title_kana" type="text" id="title_kana" class="block">
                 </div>
                 <div>
                     <label for="author" class="block">著者名（必須）</label>
