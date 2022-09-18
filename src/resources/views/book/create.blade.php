@@ -106,8 +106,8 @@
                 <div>
                     <label for="state" class="block">状態（必須）（選択式：気になる or 読書中）</label>
                     <select name="state" id="state" class="block">
-                        <option value="気になる">気になる</option>
                         <option value="読書中">読書中</option>
+                        <option value="気になる">気になる</option>
                     </select>
                 </div>
                 <input type="submit" value="保存する">

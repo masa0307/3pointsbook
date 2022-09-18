@@ -53,4 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function genre(){
         return $this->hasMany(Genre::class);
     }
+
+    public function book(){
+        return $this->hasMany(Book::class);
+    }
 }

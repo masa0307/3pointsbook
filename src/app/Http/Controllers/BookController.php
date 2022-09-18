@@ -12,7 +12,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $selectedBook = Book::oldest('created_at')->first();
+        $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
 
         if(!Genre::where('user_id', Auth::id())->first()){
             $genre = new Genre;
@@ -38,10 +38,11 @@ class BookController extends Controller
 
     public function temporaryStore(Request $request){
         $temporary_store_book = new Book;
-        $temporary_store_book->title = $request->title;
+        $temporary_store_book->title      = $request->title;
         $temporary_store_book->title_kana = $request->title_kana;
-        $temporary_store_book->author = $request->author;
+        $temporary_store_book->author     = $request->author;
         $temporary_store_book->image_path = $request->img;
+        $temporary_store_book->user_id    = Auth::id();
         $temporary_store_book->save();
 
         return redirect()->route('book.create');
@@ -63,12 +64,13 @@ class BookController extends Controller
             $temporary_store_book->save();
         }else{
             $store_book = new Book;
-            $store_book->title = $request->title;
+            $store_book->title      = $request->title;
             $store_book->title_kana = $request->title_kana;
-            $store_book->author = $request->author;
-            $store_book->genre_id = $request->genre_id;
-            $store_book->state = $request->state;
+            $store_book->author     = $request->author;
+            $store_book->genre_id   = $request->genre_id;
+            $store_book->state      = $request->state;
             $store_book->image_path = "https://placehold.jp/200x300.png";
+            $store_book->user_id    = Auth::id();
             $store_book->save();
         }
 
