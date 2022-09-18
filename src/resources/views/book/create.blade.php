@@ -31,6 +31,7 @@
                             <a href="{{route('email.edit', Auth::id())}}" class="block">メールアドレスの変更</a>
                             <a href="{{route('login-password.edit', Auth::id())}}" class="block">パスワードの変更</a>
                             <a href="{{route('book-sort.edit', Auth::id())}}" class="block">本の並び替え</a>
+                            <a href="{{route('genre-name.edit', Auth::id())}}" class="block">ジャンル名の追加</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <input type="submit" value="ログアウト">
@@ -102,7 +103,6 @@
                         @endforeach
                     </select>
                 </div>
-                <input type="text" name="session">
                 <div>
                     <label for="state" class="block">状態（必須）（選択式：気になる or 読書中）</label>
                     <select name="state" id="state" class="block">

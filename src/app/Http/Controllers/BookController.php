@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
     public function index()
     {
         $selectedBook = Book::oldest('created_at')->first();
+
+        if(!Genre::where('user_id', Auth::id())->first()){
+            $genre = new Genre;
+            $genre->user_id = Auth::id();
+            $genre->save();
+        }
+
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
             return view('book.index', compact('selectedBook', 'genre_name'));
