@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\ViewComposers\BookComposer;
+use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
@@ -21,6 +23,9 @@ class SettingController extends Controller
         }elseif(strpos(url()->full(), 'sort')){
             $sort_name = User::find($id)->sort_name;
             return view('setting.book-sort-edit', compact('sort_name'));
+        }elseif(strpos(url()->full(), 'genre')){
+            $genres =  User::find($id)->genre;
+            return view('setting.genre-name-edit', compact('genres'));
         }
     }
 
@@ -40,6 +45,15 @@ class SettingController extends Controller
             $user->sort_name = $request->sort_name;
             $user->save();
         }
+
+        return redirect()->route('book.index');
+    }
+
+    public function store(Request $request){
+        $genre = new Genre;
+        $genre->genre_name = $request->genre_name;
+        $genre->user_id = Auth::id();
+        $genre->save();
 
         return redirect()->route('book.index');
     }

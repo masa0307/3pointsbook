@@ -31,6 +31,7 @@
                             <a href="{{route('email.edit', Auth::id())}}" class="block">メールアドレスの変更</a>
                             <a href="{{route('login-password.edit', Auth::id())}}" class="block">パスワードの変更</a>
                             <a href="{{route('book-sort.edit', Auth::id())}}" class="block">本の並び替え</a>
+                            <a href="{{route('genre-name.edit', Auth::id())}}" class="block">ジャンル名の追加</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <input type="submit" value="ログアウト">

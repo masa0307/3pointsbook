@@ -81,24 +81,22 @@
         </section>
 
         <section>
-            <form action="{{ route('email.update', Auth::id()) }}" method="POST">
-                @method('PATCH')
+            <form action="{{ route('genre-name.store', Auth::id()) }}" method="POST">
                 @csrf
                 <div>
-                    <p>現在</p>
-                    <p>{{ $email }}</p>
+                    <p>現在のジャンル名</p>
+                    @foreach($genres as $genre)
+                        <p>{{ $genre->genre_name }}</p>
+                    @endforeach
                 </div>
                 <div>
-                    <p>変更後</p>
-                    <input type="text" name="email" placeholder="メールアドレス">
+                    <p>追加するジャンル名</p>
+                    <input type="text" name="genre_name" placeholder="ジャンル名">
                 </div>
-                <input type="submit" value="変更">
+                <input type="submit" value="追加">
             </form>
         </section>
     </div>
-
-
-
 </body>
 </html>
 
