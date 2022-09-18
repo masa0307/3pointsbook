@@ -18,6 +18,9 @@ class SettingController extends Controller
             return view('setting.email-edit', compact('email'));
         }elseif(strpos(url()->full(), 'password')){
             return view('setting.password-edit');
+        }elseif(strpos(url()->full(), 'sort')){
+            $sort_name = User::find($id)->sort_name;
+            return view('setting.book-sort-edit', compact('sort_name'));
         }
     }
 
@@ -32,6 +35,9 @@ class SettingController extends Controller
             $user->save();
         }elseif(strpos(url()->full(), 'password')){
             $user->password = Hash::make($request->update_password);
+            $user->save();
+        }elseif(strpos(url()->full(), 'sort')){
+            $user->sort_name = $request->sort_name;
             $user->save();
         }
 

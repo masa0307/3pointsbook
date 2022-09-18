@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BookController extends Controller
 {
@@ -28,14 +29,11 @@ class BookController extends Controller
     }
 
     public function temporaryStore(Request $request){
-        $img = $request->img;
-        $title = $request->title;
-        $author = $request->author;
-
         $temporary_store_book = new Book;
-        $temporary_store_book->title = $title;
-        $temporary_store_book->author = $author;
-        $temporary_store_book->image_path = $img;
+        $temporary_store_book->title = $request->title;
+        $temporary_store_book->title_kana = $request->title_kana;
+        $temporary_store_book->author = $request->author;
+        $temporary_store_book->image_path = $request->img;
         $temporary_store_book->save();
 
         return redirect()->route('book.create');
@@ -50,6 +48,7 @@ class BookController extends Controller
         if(parse_url(url()->previous())['path'] == "/book/create"){
             $temporary_store_book = Book::latest('created_at')->first();
             $temporary_store_book->title = $request->title;
+            $temporary_store_book->title_kana = $request->title_kana;
             $temporary_store_book->author = $request->author;
             $temporary_store_book->genre_id = $request->genre_id;
             $temporary_store_book->state = $request->state;
@@ -57,6 +56,7 @@ class BookController extends Controller
         }else{
             $store_book = new Book;
             $store_book->title = $request->title;
+            $store_book->title_kana = $request->title_kana;
             $store_book->author = $request->author;
             $store_book->genre_id = $request->genre_id;
             $store_book->state = $request->state;

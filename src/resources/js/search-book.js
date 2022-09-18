@@ -23,6 +23,7 @@ async function searchBook(titleValue) {
     );
     let books = await res.json();
     let bookInformations = books.Items;
+    console.log(bookInformations);
 
     bookInformations.forEach((bookInformation) => {
         let fragment = document.createDocumentFragment();
@@ -33,11 +34,13 @@ async function searchBook(titleValue) {
 
         let inputImg = document.createElement("input");
         let inputTitle = document.createElement("input");
+        let inputTitleKana = document.createElement("input");
         let inputAuthor = document.createElement("input");
 
         div.classList.add("searchResult");
         inputImg.classList.add("hidden");
         inputTitle.classList.add("hidden");
+        inputTitleKana.classList.add("hidden");
         inputAuthor.classList.add("hidden");
 
         img.src = bookInformation.Item.mediumImageUrl;
@@ -46,6 +49,7 @@ async function searchBook(titleValue) {
 
         inputImg.setAttribute("value", bookInformation.Item.mediumImageUrl);
         inputTitle.setAttribute("value", bookInformation.Item.title);
+        inputTitleKana.setAttribute("value", bookInformation.Item.titleKana);
         inputAuthor.setAttribute("value", bookInformation.Item.author);
 
         fragment.append(img);
@@ -54,6 +58,7 @@ async function searchBook(titleValue) {
 
         fragment.append(inputImg);
         fragment.append(inputTitle);
+        fragment.append(inputTitleKana);
         fragment.append(inputAuthor);
 
         div.append(fragment);
@@ -70,12 +75,13 @@ async function searchBook(titleValue) {
             let bookElements = e.currentTarget.childNodes;
             let bookImageSrc = bookElements[3].value;
             let bookTitle = bookElements[4].value;
-            let bookAuthor = bookElements[5].value;
+            let bookTitleKana = bookElements[5].value;
+            let bookAuthor = bookElements[6].value;
 
             const postData = new FormData();
-            console.log(postData);
             postData.append("img", bookImageSrc);
             postData.append("title", bookTitle);
+            postData.append("title_kana", bookTitleKana);
             postData.append("author", bookAuthor);
 
             fetch("/book/temporaryStore", {

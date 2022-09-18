@@ -3,6 +3,8 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Book;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -19,8 +21,22 @@ class BookComposer
      */
     public function compose(View $view)
     {
-        $view->with([
-            'books'   => Book::all(),
-        ]);
+        if(User::find(Auth::id())->sort_name == '追加順（昇順）'){
+            $view->with([
+                'books'   => Book::all(),
+            ]);
+        }else if(User::find(Auth::id())->sort_name == '追加順（降順）'){
+            $view->with([
+                'books'   => Book::orderBy('id','desc')->get(),
+            ]);
+        }else if(User::find(Auth::id())->sort_name == 'タイトル順（昇順）'){
+            $view->with([
+                'books'   => Book::orderBy('title_kana')->get(),
+            ]);
+        }else if(User::find(Auth::id())->sort_name == 'タイトル順（降順）'){
+            $view->with([
+                'books'   => Book::orderBy('title_kana','desc')->get(),
+            ]);
+        }
     }
 }

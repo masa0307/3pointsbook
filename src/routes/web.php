@@ -76,6 +76,11 @@ Route::group(['prefix' => 'password', 'as' => 'login-password.'], function () {
     Route::patch('/update/{id}', [SettingController::class, 'update'])->middleware('check.update-password')->name('update');
 });
 
+Route::group(['prefix' => 'book-sort', 'as' => 'book-sort.'], function () {
+    Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [SettingController::class, 'update'])->name('update');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
