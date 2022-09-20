@@ -81,6 +81,7 @@
         </section>
 
         <section>
+            <h2>{{ $select_book->title }}</h2>
             @if(strpos(url()->full(),'before')!== false)
                 <h2 id="book-memo">読書メモ</h2>
                 @if($is_store_memo)
