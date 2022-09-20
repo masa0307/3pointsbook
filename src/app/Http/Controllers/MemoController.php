@@ -12,6 +12,7 @@ class MemoController extends Controller
     //
     public function show($id){
         $store_memo = Memo::where('book_id',$id)->first();
+        $select_book = Book::where('id',$id)->first();
 
         if($store_memo ){
             $is_store_memo = true;
@@ -19,11 +20,12 @@ class MemoController extends Controller
             $is_store_memo = false;
         }
 
-        return view('memo.show', compact('store_memo', 'is_store_memo', 'id'));
+        return view('memo.show', compact('store_memo', 'is_store_memo', 'id', 'select_book'));
     }
 
     public function edit($id){
         $store_memo = Memo::where('book_id',$id)->first();
+        $select_book = Book::where('id',$id)->first();
 
         if($store_memo ){
             $is_store_memo = true;
@@ -31,7 +33,7 @@ class MemoController extends Controller
             $is_store_memo = false;
         }
 
-        return view('memo.edit', compact('store_memo', 'is_store_memo', 'id'));
+        return view('memo.edit', compact('store_memo', 'is_store_memo', 'id', 'select_book'));
     }
 
     public function store(Request $request){
