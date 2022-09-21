@@ -21,9 +21,7 @@
                     <a href="{{route('book.manual')}}" class="block">本を手動で登録する</a>
                     <button id="addBookClose">キャンセル</button>
                 </div>
-                <button>
-                    <a href="{{ route('search-book.index') }}">🔎</a>
-                </button>
+                <a href="{{ route('search-book.index') }}">🔎</a>
                 <button id="settingScreenOpen">⚙</button>
                 <div id="settingMenu" class="hidden">
                     <div class="modal-content">
@@ -84,18 +82,34 @@
         </section>
 
         <section>
-            @if($selectedBook)
-                <h2>読書中</h2>
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
-                </form>
+            <form method="GET" action="{{ route('search-book.index') }}">
+                <input type="search" placeholder="本のタイトルを入力" name="search_title" value="@if (isset($search)) {{ $search }} @endif">
+                <div>
+                    <button type="submit">検索</button>
+                    <button>
+                        <a href="{{ route('search-book.index') }}">
+                            クリア
+                        </a>
+                    </button>
+                </div>
+            </form>
+
+            @if(session("search_book"))
+                @foreach(session("search_book") as $value)
+                    <a href="{{ route("book.show", $value->id) }}" class="block">
+                        <img src="{{$value->image_path}}">
+                        <p id="title">{{$value->title}}</p>
+                        <p>{{$value->author}}</p>
+                    </a>
+                @endforeach
             @endif
+
+
+
+            {{-- <div>
+                {{ $institutions->appends(request()->input())->links() }}
+            </div> --}}
+
         </section>
     </div>
 

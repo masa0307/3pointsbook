@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemoController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,6 +85,10 @@ Route::group(['prefix' => 'book-sort', 'as' => 'book-sort.'], function () {
 Route::group(['prefix' => 'genre-name', 'as' => 'genre-name.'], function () {
     Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
     Route::post('/store', [SettingController::class, 'store'])->name('store');
+});
+
+Route::group(['prefix' => 'search-book', 'as' => 'search-book.'], function () {
+    Route::get('/', [SearchController::class, 'index'])->name('index');
 });
 
 
