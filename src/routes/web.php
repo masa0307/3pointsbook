@@ -32,7 +32,8 @@ Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
     Route::get('/create', [BookController::class, 'create'])->middleware(['auth'])->name('create');
     Route::post('/store', [BookController::class, 'store'])->middleware(['auth'])->name('store');
     Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
-    Route::delete('/destroy/{id}', [BookController::class, 'destroy'])->name('destroy');
+    Route::delete('/destroy/{book}', [BookController::class, 'destroy'])->name('destroy');
+    Route::get('/update/{book}', [BookController::class, 'update'])->name('update');
 });
 
 Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {

@@ -84,8 +84,16 @@
         </section>
 
         <section>
-            @if($selectedBook)
+            @if($selectedBook->state == '読書中')
                 <h2>読書中</h2>
+            @elseif($selectedBook->state == '気になる')
+                <button>
+                    <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
+                </button>
+                <h2>気になる</h2>
+            @endif
+
+            @if($selectedBook)
                 <img src="{{$selectedBook->image_path}}">
                 <p id="title">{{$selectedBook->title}}</p>
                 <p>{{$selectedBook->author}}</p>
