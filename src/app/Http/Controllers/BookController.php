@@ -85,10 +85,17 @@ class BookController extends Controller
         return view('book.index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
     }
 
-    public function destroy($id){
-        $book = Book::find($id);
+    public function destroy(Book $book){
         $book->delete();
 
         return redirect()->route('book.index');
     }
+
+    public function update(Book $book){
+        $book->state = "読書中";
+        $book->save();
+
+        return redirect()->route('book.index');
+    }
+
 }
