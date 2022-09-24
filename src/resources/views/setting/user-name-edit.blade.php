@@ -89,8 +89,12 @@
                     <p>{{ $user_name }}</p>
                 </div>
                 <div>
+                    @error('name')
+                        <p class="text-red-600">・{{ $message }}</p>
+                    @enderror
+
                     <p>変更後</p>
-                    <input type="text" name="user_name" placeholder="ユーザー名称">
+                    <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}">
                 </div>
                 <input type="submit" value="変更">
             </form>
