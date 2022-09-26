@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Stmt\GroupUse;
 
-class Group extends Model
+class MemoGroup extends Model
 {
     use HasFactory;
 
