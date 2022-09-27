@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\GroupUserController;
 use App\Http\Controllers\MemoController;
+use App\Http\Controllers\MemoGroupController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -89,7 +91,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [SearchController::class, 'index'])->name('index');
     });
 
+    Route::group(['prefix' => 'group', 'as' => 'group.'], function () {
+        Route::get('/create', [MemoGroupController::class, 'create'])->name('create');
+        Route::post('/store', [MemoGroupController::class, 'store'])->name('store');
+    });
 
+    Route::group(['prefix' => 'group-user', 'as' => 'group-user.'], function () {
+        Route::get('/search', [GroupUserController::class, 'search'])->name('search');
+        Route::post('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
+        Route::post('/store', [GroupUserController::class, 'store'])->name('store');
+    });
 
 });
 

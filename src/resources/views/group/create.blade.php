@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
 
 </head>
@@ -87,31 +86,15 @@
         </section>
 
         <section>
-            @if($selectedBook->state == '読書中')
-                <h2>読書中</h2>
-            @elseif($selectedBook->state == '気になる')
-                <button>
-                    <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
-                </button>
-                <h2>気になる</h2>
-            @endif
-
-            @if($selectedBook)
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
-                </form>
-            @endif
+            <h2>グループ作成</h2>
+            <form action="{{ route('group.store') }}" method="post">
+                @csrf
+                <label for="group_name">グループ名</label>
+                <input type="text" placeholder="グループ名" name="group_name">
+                <input type="submit" value="保存する">
+            </form>
         </section>
     </div>
-
-
-
 </body>
 </html>
 

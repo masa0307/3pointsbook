@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
 
 </head>
@@ -83,35 +82,72 @@
                         </ul>
                     </li>
                 </ul>
+
+                <ul class="mt-10">
+                    <li>
+                        <p class="pl-6">グループ</p>
+                        <ul class="pl-10">
+                            @if($groups)
+                                @foreach ($groups as $group)
+                                    <li class="mt-2">
+                                        <a href="#" class="marker block">{{$group->group_name}}</a>
+                                    </li>
+                                @endforeach
+                            @endif
+
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
         </section>
 
         <section>
-            @if($selectedBook->state == '読書中')
-                <h2>読書中</h2>
-            @elseif($selectedBook->state == '気になる')
-                <button>
-                    <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
-                </button>
-                <h2>気になる</h2>
-            @endif
+            <h2>グループ作成</h2>
+            <h3>グループ名：{{ session('group_name') }}</h3>
+            <h3>追加するメンバー</h3>
 
-            @if($selectedBook)
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+            <form action="{{ route('group-user.searchResult') }}" method="post">
+                @csrf
+                <input type="search" placeholder="メンバー名を入力" name="name">
+                <div>
+                    <button type="submit">検索</button>
+                    <button>
+                        <a href="{{ route('group-user.search') }}">
+                            クリア
+                        </a>
+                    </button>
+                </div>
+            </form>
+
+            @error('user_id')
+                <p class="text-red-600">・{{ $message }}</p>
+            @enderror
+
+            @error('name')
+                <p class="text-red-600">・{{ $message }}</p>
+            @enderror
+
+            @if(isset($group_users))
+                <h3>現在のメンバー</h3>
+                @foreach($group_users as $group_user)
+                    <p>・{{ $group_user->user->name }}</p>
+                @endforeach
+            @elseif(session('search_user') )
+                <form action="{{ route('group-user.store') }}" method="post">
                     @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
+                    <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
+                    <p>・{{ session('search_user')->name }}</p>
+                    <input type="submit" value="メンバーに追加する">
                 </form>
             @endif
+
+
+
+
+
         </section>
     </div>
-
-
-
 </body>
 </html>
 
