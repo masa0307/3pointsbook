@@ -6,6 +6,7 @@ use App\Http\Requests\GroupUserRequest;
 use App\Models\GroupUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupUserController extends Controller
 {
@@ -44,5 +45,30 @@ class GroupUserController extends Controller
         $group_user->save();
 
         return redirect()->route('group-user.search');
+    }
+
+    public function update(Request $request){
+        $memo_groups = User::find(Auth::id())->memogroup;
+        foreach ($memo_groups as $memo_group){
+            if($memo_group->pivot->participation_status == '招待中'){
+                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
+                $group_user->participation_status = $request->participation_status;
+                $group_user->save();
+
+                return redirect()->route('book.index');
+            }
+        }
+    }
+
+    public function destroy(Request $request){
+        $memo_groups = User::find(Auth::id())->memogroup;
+        foreach ($memo_groups as $memo_group){
+            if($memo_group->pivot->participation_status == '招待中'){
+                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
+                $group_user->delete();
+
+                return redirect()->route('book.index');
+            }
+        }
     }
 }

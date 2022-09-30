@@ -34,8 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
         Route::delete('/destroy/{book}', [BookController::class, 'destroy'])->name('destroy');
         Route::get('/update/{book}', [BookController::class, 'update'])->name('update');
-        Route::patch('/update', [BookController::class, 'updateGroupUser'])->name('update_groupuser');
-        Route::delete('/destroy', [BookController::class, 'destroyGroupUser'])->name('destroy_groupuser');
     });
 
     Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {
@@ -102,6 +100,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/search', [GroupUserController::class, 'search'])->name('search');
         Route::post('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
         Route::post('/store', [GroupUserController::class, 'store'])->name('store');
+        Route::patch('/update', [GroupUserController::class, 'update'])->name('update');
+        Route::delete('/destroy', [GroupUserController::class, 'destroy'])->name('destroy');
     });
 
 });

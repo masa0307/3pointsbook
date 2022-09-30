@@ -106,30 +106,4 @@ class BookController extends Controller
 
         return redirect()->route('book.index');
     }
-
-    public function updateGroupUser(Request $request){
-        $memo_groups = User::find(Auth::id())->memogroup;
-        foreach ($memo_groups as $memo_group){
-            if($memo_group->pivot->participation_status == '招待中'){
-                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
-                $group_user->participation_status = $request->participation_status;
-                $group_user->save();
-
-                return redirect()->route('book.index');
-            }
-        }
-    }
-
-    public function destroyGroupUser(Request $request){
-        $memo_groups = User::find(Auth::id())->memogroup;
-        foreach ($memo_groups as $memo_group){
-            if($memo_group->pivot->participation_status == '招待中'){
-                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
-                $group_user->delete();
-
-                return redirect()->route('book.index');
-            }
-        }
-    }
-
 }
