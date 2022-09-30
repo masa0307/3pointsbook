@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupUserRequest;
 use App\Models\GroupUser;
+use App\Models\MemoGroup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,5 +71,13 @@ class GroupUserController extends Controller
                 return redirect()->route('book.index');
             }
         }
+    }
+
+    public function add($id){
+        session()->put(['group' =>MemoGroup::find($id) ]);
+        $group_users = GroupUser::where('group_id', $id)->get();
+        $group_name = MemoGroup::find($id)->group_name;
+
+        return view('group-user.add', compact('group_users', 'group_name'));
     }
 }

@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/store', [GroupUserController::class, 'store'])->name('store');
         Route::patch('/update', [GroupUserController::class, 'update'])->name('update');
         Route::delete('/destroy', [GroupUserController::class, 'destroy'])->name('destroy');
+        Route::get('/add/{id}', [GroupUserController::class, 'add'])->name('add');
     });
 
 });

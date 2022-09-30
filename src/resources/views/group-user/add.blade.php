@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
 
 </head>
@@ -92,22 +91,13 @@
                                 @foreach ($memo_groups as $memo_group)
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
-                                            <div class="flex">
-                                                <a href="#" class="marker block">{{$memo_group->group_name}}</a>
-                                                @if($memo_group->pivot->is_owner == true)
-                                                    <div class="flex">
-                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
-                                                        <a href="" class="block">📝</a>
-                                                    </div>
-                                                @endif
-                                            </div>
+                                            <a href="#" class="marker block">{{$memo_group->group_name}}</a>
                                         </li>
                                     @endif
                                 @endforeach
                             @endif
+
                         </ul>
-
-
                     </li>
                 </ul>
 
@@ -115,54 +105,46 @@
         </section>
 
         <section>
-            @if($selectedBook->state == '読書中')
-                <h2>読書中</h2>
-            @elseif($selectedBook->state == '気になる')
-                <button>
-                    <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
-                </button>
-                <h2>気になる</h2>
-            @endif
+            <h2>グループ作成</h2>
+            <h3>グループ名：{{ $group_name }}</h3>
+            <h3>追加するメンバー</h3>
 
-            @if($selectedBook)
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+            <form action="{{ route('group-user.searchResult') }}" method="post">
+                @csrf
+                <input type="search" placeholder="メンバー名を入力" name="name">
+                <div>
+                    <button type="submit">検索</button>
+                    <button>
+                        <a href="{{ route('group-user.add', session('group')->id) }}">
+                            クリア
+                        </a>
+                    </button>
+                </div>
+            </form>
+
+            @error('user_id')
+                <p class="text-red-600">・{{ $message }}</p>
+            @enderror
+
+            @error('name')
+                <p class="text-red-600">・{{ $message }}</p>
+            @enderror
+
+            @if(isset($group_users))
+                <h3>現在のメンバー</h3>
+                @foreach($group_users as $group_user)
+                    <p>・{{ $group_user->user->name }}</p>
+                @endforeach
+            @elseif(session('search_user') )
+                <form action="{{ route('group-user.store') }}" method="post">
                     @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
+                    <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
+                    <p>・{{ session('search_user')->name }}</p>
+                    <input type="submit" value="メンバーに追加する">
                 </form>
             @endif
         </section>
     </div>
-
-    @if(isset($is_group_user))
-        <div>
-            @foreach ($memo_groups as $memo_group)
-                @if($memo_group->pivot->participation_status == '招待中')
-                    <h3>招待通知</h3>
-                    <p>招待ユーザー：{{ $memo_group->pivot->where('is_owner', true)->where('group_id', $memo_group->id)->first()->user_id }}</p>
-                    <p>招待グループ名：{{  $memo_group->group_name }}</p>
-                    <form action="{{ route('group-user.update') }}" method="post">
-                        @csrf
-                        @method('patch')
-                        <button type="submit" name="participation_status" value="参加中">参加</button>
-                    </form>
-                    <form action="{{ route('group-user.destroy') }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" name="participation_status" value="非参加">非参加</button>
-                    </form>
-                @endif
-            @endforeach
-        </div>
-    @endif
-
-
-
-
 </body>
 </html>
 
