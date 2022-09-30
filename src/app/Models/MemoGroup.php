@@ -14,8 +14,9 @@ class MemoGroup extends Model
         'group_name'
     ];
 
-    public function groupuser(){
-        return $this->hasMany(GroupUser::class);
+    public function user(){
+        return $this->belongsToMany(User::class, 'group_users', 'group_id', 'user_id')->withPivot('is_owner', 'participation_status');
+
     }
 
     public function memo(){

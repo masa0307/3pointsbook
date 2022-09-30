@@ -82,6 +82,23 @@
                         </ul>
                     </li>
                 </ul>
+
+                <ul class="mt-10">
+                    <li>
+                        <p class="pl-6">グループ</p>
+                        <ul class="pl-10">
+                            @if($memo_groups)
+                                @foreach ($memo_groups as $memo_group)
+                                    @if($memo_group->pivot->participation_status == '参加中')
+                                        <li class="mt-2">
+                                            <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </section>
 

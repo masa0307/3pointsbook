@@ -21,6 +21,12 @@
                     <a href="{{route('book.manual')}}" class="block">本を手動で登録する</a>
                     <button id="addBookClose">キャンセル</button>
                 </div>
+                <button>
+                    <a href="{{ route('search-book.index') }}">🔎</a>
+                </button>
+                <button>
+                    <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
+                </button>
                 <button id="settingScreenOpen">⚙</button>
                 <div id="settingMenu" class="hidden">
                     <div class="modal-content">
@@ -74,6 +80,23 @@
                                     </li>
                                 @endif
                             @endforeach
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="mt-10">
+                    <li>
+                        <p class="pl-6">グループ</p>
+                        <ul class="pl-10">
+                            @if($memo_groups)
+                                @foreach ($memo_groups as $memo_group)
+                                    @if($memo_group->pivot->participation_status == '参加中')
+                                        <li class="mt-2">
+                                            <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
                         </ul>
                     </li>
                 </ul>

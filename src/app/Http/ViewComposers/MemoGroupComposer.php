@@ -2,7 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\MemoGroup;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -20,7 +21,7 @@ class MemoGroupComposer
     public function compose(View $view)
     {
         $view->with([
-            'groups'   => MemoGroup::all(),
+            'memo_groups' =>User::find(Auth::id())->memogroup
         ]);
     }
 }

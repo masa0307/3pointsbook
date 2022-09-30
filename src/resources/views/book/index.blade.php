@@ -83,6 +83,24 @@
                         </ul>
                     </li>
                 </ul>
+
+                <ul class="mt-10">
+                    <li>
+                        <p class="pl-6">グループ</p>
+                        <ul class="pl-10">
+                            @if($memo_groups)
+                                @foreach ($memo_groups as $memo_group)
+                                    @if($memo_group->pivot->participation_status == '参加中')
+                                        <li class="mt-2">
+                                            <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
         </section>
 
@@ -109,6 +127,29 @@
             @endif
         </section>
     </div>
+
+    @if(isset($is_group_user))
+        <div>
+            @foreach ($memo_groups as $memo_group)
+                @if($memo_group->pivot->participation_status == '招待中')
+                    <h3>招待通知</h3>
+                    <p>招待ユーザー：{{ $memo_group->pivot->where('is_owner', true)->where('group_id', $memo_group->id)->first()->user_id }}</p>
+                    <p>招待グループ名：{{  $memo_group->group_name }}</p>
+                    <form action="{{ route('book.update_groupuser') }}" method="post">
+                        @csrf
+                        @method('patch')
+                        <button type="submit" name="participation_status" value="参加中">参加</button>
+                    </form>
+                    <form action="{{ route('book.destroy_groupuser') }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" name="participation_status" value="非参加">非参加</button>
+                    </form>
+                @endif
+            @endforeach
+        </div>
+    @endif
+
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\GroupUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,13 +20,21 @@ class BookController extends Controller
             $genre->user_id = Auth::id();
             $genre->save();
         }
+        if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
+            $is_group_user = true;
+            $group_user = GroupUser::all();
+        }else{
+            $is_group_user = false;
+            $group_user=null;
+        }
 
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-            return view('book.index', compact('selectedBook', 'genre_name'));
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_group_user', 'group_user'));
         }else{
-            return view('book.index', compact('selectedBook'));
+            return view('book.index', compact('selectedBook', 'is_group_user'));
         }
+
     }
 
     public function search(){
@@ -96,6 +105,31 @@ class BookController extends Controller
         $book->save();
 
         return redirect()->route('book.index');
+    }
+
+    public function updateGroupUser(Request $request){
+        $memo_groups = User::find(Auth::id())->memogroup;
+        foreach ($memo_groups as $memo_group){
+            if($memo_group->pivot->participation_status == '招待中'){
+                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
+                $group_user->participation_status = $request->participation_status;
+                $group_user->save();
+
+                return redirect()->route('book.index');
+            }
+        }
+    }
+
+    public function destroyGroupUser(Request $request){
+        $memo_groups = User::find(Auth::id())->memogroup;
+        foreach ($memo_groups as $memo_group){
+            if($memo_group->pivot->participation_status == '招待中'){
+                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
+                $group_user->delete();
+
+                return redirect()->route('book.index');
+            }
+        }
     }
 
 }

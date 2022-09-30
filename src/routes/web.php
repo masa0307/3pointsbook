@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
         Route::delete('/destroy/{book}', [BookController::class, 'destroy'])->name('destroy');
         Route::get('/update/{book}', [BookController::class, 'update'])->name('update');
+        Route::patch('/update', [BookController::class, 'updateGroupUser'])->name('update_groupuser');
+        Route::delete('/destroy', [BookController::class, 'destroyGroupUser'])->name('destroy_groupuser');
     });
 
     Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {
