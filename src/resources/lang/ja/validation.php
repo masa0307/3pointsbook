@@ -30,7 +30,7 @@ return [
         'string'  => ':attributeは、:min文字から:max文字にしてください。',
     ],
     'boolean'              => ':attributeには、\'true\'か\'false\'を指定してください。',
-    'confirmed'            => ':attributeと:attribute確認が一致しません。',
+    'confirmed'            => ':attributeと:attribute（確認用）が一致しません。',
     'date'                 => ':attributeは、正しい日付ではありません。',
     'date_equals'          => ':attributeは:dateに等しい日付でなければなりません。',
     'date_format'          => ':attributeの形式は、\':format\'と合いません。',
@@ -127,5 +127,11 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
-    'attributes'           => [],
+    'attributes'           => [
+        'name' => 'ユーザー名',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'sort_name' => 'ソート名',
+    ],
+
 ];

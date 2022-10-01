@@ -33,7 +33,7 @@ class Memo extends Model
         return $this->belongsTo(Book::class);
     }
 
-    public function group(){
-        return $this->belongsTo(Group::class);
+    public function memogroup(){
+        return $this->belongsTo(MemoGroup::class);
     }
 }

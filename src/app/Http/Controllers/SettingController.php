@@ -33,9 +33,17 @@ class SettingController extends Controller
         $user = User::find($id);
 
         if(strpos(url()->full(), 'user-name')){
-            $user->name = $request->user_name;
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'unique:users'],
+            ]);
+
+            $user->name = $request->name;
             $user->save();
         }elseif(strpos(url()->full(), 'email')){
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            ]);
+
             $user->email = $request->email;
             $user->save();
         }elseif(strpos(url()->full(), 'password')){

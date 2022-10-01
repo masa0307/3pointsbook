@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Stmt\GroupUse;
 
-class Group extends Model
+class MemoGroup extends Model
 {
     use HasFactory;
 
@@ -14,8 +14,9 @@ class Group extends Model
         'group_name'
     ];
 
-    public function groupuser(){
-        return $this->hasMany(GroupUser::class);
+    public function user(){
+        return $this->belongsToMany(User::class, 'group_users', 'group_id', 'user_id')->withPivot('is_owner', 'participation_status');
+
     }
 
     public function memo(){

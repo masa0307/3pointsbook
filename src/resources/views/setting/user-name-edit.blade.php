@@ -77,6 +77,31 @@
                         </ul>
                     </li>
                 </ul>
+
+                <ul class="mt-10">
+                    <li>
+                        <p class="pl-6">グループ</p>
+                        <ul class="pl-10">
+                            @if($memo_groups)
+                                @foreach ($memo_groups as $memo_group)
+                                    @if($memo_group->pivot->participation_status == '参加中')
+                                        <li class="mt-2">
+                                            <div class="flex">
+                                                <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                                @if($memo_group->pivot->is_owner == true)
+                                                    <div class="flex">
+                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
+                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block">📝</a>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </section>
 
@@ -89,8 +114,12 @@
                     <p>{{ $user_name }}</p>
                 </div>
                 <div>
+                    @error('name')
+                        <p class="text-red-600">・{{ $message }}</p>
+                    @enderror
+
                     <p>変更後</p>
-                    <input type="text" name="user_name" placeholder="ユーザー名称">
+                    <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}">
                 </div>
                 <input type="submit" value="変更">
             </form>

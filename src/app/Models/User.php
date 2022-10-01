@@ -42,8 +42,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function groupuser(){
-        return $this->hasMany(GroupUser::class);
+    public function memogroup(){
+        return $this->belongsToMany(MemoGroup::class, 'group_users', 'user_id', 'group_id')->withPivot('is_owner', 'participation_status');
     }
 
     public function memo(){

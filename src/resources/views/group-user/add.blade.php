@@ -55,11 +55,11 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="dropdown marker block">{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown__list">
-                                            <li><a href="#" class="marker block">読書メモ</a></li>
-                                            <li><a href="#" class="marker block">アクションリスト</a></li>
-                                            <li><a href="#" class="marker block">振り返り</a></li>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <ul class="pl-6 hidden dropdown">
+                                            <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
+                                            <li><a href="{{route('action-list.show', $book->id)}}" class="marker block">アクションリスト</a></li>
+                                            <li><a href="{{route('feedback-list.show', $book->id)}}" class="marker block">振り返り</a></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -104,45 +104,58 @@
                                     @endif
                                 @endforeach
                             @endif
+
                         </ul>
                     </li>
                 </ul>
+
             </div>
         </section>
 
         <section>
-            <h2>本の登録</h2>
-            <form action="{{route('book.store')}}" method="POST">
+            <h2>メンバー追加</h2>
+            <h3>グループ名：{{ $group_name }}</h3>
+            <h3>追加するメンバー</h3>
+
+            <form action="{{ route('group-user.searchResult') }}" method="post">
                 @csrf
+                <input type="search" placeholder="メンバー名を入力" name="name">
                 <div>
-                    <label for="title" class="block">タイトル（必須）</label>
-                    <input name="title" type="text" id="title" class="block">
+                    <button type="submit">検索</button>
+                    <button>
+                        <a href="{{ route('group-user.add', session('group')->id) }}">
+                            クリア
+                        </a>
+                    </button>
                 </div>
-                <div>
-                    <label for="titleKana" class="block">タイトル（カナ）（必須）</label>
-                    <input name="title_kana" type="text" id="title_kana" class="block">
-                </div>
-                <div>
-                    <label for="author" class="block">著者名（必須）</label>
-                    <input name="author" type="text" id="author" class="block">
-                </div>
-                <div>
-                    <label for="genre" class="block">ジャンル（任意）（選択式）</label>
-                    <select name="genre_id" id="genre" class="block">
-                        @foreach($genres as $genre)
-                            <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label for="state" class="block">状態（必須）（選択式：気になる or 読書中）</label>
-                    <select name="state" id="state" class="block">
-                        <option value="読書中">読書中</option>
-                        <option value="気になる">気になる</option>
-                    </select>
-                </div>
-                <input type="submit" value="保存する">
             </form>
+
+            @error('user_id')
+                <p class="text-red-600">・{{ $message }}</p>
+            @enderror
+
+            @error('name')
+                <p class="text-red-600">・{{ $message }}</p>
+            @enderror
+
+            @if(isset($group_users))
+                <h3>現在のメンバー</h3>
+                @foreach($group_users as $group_user)
+                    @if($group_user->is_owner == true)
+                        <p>・{{ $group_user->user->name }}（グループオーナー）</p>
+                    @else
+                        <p>・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
+                    @endif
+
+                @endforeach
+            @elseif(session('search_user') )
+                <form action="{{ route('group-user.store') }}" method="post">
+                    @csrf
+                    <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
+                    <p>・{{ session('search_user')->name }}</p>
+                    <input type="submit" value="メンバーに追加する">
+                </form>
+            @endif
         </section>
     </div>
 </body>
