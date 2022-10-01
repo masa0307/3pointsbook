@@ -104,20 +104,31 @@
                                     @endif
                                 @endforeach
                             @endif
+
                         </ul>
                     </li>
                 </ul>
+
             </div>
         </section>
 
         <section>
-            <h2>グループ作成</h2>
-            <form action="{{ route('group.store') }}" method="post">
-                @csrf
-                <label for="group_name">グループ名</label>
-                <input type="text" placeholder="グループ名" name="group_name">
-                <input type="submit" value="保存する">
-            </form>
+            <h2>メンバー編集</h2>
+            <h3>グループ名：{{ $group_name }}</h3>
+
+            @if(isset($group_users))
+                <h3>メンバー</h3>
+                @foreach($group_users as $group_user)
+                    @if($group_user->participation_status == '参加中')
+                        <p>・{{ $group_user->user->name }}</p>
+                        <form action="{{ route('group-user.destroy', ['group_id'=>$group_user->group_id, 'user_id'=>$group_user->user_id]) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit">削除</button>
+                        </form>
+                    @endif
+                @endforeach
+            @endif
         </section>
     </div>
 </body>

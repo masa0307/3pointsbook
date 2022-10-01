@@ -91,7 +91,15 @@
                                 @foreach ($memo_groups as $memo_group)
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
-                                            <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                            <div class="flex">
+                                                <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                                @if($memo_group->pivot->is_owner == true)
+                                                    <div class="flex">
+                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
+                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block">📝</a>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </li>
                                     @endif
                                 @endforeach
@@ -105,7 +113,7 @@
         </section>
 
         <section>
-            <h2>グループ作成</h2>
+            <h2>メンバー追加</h2>
             <h3>グループ名：{{ $group_name }}</h3>
             <h3>追加するメンバー</h3>
 

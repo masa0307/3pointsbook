@@ -61,7 +61,7 @@ class GroupUserController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function reject(Request $request){
         $memo_groups = User::find(Auth::id())->memogroup;
         foreach ($memo_groups as $memo_group){
             if($memo_group->pivot->participation_status == '招待中'){
@@ -79,5 +79,24 @@ class GroupUserController extends Controller
         $group_name = MemoGroup::find($id)->group_name;
 
         return view('group-user.add', compact('group_users', 'group_name'));
+    }
+
+    public function edit($id){
+        $group_users = GroupUser::where('group_id', $id)->get();
+        $group_name = MemoGroup::find($id)->group_name;
+
+        return view('group-user.edit', compact('group_users', 'group_name'));
+    }
+
+    public function destroy($group_id, $user_id){
+        $group_user = GroupUser::where('group_id', $group_id)->where('user_id', $user_id)->first();
+        $group_user->delete();
+
+        if(GroupUser::where('group_id', $group_id)->get()->isNotEmpty()){
+            return redirect()->route('group-user.edit', $group_id);
+        }else{
+            return redirect()->route('book.index');
+        }
+
     }
 }

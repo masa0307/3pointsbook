@@ -97,7 +97,7 @@
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
                                                         <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
-                                                        <a href="" class="block">📝</a>
+                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block">📝</a>
                                                     </div>
                                                 @endif
                                             </div>
@@ -106,8 +106,6 @@
                                 @endforeach
                             @endif
                         </ul>
-
-
                     </li>
                 </ul>
 
@@ -115,25 +113,27 @@
         </section>
 
         <section>
-            @if($selectedBook->state == '読書中')
-                <h2>読書中</h2>
-            @elseif($selectedBook->state == '気になる')
-                <button>
-                    <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
-                </button>
-                <h2>気になる</h2>
-            @endif
+            @if(isset($selectedBook))
+                @if($selectedBook->state == '読書中')
+                    <h2>読書中</h2>
+                @elseif($selectedBook->state == '気になる')
+                    <button>
+                        <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
+                    </button>
+                    <h2>気になる</h2>
+                @endif
 
-            @if($selectedBook)
-                <img src="{{$selectedBook->image_path}}">
-                <p id="title">{{$selectedBook->title}}</p>
-                <p>{{$selectedBook->author}}</p>
-                <p>{{$genre_name}}</p>
-                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="submit" value="削除">
-                </form>
+                <div>
+                    <img src="{{$selectedBook->image_path}}">
+                    <p id="title">{{$selectedBook->title}}</p>
+                    <p>{{$selectedBook->author}}</p>
+                    <p>{{$genre_name}}</p>
+                    <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <input type="submit" value="削除">
+                    </form>
+                </div>
             @endif
         </section>
     </div>
@@ -143,14 +143,14 @@
             @foreach ($memo_groups as $memo_group)
                 @if($memo_group->pivot->participation_status == '招待中')
                     <h3>招待通知</h3>
-                    <p>招待ユーザー：{{ $memo_group->pivot->where('is_owner', true)->where('group_id', $memo_group->id)->first()->user_id }}</p>
+                    <p>招待ユーザー：{{ App\Models\User::find($memo_group->pivot->where('is_owner', true)->where('group_id', $memo_group->id)->first()->user_id)->name }}</p>
                     <p>招待グループ名：{{  $memo_group->group_name }}</p>
                     <form action="{{ route('group-user.update') }}" method="post">
                         @csrf
                         @method('patch')
                         <button type="submit" name="participation_status" value="参加中">参加</button>
                     </form>
-                    <form action="{{ route('group-user.destroy') }}" method="post">
+                    <form action="{{ route('group-user.reject') }}" method="post">
                         @csrf
                         @method('delete')
                         <button type="submit" name="participation_status" value="非参加">非参加</button>

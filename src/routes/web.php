@@ -101,8 +101,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
         Route::post('/store', [GroupUserController::class, 'store'])->name('store');
         Route::patch('/update', [GroupUserController::class, 'update'])->name('update');
-        Route::delete('/destroy', [GroupUserController::class, 'destroy'])->name('destroy');
+        Route::delete('/reject', [GroupUserController::class, 'reject'])->name('reject');
         Route::get('/add/{id}', [GroupUserController::class, 'add'])->name('add');
+        Route::get('/edit/{id}', [GroupUserController::class, 'edit'])->name('edit');
+        Route::delete('/destroy/{group_id}/{user_id}', [GroupUserController::class, 'destroy'])->name('destroy');
     });
 
 });
