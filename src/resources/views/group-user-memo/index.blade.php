@@ -7,8 +7,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
+    <script src="{{ asset('js/marker-groupbooklist.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
+    <script src="{{ asset('js/web-share.js') }}" defer></script>
 
 </head>
 <body>
@@ -58,9 +59,9 @@
                                     <li class="mt-2">
                                         <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
                                         <ul class="pl-6 hidden dropdown">
-                                            <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
-                                            <li><a href="{{route('action-list.show', $book->id)}}" class="marker block">アクションリスト</a></li>
-                                            <li><a href="{{route('feedback-list.show', $book->id)}}" class="marker block">振り返り</a></li>
+                                            <li><a href="{{ route('book-memo.show', $book->id) }}" class="marker block">読書メモ</a></li>
+                                            <li><a href="{{ route('action-list.show', $book->id) }}" class="marker block">アクションリスト</a></li>
+                                            <li><a href="{{ route('feedback-list.show', $book->id) }}" class="marker block">振り返り</a></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -93,7 +94,7 @@
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
                                             <div class="flex">
-                                                <a href="#" class="marker block">{{$memo_group->group_name}}</a>
+                                                <p>{{$memo_group->group_name}}</p>
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
                                                         <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
@@ -108,9 +109,9 @@
                                                         @if($memo->group_id == $memo_group->id)
                                                             <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
                                                             <ul class="pl-8 hidden groupDropdown">
-                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">読書メモ</a></li>
-                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">アクションリスト</a></li>
-                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">振り返り</a></li>
+                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">読書メモ</a></li>
+                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">アクションリスト</a></li>
+                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">振り返り</a></li>
                                                             </ul>
                                                         @endif
                                                     @endforeach
@@ -127,28 +128,17 @@
         </section>
 
         <section>
-            <form action="{{ route('user-name.update', Auth::id()) }}" method="POST">
-                @method('PATCH')
-                @csrf
+            @if(isset($selectedBook))
                 <div>
-                    <p>現在</p>
-                    <p>{{ $user_name }}</p>
+                    <p id="groupName">{{ $group_name }}</p>
+                    <img src="{{$selectedBook->image_path}}">
+                    <p id="title">{{$selectedBook->title}}</p>
+                    <p>{{$selectedBook->author}}</p>
+                    <p>{{$genre_name}}</p>
                 </div>
-                <div>
-                    @error('name')
-                        <p class="text-red-600">・{{ $message }}</p>
-                    @enderror
-
-                    <p>変更後</p>
-                    <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}">
-                </div>
-                <input type="submit" value="変更">
-            </form>
+            @endif
         </section>
     </div>
-
-
-
 </body>
 </html>
 

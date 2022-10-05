@@ -18,6 +18,8 @@ mix.js("resources/js/app.js", "public/js")
     .js("resources/js/marker-memolist.js", "public/js")
     .js("resources/js/set-application.js", "public/js")
     .js("resources/js/web-share.js", "public/js")
+    .js("resources/js/marker-groupbooklist.js", "public/js")
+    .js("resources/js/marker-groupmemolist.js", "public/js")
     .postCss("resources/css/app.css", "public/css", [
         require("tailwindcss"),
         require("autoprefixer"),

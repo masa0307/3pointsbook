@@ -107,6 +107,23 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/destroy/{group_id}/{user_id}', [GroupUserController::class, 'destroy'])->name('destroy');
     });
 
+    Route::group(['prefix' => 'group-user-memo', 'as' => 'group-user-memo.'], function () {
+        Route::get('/showViewStatus/{book_id}', [GroupUserController::class, 'showViewStatus'])->name('view_status');
+        Route::post('/view/{id}', [GroupUserController::class, 'view'])->name('view');
+        Route::get('/{book_id}/{group_id}', [GroupUserController::class, 'index'])->name('index');
+    });
+
+    Route::group(['prefix' => 'group-user-book-memo', 'as' => 'group-user-book-memo.'], function () {
+        Route::get('/show/{book_id}/{group_id}', [GroupUserController::class, 'show'])->name('show');
+    });
+
+    Route::group(['prefix' => 'group-user-action-list', 'as' => 'group-user-action-list.'], function () {
+        Route::get('/show/{book_id}/{group_id}', [GroupUserController::class, 'show'])->name('show');
+    });
+
+    Route::group(['prefix' => 'group-user-feedback-list', 'as' => 'group-user-feedback-list.'], function () {
+        Route::get('/show/{book_id}/{group_id}', [GroupUserController::class, 'show'])->name('show');
+    });
 });
 
 

@@ -26,9 +26,9 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         //
         View::composers([
-            \App\Http\ViewComposers\BookComposer::class => ['book.*', 'memo.*', 'setting.*', 'search-book.*', 'group.*', 'group-user.*'],
+            \App\Http\ViewComposers\BookComposer::class => ['book.*', 'memo.*', 'setting.*', 'search-book.*', 'group.*', 'group-user.*', 'group-user-memo.*'],
             \App\Http\ViewComposers\GenreComposer::class => ['book.create', 'book.manual'],
-            \App\Http\ViewComposers\MemoGroupComposer::class => ['book.*', 'memo.*', 'setting.*', 'search-book.*', 'group.*', 'group-user.*'],
+            \App\Http\ViewComposers\MemoGroupComposer::class => ['book.*', 'memo.*', 'setting.*', 'search-book.*', 'group.*', 'group-user.*', 'group-user-memo.*'],
         ]);
     }
 }

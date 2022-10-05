@@ -101,10 +101,27 @@
                                                     </div>
                                                 @endif
                                             </div>
+
+                                            @foreach($memo_group->user as $group_user)
+                                                @foreach($group_user->book as $book)
+                                                    @foreach($book->memo as $memo)
+                                                        @if($memo->group_id == $memo_group->id)
+                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-6">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
+                                                            <ul class="pl-6 hidden groupDropdown">
+                                                                <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
+                                                                <li><a href="{{route('action-list.show', $book->id)}}" class="marker block">アクションリスト</a></li>
+                                                                <li><a href="{{route('feedback-list.show', $book->id)}}" class="marker block">振り返り</a></li>
+                                                            </ul>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
                                         </li>
                                     @endif
                                 @endforeach
                             @endif
+
+
                         </ul>
                     </li>
                 </ul>
@@ -124,6 +141,9 @@
                 @endif
 
                 <div>
+                    <button>
+                        <a href="{{ route('group-user-memo.view_status',['book_id'=> $selectedBook->id]) }}">メモの公開状況</a>
+                    </button>
                     <img src="{{$selectedBook->image_path}}">
                     <p id="title">{{$selectedBook->title}}</p>
                     <p>{{$selectedBook->author}}</p>
