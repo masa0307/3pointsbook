@@ -7,8 +7,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
+    <script src="{{ asset('js/marker-groupmemolist.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
+    <script src="{{ asset('js/web-share.js') }}" defer></script>
 
 </head>
 <body>
@@ -58,9 +59,9 @@
                                     <li class="mt-2">
                                         <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
                                         <ul class="pl-6 hidden dropdown">
-                                            <li><a href="{{route('book-memo.show', $book->id)}}" class="marker block">読書メモ</a></li>
-                                            <li><a href="{{route('action-list.show', $book->id)}}" class="marker block">アクションリスト</a></li>
-                                            <li><a href="{{route('feedback-list.show', $book->id)}}" class="marker block">振り返り</a></li>
+                                            <li><a href="{{ route('book-memo.show', $book->id) }}" class="marker block">読書メモ</a></li>
+                                            <li><a href="{{ route('action-list.show', $book->id) }}" class="marker block">アクションリスト</a></li>
+                                            <li><a href="{{ route('feedback-list.show', $book->id) }}" class="marker block">振り返り</a></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -127,28 +128,67 @@
         </section>
 
         <section>
-            <form action="{{ route('user-name.update', Auth::id()) }}" method="POST">
-                @method('PATCH')
-                @csrf
-                <div>
-                    <p>現在</p>
-                    <p>{{ $user_name }}</p>
-                </div>
-                <div>
-                    @error('name')
-                        <p class="text-red-600">・{{ $message }}</p>
-                    @enderror
+            <p id="groupName">{{ $group_name }}</p>
+            <h2 id="title">{{ $select_book->title }}</h2>
 
-                    <p>変更後</p>
-                    <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}">
-                </div>
-                <input type="submit" value="変更">
-            </form>
+            @if(strpos(url()->full(),'book-memo')!== false)
+                <h2 id="book-memo">読書メモ</h2>
+
+                <section>
+                    <h3>読書前</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->before_reading_content}}</textarea>
+                </section>
+
+                <section>
+                    <h3>読書中</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->reading_content}}</textarea>
+                </section>
+
+                <section>
+                    <h3>読書後</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->after_reading_content}}</textarea>
+                </section>
+
+            @elseif(strpos(url()->full(),'action-list')!== false)
+                <h2 id="book-memo">アクションリスト</h2>
+
+                <section id="actionMemo1">
+                    <h3>アクションリスト１</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist1_content}}</textarea>
+                </section>
+
+                <section id="actionMemo2">
+                    <h3>アクションリスト２</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist2_content}}</textarea>
+                </section>
+
+                <section id="actionMemo3">
+                    <h3>アクションリスト３</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->actionlist3_content}}</textarea>
+                </section>
+
+            @elseif(strpos(url()->full(),'feedback-list')!== false)
+                <h2 id="book-memo">振り返り</h2>
+
+                <section id="feedbackMemo1">
+                    <h3>Q.アクションリスト１を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback1_content}}</textarea>
+                </section>
+
+                <section id="feedbackMemo2">
+                    <h3>Q.アクションリスト２を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback2_content}}</textarea>
+                </section>
+
+                <section id="feedbackMemo3">
+                    <h3>Q.アクションリスト３を実施した結果は？</h3>
+                    <textarea  cols="80" rows="5" readonly>{{$store_memo->feedback3_content}}</textarea>
+                </section>
+
+            @endif
+
         </section>
     </div>
-
-
-
 </body>
 </html>
 

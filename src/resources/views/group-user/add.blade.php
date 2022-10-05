@@ -141,12 +141,12 @@
             @if(isset($group_users))
                 <h3>現在のメンバー</h3>
                 @foreach($group_users as $group_user)
+
                     @if($group_user->is_owner == true)
                         <p>・{{ $group_user->user->name }}（グループオーナー）</p>
                     @else
                         <p>・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
                     @endif
-
                 @endforeach
             @elseif(session('search_user') )
                 <form action="{{ route('group-user.store') }}" method="post">

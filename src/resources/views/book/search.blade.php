@@ -103,6 +103,21 @@
                                                     </div>
                                                 @endif
                                             </div>
+
+                                            @foreach($memo_group->user as $group_user)
+                                                @foreach($group_user->book as $book)
+                                                    @foreach($book->memo as $memo)
+                                                        @if($memo->group_id == $memo_group->id)
+                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
+                                                            <ul class="pl-8 hidden groupDropdown">
+                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">読書メモ</a></li>
+                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">アクションリスト</a></li>
+                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">振り返り</a></li>
+                                                            </ul>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
                                         </li>
                                     @endif
                                 @endforeach

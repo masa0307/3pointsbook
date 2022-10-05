@@ -106,11 +106,11 @@
                                                 @foreach($group_user->book as $book)
                                                     @foreach($book->memo as $memo)
                                                         @if($memo->group_id == $memo_group->id)
-                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
-                                                            <ul class="pl-8 hidden groupDropdown">
-                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">読書メモ</a></li>
-                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">アクションリスト</a></li>
-                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">振り返り</a></li>
+                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
+                                                            <ul class="pl-6 hidden groupDropdown">
+                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">読書メモ</a></li>
+                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">アクションリスト</a></li>
+                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">振り返り</a></li>
                                                             </ul>
                                                         @endif
                                                     @endforeach
@@ -123,32 +123,49 @@
                         </ul>
                     </li>
                 </ul>
+
             </div>
         </section>
 
         <section>
-            <form action="{{ route('user-name.update', Auth::id()) }}" method="POST">
-                @method('PATCH')
-                @csrf
-                <div>
-                    <p>現在</p>
-                    <p>{{ $user_name }}</p>
-                </div>
-                <div>
-                    @error('name')
-                        <p class="text-red-600">・{{ $message }}</p>
-                    @enderror
+            <h2>メモの公開</h2>
 
-                    <p>変更後</p>
-                    <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}">
-                </div>
-                <input type="submit" value="変更">
-            </form>
+            @if($memo_groups)
+                <form action="{{ route('group-user-memo.view', $viewed_book->id) }}" method="POST">
+                    @csrf
+                    <select name="group_id">
+                        @foreach ($memo_groups as $memo_group)
+                            <option value="{{ $memo_group->id }}">{{ $memo_group->group_name }}</option>
+                        @endforeach
+                    </select>
+                    <input type="submit" value="公開">
+                </form>
+
+                <form action="{{ route('group-user-memo.view', $viewed_book->id) }}" method="POST">
+                    @csrf
+                    <select name="non_group_id">
+                        @foreach ($memo_groups as $memo_group)
+                            @foreach ($viewed_memos as $viewed_memo)
+                                @if($viewed_memo->group_id == $memo_group->id)
+                                    <option value="{{ $memo_group->id }}">{{ $memo_group->group_name }}</option>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </select>
+                    <input type="submit" value="非公開">
+                </form>
+
+            @endif
+
+            <div>
+                <img src="{{$viewed_book->image_path}}">
+                <p id="title">{{$viewed_book->title}}</p>
+                <p>{{$viewed_book->author}}</p>
+                <p>{{$genre_name}}</p>
+            </div>
+
         </section>
     </div>
-
-
-
 </body>
 </html>
 

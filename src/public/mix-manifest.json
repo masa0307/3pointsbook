@@ -6,5 +6,7 @@
     "/js/marker-memolist.js": "/js/marker-memolist.js",
     "/js/set-application.js": "/js/set-application.js",
     "/js/web-share.js": "/js/web-share.js",
+    "/js/marker-groupbooklist.js": "/js/marker-groupbooklist.js",
+    "/js/marker-groupmemolist.js": "/js/marker-groupmemolist.js",
     "/css/app.css": "/css/app.css"
 }
