@@ -106,8 +106,8 @@
                                                 @foreach($group_user->book as $book)
                                                     @foreach($book->memo as $memo)
                                                         @if($memo->group_id == $memo_group->id)
-                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
-                                                            <ul class="pl-6 hidden groupDropdown">
+                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
+                                                            <ul class="pl-8 hidden groupDropdown">
                                                                 <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">読書メモ</a></li>
                                                                 <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">アクションリスト</a></li>
                                                                 <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">振り返り</a></li>
@@ -131,36 +131,39 @@
             <h2>メモの公開</h2>
 
             @if($memo_groups)
-                <form action="{{ route('group-user-memo.view', $viewed_book->id) }}" method="POST">
-                    @csrf
-                    <select name="group_id">
-                        @foreach ($memo_groups as $memo_group)
-                            <option value="{{ $memo_group->id }}">{{ $memo_group->group_name }}</option>
-                        @endforeach
-                    </select>
-                    <input type="submit" value="公開">
-                </form>
-
-                <form action="{{ route('group-user-memo.view', $viewed_book->id) }}" method="POST">
-                    @csrf
-                    <select name="non_group_id">
-                        @foreach ($memo_groups as $memo_group)
-                            @foreach ($viewed_memos as $viewed_memo)
-                                @if($viewed_memo->group_id == $memo_group->id)
-                                    <option value="{{ $memo_group->id }}">{{ $memo_group->group_name }}</option>
-                                @endif
+                @if(!($not_published_groups->isEmpty()))
+                    <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST">
+                        @csrf
+                        <select name="group_id">
+                            @foreach($not_published_groups as $not_published_group)
+                                <option value="{{ $not_published_group->id }}">{{ $not_published_group->group_name }}</option>
                             @endforeach
-                        @endforeach
-                    </select>
-                    <input type="submit" value="非公開">
-                </form>
+                        </select>
+                        <input type="submit" value="公開">
+                    </form>
+                @else
+                    <p>※全てのグループに公開済みです</p>
+                @endif
 
+                @if(!($published_groups->isEmpty()))
+                    <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST">
+                        @csrf
+                        <select name="non_group_id">
+                            @foreach($published_groups as $published_group)
+                                <option value="{{ $published_group->id }}">{{ $published_group->group_name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="submit" value="非公開">
+                    </form>
+                @else
+                    <p>※非公開にするグループはありません</p>
+                @endif
             @endif
 
             <div>
-                <img src="{{$viewed_book->image_path}}">
-                <p id="title">{{$viewed_book->title}}</p>
-                <p>{{$viewed_book->author}}</p>
+                <img src="{{$published_book->image_path}}">
+                <p id="title">{{$published_book->title}}</p>
+                <p>{{$published_book->author}}</p>
                 <p>{{$genre_name}}</p>
             </div>
 

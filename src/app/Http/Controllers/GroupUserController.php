@@ -93,11 +93,13 @@ class GroupUserController extends Controller
 
     public function destroy($group_id, $user_id){
         $group_user = GroupUser::where('group_id', $group_id)->where('user_id', $user_id)->first();
+        $deleted_group = MemoGroup::find($group_id);
         $group_user->delete();
 
-        if(GroupUser::where('group_id', $group_id)->get()->isNotEmpty()){
+        if(GroupUser::where('group_id', $group_id)->where('participation_status', '参加中')->get()->isNotEmpty()){
             return redirect()->route('group-user.edit', $group_id);
         }else{
+            $deleted_group->delete();
             return redirect()->route('book.index');
         }
 
@@ -129,7 +131,7 @@ class GroupUserController extends Controller
         return view('group-user-memo.show', compact('store_memo', 'is_store_memo', 'select_book', 'book_id', 'group_id', 'group_name'));
     }
 
-    public function showViewStatus($book_id){
+    public function showPublishStatus($book_id){
         if(!Genre::where('user_id', Auth::id())->first()){
             $genre = new Genre;
             $genre->user_id = Auth::id();
@@ -142,31 +144,39 @@ class GroupUserController extends Controller
             $group_user=null;
         }
 
-        $viewed_book = Book::find($book_id);
-        $viewed_memos = $viewed_book->memo;
+        $published_book = Book::find($book_id);
+        $published_memos = $published_book->memo()->whereNotNull('group_id')->get();
+        $group_ids = [];
 
-        $genre_name = $viewed_book->genre->genre_name;
-        return view('group-user-memo.view-status', compact('viewed_book', 'genre_name', 'group_user', 'viewed_memos', 'book_id'));
+        foreach($published_memos as $published_memo){
+            array_push($group_ids, $published_memo->group_id);
+        }
+
+        $not_published_groups = MemoGroup::whereNotIn('id', $group_ids)->get();
+        $published_groups = MemoGroup::whereIn('id', $group_ids)->get();
+        $genre_name = $published_book->genre->genre_name;
+
+        return view('group-user-memo.publish-status', compact('published_book', 'genre_name', 'group_user', 'book_id', 'published_groups','not_published_groups'));
     }
 
-    public function view(Request $request){
+    public function publish(Request $request){
         if($request->group_id){
-            $viewed_memo = Book::find($request->id)->memo->where('group_id', null)->first();
+            $published_memo = Book::find($request->id)->memo->where('group_id', null)->first();
             $memo = Book::find($request->id)->memo->first();
 
-            if($viewed_memo){
-                $viewed_memo->group_id = $request->group_id;
-                $viewed_memo->save();
-            }elseif(!$viewed_memo){
-                $viewed_memo = $memo->replicate();
-                $viewed_memo->group_id = $request->group_id;
-                $viewed_memo->save();
+            if($published_memo){
+                $published_memo->group_id = $request->group_id;
+                $published_memo->save();
+            }elseif(!$published_memo){
+                $published_memo = $memo->replicate();
+                $published_memo->group_id = $request->group_id;
+                $published_memo->save();
             }
 
         }elseif($request->non_group_id){
-            $viewed_memo = Book::find($request->id)->memo->where('group_id', $request->non_group_id)->first();
-            $viewed_memo->group_id = null;
-            $viewed_memo->save();
+            $published_memo = Book::find($request->id)->memo->where('group_id', $request->non_group_id)->first();
+            $published_memo->group_id = null;
+            $published_memo->save();
         }
 
         return redirect()->route('book.index');
