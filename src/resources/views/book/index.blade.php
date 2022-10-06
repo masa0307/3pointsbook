@@ -142,7 +142,7 @@
 
                 <div>
                     <button>
-                        <a href="{{ route('group-user-memo.view_status',['book_id'=> $selectedBook->id]) }}">メモの公開状況</a>
+                        <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}">メモの公開状況</a>
                     </button>
                     <img src="{{$selectedBook->image_path}}">
                     <p id="title">{{$selectedBook->title}}</p>

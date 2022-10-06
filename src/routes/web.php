@@ -108,8 +108,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'group-user-memo', 'as' => 'group-user-memo.'], function () {
-        Route::get('/showViewStatus/{book_id}', [GroupUserController::class, 'showViewStatus'])->name('view_status');
-        Route::post('/view/{id}', [GroupUserController::class, 'view'])->name('view');
+        Route::get('/showPublishStatus/{book_id}', [GroupUserController::class, 'showPublishStatus'])->name('publish_status');
+        Route::post('/publish/{id}', [GroupUserController::class, 'publish'])->name('publish');
         Route::get('/{book_id}/{group_id}', [GroupUserController::class, 'index'])->name('index');
     });
 
