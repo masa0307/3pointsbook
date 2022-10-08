@@ -7,11 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="{{ asset('js/search-book.js') }}" defer></script>
     <script src="{{ asset('js/add-book.js') }}" defer></script>
     <script src="{{ asset('js/set-application.js') }}" defer></script>
-
+    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
 </head>
 <body>
     <div class="flex">
@@ -29,23 +28,21 @@
                 <button>
                     <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
                 </button>
-                <button id="settingScreenOpen">⚙</button>
-                <div id="settingMenu" class="hidden">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="settingScreenClose">×</span>
-                        </div>
-                        <div class="modal-body">
-                            <a href="{{route('user-name.edit', Auth::id())}}" class="block">ユーザー名称の変更</a>
-                            <a href="{{route('email.edit', Auth::id())}}" class="block">メールアドレスの変更</a>
-                            <a href="{{route('login-password.edit', Auth::id())}}" class="block">パスワードの変更</a>
-                            <a href="{{route('book-sort.edit', Auth::id())}}" class="block">本の並び替え</a>
-                            <a href="{{route('genre-name.edit', Auth::id())}}" class="block">ジャンル名の追加</a>
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                <input type="submit" value="ログアウト">
-                            </form>
-                        </div>
+                <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
+                <div id="settingMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                    <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
+                        <a href="{{route('user-name.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">ユーザー名称の変更</a>
+                        <a href="{{route('email.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">メールアドレスの変更</a>
+                        <a href="{{route('login-password.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">パスワードの変更</a>
+                        <a href="{{route('book-sort.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">本の並び替え</a>
+                        <a href="{{route('genre-name.edit', Auth::id())}}" class="block py-4">ジャンル名の追加</a>
+                    </div>
+
+                    <div class="modal-content-logout bg-modal-window mx-auto my-10 w-1/4 text-center text-2xl rounded-2xl">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <input type="submit" value="ログアウト" class="py-4 cursor-pointer w-full">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -132,7 +129,7 @@
             <div id="searchWindow">
                 <input type="text" placeholder="タイトル名" id="title">
                 <button id="searchButton">
-                    <i class="fa fa-search"></i>
+                    検索
                 </button>
             </div>
         </section>
