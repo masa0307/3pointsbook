@@ -14,8 +14,8 @@
 <body>
     <div class="flex">
         <section class="w-1/4 h-screen bg-primary">
-            <div>
-                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
+            <div class="flex my-10">
+                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded ml-4 mr-4">＋ 本の追加</button>
                 <div id="addBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                     <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
                         <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800">本を検索する</a>
@@ -26,8 +26,8 @@
                         <button id="addBookClose" class="block py-4 w-full">キャンセル</button>
                     </div>
                 </div>
-                <button>
-                    <a href="{{ route('search-book.index') }}">🔎</a>
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                    <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button>
                     <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
@@ -130,11 +130,12 @@
             </div>
         </section>
 
-        <section>
-            <form method="GET" action="{{ route('search-book.index') }}">
-                <input type="search" placeholder="本のタイトルを入力" name="search_title" value="@if (isset($search)) {{ $search }} @endif">
-                <div>
-                    <button type="submit">検索</button>
+        <section class="w-1/2">
+            <h2 class="px-10 pt-10 font-medium text-xl">本の検索</h2>
+            <form method="GET" action="{{ route('search-book.index') }}" class="bg-primary p-2 ml-20 mt-8 rounded-xl w-full text-center flex">
+                <input type="search" placeholder="本のタイトルを入力" name="search_title" value="@if (isset($search)) {{ $search }} @endif" class="rounded w-5/6">
+                <div class="flex align-center">
+                    <button type="submit" class="px-2">検索</button>
                     <button>
                         <a href="{{ route('search-book.index') }}">
                             クリア
@@ -142,21 +143,21 @@
                     </button>
                 </div>
             </form>
-
-            @if(session("search_book"))
-                @foreach(session("search_book") as $value)
-                    <a href="{{ route("book.show", $value->id) }}" class="block">
-                        <img src="{{$value->image_path}}">
-                        <p id="title">{{$value->title}}</p>
-                        <p>{{$value->author}}</p>
-                    </a>
-                @endforeach
-            @endif
+            <div class="flex flex-wrap p-2 ml-20 rounded w-full h-3/4 bg-modal-window">
+                @if(session("search_book"))
+                    @foreach(session("search_book") as $value)
+                        <div class="basis-1/5 pt-6 pr-4">
+                            <a href="{{ route("book.show", $value->id) }}" class="block">
+                                <img src="{{$value->image_path}}">
+                                <p id="title">{{$value->title}}</p>
+                                <p>{{$value->author}}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
         </section>
     </div>
-
-
-
 </body>
 </html>
 

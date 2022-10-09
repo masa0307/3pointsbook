@@ -17335,7 +17335,7 @@ function _searchBook() {
               var inputTitleKana = document.createElement("input");
               var inputAuthor = document.createElement("input");
               div.classList.add("searchResult");
-              div.classList.add("basis-1/5", "pt-6", "cursor-pointer");
+              div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
               inputImg.classList.add("hidden");
               inputTitle.classList.add("hidden");
               inputTitleKana.classList.add("hidden");
