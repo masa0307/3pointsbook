@@ -16,11 +16,16 @@
     <div class="flex">
         <section class="w-1/4 h-screen bg-primary">
             <div>
-                <button id="addBookOpen">＋ 本の追加</button>
-                <div id="addBookMenu" class="hidden">
-                    <a href="{{route('book.search')}}" class="block">本を検索する</a>
-                    <a href="{{route('book.manual')}}" class="block">本を手動で登録する</a>
-                    <button id="addBookClose">キャンセル</button>
+                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
+                <div id="addBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                    <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
+                        <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800">本を検索する</a>
+                        <a href="{{route('book.manual')}}" class="block py-4">本を手動で登録する</a>
+                    </div>
+
+                    <div class="modal-content-logout bg-modal-window mx-auto my-10 w-1/4 text-center text-2xl rounded-2xl">
+                        <button id="addBookClose" class="block py-4 w-full">キャンセル</button>
+                    </div>
                 </div>
                 <button>
                     <a href="{{ route('search-book.index') }}">🔎</a>
@@ -125,12 +130,15 @@
             </div>
         </section>
 
-        <section id="searchSection">
-            <div id="searchWindow">
-                <input type="text" placeholder="タイトル名" id="title">
-                <button id="searchButton">
+        <section id="searchSection" class="w-1/2">
+            <h2 class="px-10 pt-10 font-medium text-xl">本の追加</h2>
+            <div id="searchWindow" class="bg-primary p-2 ml-20 mt-8 rounded-xl w-full text-center">
+                <input type="text" placeholder="タイトル名" id="title" class="rounded w-5/6">
+                <button id="searchButton" class="w-1/12">
                     検索
                 </button>
+            </div>
+            <div id="resultWindow" class="flex flex-wrap p-2 ml-20 rounded w-full h-3/4 bg-modal-window">
             </div>
         </section>
     </div>

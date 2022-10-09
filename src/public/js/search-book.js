@@ -17314,7 +17314,7 @@ function _searchBook() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return fetch("https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=".concat(RAKUTEN_APP_ID, "&title=").concat(titleValue));
+            return fetch("https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=".concat(RAKUTEN_APP_ID, "&title=").concat(titleValue, "&hits=10"));
 
           case 2:
             res = _context.sent;
@@ -17324,7 +17324,6 @@ function _searchBook() {
           case 5:
             books = _context.sent;
             bookInformations = books.Items;
-            console.log(bookInformations);
             bookInformations.forEach(function (bookInformation) {
               var fragment = document.createDocumentFragment();
               var div = document.createElement("div");
@@ -17336,6 +17335,7 @@ function _searchBook() {
               var inputTitleKana = document.createElement("input");
               var inputAuthor = document.createElement("input");
               div.classList.add("searchResult");
+              div.classList.add("basis-1/5", "pt-6", "cursor-pointer");
               inputImg.classList.add("hidden");
               inputTitle.classList.add("hidden");
               inputTitleKana.classList.add("hidden");
@@ -17355,9 +17355,8 @@ function _searchBook() {
               fragment.append(inputTitleKana);
               fragment.append(inputAuthor);
               div.append(fragment);
-              var searchWindow = document.getElementById("searchWindow");
-              var searchSection = document.getElementById("searchSection");
-              searchSection.insertBefore(div, searchWindow.nextSibling);
+              var resultWindow = document.getElementById("resultWindow");
+              resultWindow.appendChild(div);
             });
             searchResults = document.querySelectorAll(".searchResult");
             searchResults.forEach(function (searchResult) {
@@ -17384,7 +17383,7 @@ function _searchBook() {
               });
             });
 
-          case 11:
+          case 10:
           case "end":
             return _context.stop();
         }

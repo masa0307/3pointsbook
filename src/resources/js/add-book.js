@@ -1,8 +1,11 @@
 let addBookOpen = document.getElementById("addBookOpen");
+let addBookMenu = document.getElementById("addBookMenu");
+
 let addBookClose = document.getElementById("addBookClose");
+
 addBookOpen.addEventListener("click", function () {
-    document.getElementById("addBookMenu").classList = "block";
+    addBookMenu.style.display = "block";
 });
 addBookClose.addEventListener("click", function () {
-    document.getElementById("addBookMenu").classList = "hidden";
+    addBookMenu.style.display = "none";
 });

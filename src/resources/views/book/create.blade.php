@@ -14,11 +14,16 @@
     <div class="flex">
         <section class="w-1/4 h-screen bg-primary">
             <div>
-                <button id="addBookOpen">＋ 本の追加</button>
-                <div id="addBookMenu" class="hidden">
-                    <a href="{{route('book.search')}}" class="block">本を検索する</a>
-                    <a href="{{route('book.manual')}}" class="block">本を手動で登録する</a>
-                    <button id="addBookClose">キャンセル</button>
+                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
+                <div id="addBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                    <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
+                        <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800">本を検索する</a>
+                        <a href="{{route('book.manual')}}" class="block py-4">本を手動で登録する</a>
+                    </div>
+
+                    <div class="modal-content-logout bg-modal-window mx-auto my-10 w-1/4 text-center text-2xl rounded-2xl">
+                        <button id="addBookClose" class="block py-4 w-full">キャンセル</button>
+                    </div>
                 </div>
                 <button>
                     <a href="{{ route('search-book.index') }}">🔎</a>
@@ -123,39 +128,46 @@
             </div>
         </section>
 
-        <section>
-            <h2>本の登録</h2>
-            <form action="{{route('book.store')}}" method="POST">
-                @csrf
-                <div>
-                    <label for="title" class="block">タイトル（必須）</label>
-                    <input name="title" type="text" value="{{$temporary_store_book->title}}" id="title" class="block">
-                </div>
-                <div>
-                    <label for="titleKana" class="block">タイトル（カナ）（必須）</label>
-                    <input name="title_kana" type="text" value="{{$temporary_store_book->title_kana}}" id="titleKana" class="block">
-                </div>
-                <div>
-                    <label for="author" class="block">著者名（必須）</label>
-                    <input name="author" type="text" value="{{$temporary_store_book->author}}" id="author" class="block">
-                </div>
-                <div>
-                    <label for="genre" class="block">ジャンル（任意）（選択式）</label>
-                    <select name="genre_id" id="genre" class="block">
-                        @foreach($genres as $genre)
-                            <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label for="state" class="block">状態（必須）（選択式：気になる or 読書中）</label>
-                    <select name="state" id="state" class="block">
-                        <option value="読書中">読書中</option>
-                        <option value="気になる">気になる</option>
-                    </select>
-                </div>
-                <input type="submit" value="保存する">
-            </form>
+        <section class="w-1/2">
+            <h2 class="px-10 pt-10 font-medium text-xl">本の追加</h2>
+            <div class="bg-primary p-3 ml-20 mt-8 rounded-xl w-full text-center text-lg">
+                本の登録
+            </div>
+            <div class="p-2 ml-20 rounded w-full h-3/4 bg-modal-window flex align-center">
+                <form action="{{route('book.store')}}" method="POST" class="w-full h-fit my-auto bg-slate-300">
+                    @csrf
+                    <div class="border-b border-neutral-50 pb-2">
+                        <label for="title" class="block pt-2 pl-2 text-white">タイトル（必須）</label>
+                        <input name="title" type="text" value="{{$temporary_store_book->title}}" id="title" class="block rounded  border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                    </div>
+                    <div class="border-b border-neutral-50 pb-2">
+                        <label for="titleKana" class="block pt-2 pl-2 text-white">タイトル（カナ）（必須）</label>
+                        <input name="title_kana" type="text" value="{{$temporary_store_book->title_kana}}" id="titleKana" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                    </div>
+                    <div class="border-b border-neutral-50 pb-2">
+                        <label for="author" class="block pt-2 pl-2 text-white">著者名（必須）</label>
+                        <input name="author" type="text" value="{{$temporary_store_book->author}}" id="author" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                    </div>
+                    <div class="border-b border-neutral-50 pb-2">
+                        <label for="genre" class="block pt-2 pl-2 text-white">ジャンル（任意）（選択式）</label>
+                        <select name="genre_id" id="genre" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                            @foreach($genres as $genre)
+                                <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="border-b border-neutral-50 pb-2">
+                        <label for="state" class="block pt-2 pl-2 text-white">状態（必須）（選択式：気になる or 読書中）</label>
+                        <select name="state" id="state" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                            <option value="読書中">読書中</option>
+                            <option value="気になる">気になる</option>
+                        </select>
+                    </div>
+                    <div class="pt-4 bg-modal-window flex flex-row-reverse">
+                        <button type="submit" class="inline-block py-2 px-4 bg-slate-300 rounded">保存する</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </div>
 </body>
