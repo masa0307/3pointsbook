@@ -28,8 +28,8 @@
                 <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <button>
-                    <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                    <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
                 <div id="settingMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
@@ -130,49 +130,51 @@
             </div>
         </section>
 
-        <section>
-            <h2>グループ作成</h2>
-            <h3>グループ名：{{ session('group_name') }}</h3>
-            <h3>追加するメンバー</h3>
-
-            <form action="{{ route('group-user.searchResult') }}" method="post">
-                @csrf
-                <input type="search" placeholder="メンバー名を入力" name="name">
-                <div>
-                    <button type="submit">検索</button>
-                    <button>
-                        <a href="{{ route('group-user.search') }}">
-                            クリア
-                        </a>
-                    </button>
+        <section class="w-1/3">
+            <h2 class="px-10 pt-10 font-medium text-xl">グループの作成</h2>
+            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                <p class="font-semibold text-lg">グループ名：{{ session('group_name') }}</p>
+                <div class="pt-10">
+                    <p class="border-b border-slate-400">追加するメンバー</p>
+                    <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4">
+                        @csrf
+                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-4/6">
+                        <button type="submit" class="mx-2 px-2 py-2 bg-slate-200 rounded">検索</button>
+                        <button class="px-2 py-2 bg-slate-200 rounded">
+                            <a href="{{ route('group-user.search') }}">
+                                クリア
+                            </a>
+                        </button>
+                    </form>
                 </div>
-            </form>
 
-            @error('user_id')
-                <p class="text-red-600">・{{ $message }}</p>
-            @enderror
 
-            @error('name')
-                <p class="text-red-600">・{{ $message }}</p>
-            @enderror
+                @error('user_id')
+                    <p class="text-red-600">・{{ $message }}</p>
+                @enderror
 
-            @if(isset($group_users))
-                <h3>現在のメンバー</h3>
-                @foreach($group_users as $group_user)
-                    @if($group_user->is_owner == true)
-                        <p>・{{ $group_user->user->name }}（グループオーナー）</p>
-                    @else
-                        <p>・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
-                    @endif
-                @endforeach
-            @elseif(session('search_user') )
-                <form action="{{ route('group-user.store') }}" method="post">
-                    @csrf
-                    <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
-                    <p>・{{ session('search_user')->name }}</p>
-                    <input type="submit" value="メンバーに追加する">
-                </form>
-            @endif
+                @error('name')
+                    <p class="text-red-600">・{{ $message }}</p>
+                @enderror
+
+                @if(isset($group_users))
+                    <p class="pt-6 border-b border-slate-400">現在のメンバー</p>
+                    @foreach($group_users as $group_user)
+                        @if($group_user->is_owner == true)
+                            <p class="pt-4">・{{ $group_user->user->name }}（グループオーナー）</p>
+                        @else
+                            <p class="pt-1">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
+                        @endif
+                    @endforeach
+                @elseif(session('search_user') )
+                    <form action="{{ route('group-user.store') }}" method="post" class="pt-2">
+                        @csrf
+                        <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
+                        <p>・{{ session('search_user')->name }}</p>
+                        <button type="submit" class="px-2 py-1 mt-4 bg-slate-200 rounded">メンバーに追加する</button>
+                    </form>
+                @endif
+            </div>
         </section>
     </div>
 </body>

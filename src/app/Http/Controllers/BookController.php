@@ -15,25 +15,27 @@ class BookController extends Controller
     {
         $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
 
-        if(!Genre::where('user_id', Auth::id())->first()){
+        if(!(Genre::where('user_id', Auth::id())->first())){
             $genre = new Genre;
             $genre->user_id = Auth::id();
             $genre->save();
         }
+
         if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
-            $is_group_user = true;
-            $group_user = GroupUser::all();
+            $is_invited_group_users = true;
+            $invited_group_users    = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
         }else{
-            $is_group_user = false;
-            $group_user=null;
+            $is_invited_group_users = false;
+            $invited_group_users    = null;
         }
 
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-            return view('book.index', compact('selectedBook', 'genre_name', 'is_group_user', 'group_user'));
         }else{
-            return view('book.index', compact('selectedBook', 'is_group_user'));
+            $genre_name = null;
         }
+
+        return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users'));
 
     }
 
@@ -91,7 +93,9 @@ class BookController extends Controller
 
     public function show(Book $book){
         $genre_name = $book->genre->genre_name;
-        return view('book.index',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
+        $is_invited_group_users = false;
+
+        return view('book.index',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users]);
     }
 
     public function destroy(Book $book){

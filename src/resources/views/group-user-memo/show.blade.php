@@ -30,8 +30,8 @@
                 <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <button>
-                    <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                    <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
                 <div id="settingMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">

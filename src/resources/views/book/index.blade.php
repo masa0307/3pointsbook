@@ -29,8 +29,8 @@
                 <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <button>
-                    <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                    <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
                 <div id="settingMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
@@ -123,8 +123,6 @@
                                     @endif
                                 @endforeach
                             @endif
-
-
                         </ul>
                     </li>
                 </ul>
@@ -161,23 +159,29 @@
         </section>
     </div>
 
-    @if(isset($is_group_user))
+    @if($is_invited_group_users)
         <div>
-            @foreach ($memo_groups as $memo_group)
-                @if($memo_group->pivot->participation_status == '招待中')
-                    <h3>招待通知</h3>
-                    <p>招待ユーザー：{{ App\Models\User::find($memo_group->pivot->where('is_owner', true)->where('group_id', $memo_group->id)->first()->user_id)->name }}</p>
-                    <p>招待グループ名：{{  $memo_group->group_name }}</p>
-                    <form action="{{ route('group-user.update') }}" method="post">
-                        @csrf
-                        @method('patch')
-                        <button type="submit" name="participation_status" value="参加中">参加</button>
-                    </form>
-                    <form action="{{ route('group-user.reject') }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" name="participation_status" value="非参加">非参加</button>
-                    </form>
+            @foreach ($invited_group_users as $count => $invited_group_user)
+                @if($count === 0)
+                    <div class="fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                        <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 h-2/5 text-center text-2xl rounded-2xl">
+                            <div class="bg-primary p-3 rounded-xl w-full text-center text-2lg text-white">招待通知</div>
+                            <p class="flex justify-start w-3/4 mx-auto pt-8 text-xl">招待ユーザー：{{ App\Models\User::find($memo_group->pivot->where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id)->name }}</p>
+                            <p class="flex justify-start w-3/4 mx-auto pt-6 text-xl">招待グループ名：{{  $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name }}</p>
+                            <div class="mt-8">
+                                <form action="{{ route('group-user.update') }}" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <button type="submit" name="participation_status" value="参加中" class="block w-full py-4 bg-slate-300 border-b-2 border-slate-200">参加</button>
+                                </form>
+                                <form action="{{ route('group-user.reject') }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" name="participation_status" value="非参加" class="block w-full py-4 bg-slate-300">非参加</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 @endif
             @endforeach
         </div>

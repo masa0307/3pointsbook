@@ -52,16 +52,17 @@ class GroupUserController extends Controller
     }
 
     public function update(Request $request){
-        $memo_groups = User::find(Auth::id())->memogroup;
-        foreach ($memo_groups as $memo_group){
-            if($memo_group->pivot->participation_status == '招待中'){
-                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
-                $group_user->participation_status = $request->participation_status;
-                $group_user->save();
+        $invited_group_users = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
+        foreach ($invited_group_users as $count => $invited_group_user){
 
-                return redirect()->route('book.index');
+            if($count === 0){
+                $invited_group_user->participation_status = $request->participation_status;
+                $invited_group_user->save();
             }
+
+            return redirect()->route('book.index');
         }
+
     }
 
     public function reject(Request $request){
@@ -146,14 +147,21 @@ class GroupUserController extends Controller
 
         $published_book = Book::find($book_id);
         $published_memos = $published_book->memo()->whereNotNull('group_id')->get();
-        $group_ids = [];
+        $belong_to_group_ids = [];
+        $published_group_ids = [];
 
         foreach($published_memos as $published_memo){
-            array_push($group_ids, $published_memo->group_id);
+            array_push($published_group_ids, $published_memo->group_id);
         }
 
-        $not_published_groups = MemoGroup::whereNotIn('id', $group_ids)->get();
-        $published_groups = MemoGroup::whereIn('id', $group_ids)->get();
+        $group_users = GroupUser::where('user_id',Auth::id())->get();
+
+        foreach($group_users as $group_user){
+            array_push($belong_to_group_ids, $group_user->group_id);
+        }
+
+        $not_published_groups = MemoGroup::whereIn('id', $belong_to_group_ids)->whereNotIn('id', $published_group_ids)->get();
+        $published_groups = MemoGroup::whereIn('id', $published_group_ids)->get();
         $genre_name = $published_book->genre->genre_name;
 
         return view('group-user-memo.publish-status', compact('published_book', 'genre_name', 'group_user', 'book_id', 'published_groups','not_published_groups'));

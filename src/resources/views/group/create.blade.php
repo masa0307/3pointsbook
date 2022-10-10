@@ -28,8 +28,8 @@
                 <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <button>
-                    <a href="{{ route('group.create') }}">👨‍👨‍👧‍👦</a>
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                    <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
                 <div id="settingMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
@@ -128,14 +128,22 @@
             </div>
         </section>
 
-        <section>
-            <h2>グループ作成</h2>
-            <form action="{{ route('group.store') }}" method="post">
-                @csrf
-                <label for="group_name">グループ名</label>
-                <input type="text" placeholder="グループ名" name="group_name">
-                <input type="submit" value="保存する">
-            </form>
+        <section class="w-1/3">
+            <h2 class="px-10 pt-10 font-medium text-xl">グループの作成</h2>
+            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                <form action="{{ route('group.store') }}" method="post">
+                    @csrf
+                    <div>
+                        <label for="group_name">グループ名</label>
+                    </div>
+                    <div class="pt-8">
+                        <input type="text" placeholder="作成するグループ名" name="group_name" class="border-none rounded w-full">
+                    </div>
+                    <div class="pt-8">
+                        <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">保存する</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </div>
 </body>
