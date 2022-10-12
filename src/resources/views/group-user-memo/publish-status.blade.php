@@ -130,44 +130,53 @@
             </div>
         </section>
 
-        <section>
-            <h2>メモの公開</h2>
+        <section class="w-5/12">
+            <h2 class="px-10 pt-10 font-medium text-xl">メモの公開</h2>
 
-            @if($memo_groups)
-                @if(!($not_published_groups->isEmpty()))
-                    <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST">
-                        @csrf
-                        <select name="group_id">
-                            @foreach($not_published_groups as $not_published_group)
-                                <option value="{{ $not_published_group->id }}">{{ $not_published_group->group_name }}</option>
-                            @endforeach
-                        </select>
-                        <input type="submit" value="公開">
-                    </form>
-                @else
-                    <p>※全てのグループに公開済みです</p>
+            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
+                @if($memo_groups)
+                    @if(!($not_published_groups->isEmpty()))
+                        <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST">
+                            @csrf
+                            <label for="group_name" class="font-semibold">公開するグループ名：&emsp;&ensp;&nbsp;&thinsp;&thinsp;</label>
+                            <select name="group_id" id="group_name" class="rounded">
+                                @foreach($not_published_groups as $not_published_group)
+                                    <option value="{{ $not_published_group->id }}">{{ $not_published_group->group_name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="bg-slate-200 py-1 rounded-xl px-4 ml-4">公開</button>
+                        </form>
+                    @else
+                        <p class="pt-2 text-red-500 ml-2">※全てのグループに公開済みです</p>
+                    @endif
+
+                    @if(!($published_groups->isEmpty()))
+                        <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST" class="mt-2">
+                            @csrf
+                            <label for="group_name" class="font-semibold">非公開にするグループ名：</label>
+                            <select name="non_group_id" id="group_name" class="rounded">
+                                @foreach($published_groups as $published_group)
+                                    <option value="{{ $published_group->id }}">{{ $published_group->group_name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="bg-slate-200 py-1 rounded-xl px-4 ml-4">非公開</button>
+                        </form>
+                    @else
+                        <p class="pt-2 text-red-500 ml-2">※非公開にするグループはありません</p>
+                    @endif
+
                 @endif
 
-                @if(!($published_groups->isEmpty()))
-                    <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST">
-                        @csrf
-                        <select name="non_group_id">
-                            @foreach($published_groups as $published_group)
-                                <option value="{{ $published_group->id }}">{{ $published_group->group_name }}</option>
-                            @endforeach
-                        </select>
-                        <input type="submit" value="非公開">
-                    </form>
-                @else
-                    <p>※非公開にするグループはありません</p>
-                @endif
-            @endif
-
-            <div>
-                <img src="{{$published_book->image_path}}">
-                <p id="title">{{$published_book->title}}</p>
-                <p>{{$published_book->author}}</p>
-                <p>{{$genre_name}}</p>
+                <div class="flex w-full my-8">
+                    <div class="w-1/3">
+                        <img src="{{$published_book->image_path}}" class="w-full">
+                    </div>
+                    <div class="m-auto px-4 text-xl w-1/2">
+                        <p id="title">{{$published_book->title}}</p>
+                        <p class="pt-6">{{$published_book->author}}</p>
+                        <p class="pt-6">{{$genre_name}}</p>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
