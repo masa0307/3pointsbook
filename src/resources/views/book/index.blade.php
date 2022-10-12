@@ -130,31 +130,86 @@
             </div>
         </section>
 
-        <section>
+        <section class="w-5/12">
             @if(isset($selectedBook))
                 @if($selectedBook->state == '読書中')
-                    <h2>読書中</h2>
-                @elseif($selectedBook->state == '気になる')
-                    <button>
-                        <a href="{{ route('book.update', $selectedBook->id) }}">⬆️</a>
-                    </button>
-                    <h2>気になる</h2>
-                @endif
+                    <h2 class="px-10 pt-10 font-medium text-xl">読書中</h2>
+                    <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
+                        <div class="flex justify-between">
+                            <button class="bg-slate-200 p-1 rounded-xl px-4">
+                                <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}" class="text-xl">メモの公開・非公開</a>
+                            </button>
+                            <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                            </form>
+                        </div>
+                        <div class="flex w-full my-8">
+                            <div class="w-1/3">
+                                <img src="{{$selectedBook->image_path}}" class="w-full">
+                            </div>
+                            <div class="m-auto px-4 text-xl w-1/2">
+                                <p id="title">{{$selectedBook->title}}</p>
+                                <p class="pt-6">{{$selectedBook->author}}</p>
+                                <p class="pt-6">{{$genre_name}}</p>
 
-                <div>
-                    <button>
-                        <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}">メモの公開状況</a>
-                    </button>
-                    <img src="{{$selectedBook->image_path}}">
-                    <p id="title">{{$selectedBook->title}}</p>
-                    <p>{{$selectedBook->author}}</p>
-                    <p>{{$genre_name}}</p>
-                    <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                        @csrf
-                        @method('delete')
-                        <input type="submit" value="削除">
-                    </form>
-                </div>
+                                @if(!($selectedBook->memo->isEmpty()))
+                                    <div class="text-xl bg-slate-50 py-2 px-4 rounded-xl mt-4">
+                                        <p class="pt-2">公開中のグループ：</p>
+                                        @foreach($selectedBook->memo as $memo)
+                                            @if($memo_groups->find($memo->group_id))
+                                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
+                                            @else
+                                                <p class="pt-2 pl-6">※グループなし</p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @elseif($selectedBook->state == '気になる')
+                    <h2 class="px-10 pt-10 font-medium text-xl">気になる</h2>
+                    <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
+                        <div class="flex justify-between">
+                            <div class="hover:after:content-['「気になる」から「読書中」に移動する'] hover:after:relative hover:after:-top-10 hover:after:-left-10 hover:after:bg-gray-700 hover:after:text-stone-50 hover:after:rounded hover:after:p-2">
+                                <button class="bg-slate-200 p-1 rounded-xl px-4">
+                                    <a href="{{ route('book.update', $selectedBook->id) }}"><iconify-icon inline icon="cil:data-transfer-up" width="24" height="24"></iconify-icon></a>
+                                </button>
+                            </div>
+
+                            <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                            </form>
+                        </div>
+                        <div class="flex w-full my-8">
+                            <div class="w-1/3">
+                                <img src="{{$selectedBook->image_path}}" class="w-full">
+                            </div>
+                            <div class="m-auto px-4 text-xl w-1/2">
+                                <p id="title">{{$selectedBook->title}}</p>
+                                <p class="pt-6">{{$selectedBook->author}}</p>
+                                <p class="pt-6">{{$genre_name}}</p>
+
+                                @if(!($selectedBook->memo->isEmpty()))
+                                    <div class="text-xl bg-slate-50 py-2 px-4 rounded-xl mt-4">
+                                        <p class="pt-2">公開中のグループ：</p>
+                                        @foreach($selectedBook->memo as $memo)
+                                            @if($memo_groups->find($memo->group_id))
+                                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
+                                            @else
+                                                <p class="pt-2 pl-6">※グループなし</p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @endif
         </section>
     </div>

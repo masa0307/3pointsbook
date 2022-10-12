@@ -130,14 +130,24 @@
             </div>
         </section>
 
-        <section>
+        <section class="w-5/12">
             @if(isset($selectedBook))
-                <div>
-                    <p id="groupName">{{ $group_name }}</p>
-                    <img src="{{$selectedBook->image_path}}">
-                    <p id="title">{{$selectedBook->title}}</p>
-                    <p>{{$selectedBook->author}}</p>
-                    <p>{{$genre_name}}</p>
+                <h2 id="groupName" class="px-10 pt-10 font-medium text-xl">{{ $group_name }}</h2>
+
+                <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
+                    <div class="text-xl bg-slate-50 py-2 px-4 rounded-xl mt-4 w-9/12">
+                        公開ユーザー名：{{ $users->find($selectedBook->memo->first()->user_id)->name }}
+                    </div>
+                    <div class="flex w-full my-8">
+                        <div class="w-1/3">
+                            <img src="{{$selectedBook->image_path}}" class="w-full">
+                        </div>
+                        <div class="m-auto px-4 text-xl w-1/2">
+                            <p id="title">{{$selectedBook->title}}</p>
+                            <p class="pt-6">{{$selectedBook->author}}</p>
+                            <p class="pt-6">{{$genre_name}}</p>
+                        </div>
+                    </div>
                 </div>
             @endif
         </section>
