@@ -11,8 +11,10 @@ markers.forEach((marker) => {
                 title.textContent
             ) &&
             marker.textContent == bookMemo.textContent &&
-            dropdown.parentNode.firstElementChild.firstElementChild
-                .textContent == groupName.textContent
+            groupName.textContent.match(
+                dropdown.parentNode.firstElementChild.firstElementChild
+                    .textContent
+            )
         ) {
             dropdown.style.display = "block";
             marker.style.backgroundColor = "#DFDFDF";

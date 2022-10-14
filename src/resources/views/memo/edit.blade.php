@@ -130,149 +130,168 @@
         </section>
 
         <section>
-            <h2>{{ $select_book->title }}</h2>
+            <h2 class="px-10 pt-10 font-medium text-xl">{{ $select_book->title }}</h2>
             @if(strpos(url()->full(),'before')!== false)
-                <h2 id="book-memo">読書メモ</h2>
-                @if($is_store_memo)
-                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form">
-                        @method('PATCH')
-                        @csrf
-                        <div>
-                            <label for="before_reading_content" class="block">読書前</label>
-                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5">{{$store_memo->before_reading_content}}</textarea>
-                        </div>
-                        <input type="submit" value="上書きする">
-                    </form>
-                @else
-                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form">
-                        @csrf
-                        <div>
-                            <label for="before_reading_content" class="block">読書前</label>
-                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載"></textarea>
-                        </div>
-                        <input type="submit" value="保存する">
-                    </form>
-                @endif
+                <div class="pl-12">
+                    <h2 id="book-memo" class="pt-4 font-medium text-xl">読書メモ</h2>
+                    @if($is_store_memo)
+                        <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                            @method('PATCH')
+                            @csrf
+                            <div class="flex justify-between py-2">
+                                <label for="before_reading_content" class="block">読書前</label>
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" class="rounded">{{$store_memo->before_reading_content}}</textarea>
+                        </form>
+                    @else
+                        <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                            @csrf
+                            <div class="flex justify-between py-2">
+                                <label for="before_reading_content" class="block">読書前</label>
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded"></textarea>
+                        </form>
+                    @endif
+                </div>
             @elseif(strpos(url()->full(),'during')!== false)
-                <h2 id="book-memo">読書メモ</h2>
-                @if($store_memo->reading_content)
-                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form">
-                        @method('PATCH')
-                        @csrf
-                        <div>
-                            <label for="reading_content" class="block">読書中</label>
-                            <textarea name="reading_content" id="reading_content" cols="80" rows="5">{{$store_memo->reading_content}}</textarea>
-                        </div>
-                        <input type="submit" value="上書きする">
-                    </form>
-                @else
-                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form">
-                        @csrf
-                        <div>
-                            <label for="reading_content" class="block">読書中</label>
-                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載"></textarea>
-                        </div>
-                        <input type="submit" value="保存する">
-                    </form>
-                @endif
+                <div class="pl-12">
+                    <h2 id="book-memo" class="pt-4 font-medium text-xl">読書メモ</h2>
+                    @if($store_memo->reading_content)
+                        <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                            @method('PATCH')
+                            @csrf
+                            <div class="flex justify-between py-2">
+                                <label for="reading_content" class="block">読書中</label>
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" class="rounded">{{$store_memo->reading_content}}</textarea>
+
+                        </form>
+                    @else
+                        <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                            @csrf
+                            <div class="flex justify-between py-2">
+                                <label for="reading_content" class="block">読書中</label>
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded"></textarea>
+                        </form>
+                    @endif
+                </div>
             @elseif(strpos(url()->full(),'after')!== false)
-                <h2 id="book-memo">読書メモ</h2>
-                @if($store_memo->after_reading_content)
-                    <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form">
-                        @method('PATCH')
-                        @csrf
-                        <div>
-                            <label for="after_reading_content" class="block">読書後</label>
-                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5">{{$store_memo->after_reading_content}}</textarea>
-                        </div>
-                        <input type="submit" value="上書きする">
-                    </form>
-                @else
-                    <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form">
-                        @csrf
-                        <div>
-                            <label for="after_reading_content" class="block">読書後</label>
-                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載"></textarea>
-                        </div>
-                        <input type="submit" value="保存する">
-                    </form>
-                @endif
+                <div class="pl-12">
+                    <h2 id="book-memo" class="pt-4 font-medium text-xl">読書メモ</h2>
+                    @if($store_memo->after_reading_content)
+                        <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                            @method('PATCH')
+                            @csrf
+                            <div class="flex justify-between py-2">
+                                <label for="after_reading_content" class="block">読書後</label>
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" class="rounded">{{$store_memo->after_reading_content}}</textarea>
+                        </form>
+                    @else
+                        <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                            @csrf
+                            <div class="flex justify-between py-2">
+                                <label for="after_reading_content" class="block">読書後</label>
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded">{{$store_memo->after_reading_content}}</textarea>
+                        </form>
+                    @endif
+                </div>
             @elseif(strpos(url()->full(),'action-list')!== false)
-                <h2 id="book-memo">アクションリスト</h2>
-                @if($store_memo->actionlist1_content)
-                    <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST" name="form">
-                        @method('PATCH')
-                        @csrf
-                        <div>
-                            <label for="actionlist1_content" class="block">アクションリスト１</label>
-                            <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5">{{$store_memo->actionlist1_content}}</textarea>
-                        </div>
-                        <div>
-                            <label for="actionlist2_content" class="block">アクションリスト２</label>
-                            <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5">{{$store_memo->actionlist2_content}}</textarea>
-                        </div>
-                        <div>
-                            <label for="actionlist3_content" class="block">アクションリスト３</label>
-                            <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5">{{$store_memo->actionlist3_content}}</textarea>
-                        </div>
-                        <input type="submit" value="上書きする">
-                    </form>
-                @else
-                    <form action="{{route('action-list.store', ['book_id'=>$id])}}" method="POST" name="form">
-                        @csrf
-                        <div>
-                            <label for="actionlist1_content" class="block">アクションリスト１</label>
-                            <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" placeholder="※行動に移すことを記載"></textarea>
-                        </div>
-                        <div>
-                            <label for="actionlist2_content" class="block">アクションリスト２</label>
-                            <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載"></textarea>
-                        </div>
-                        <div>
-                            <label for="actionlist3_content" class="block">アクションリスト３</label>
-                            <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載"></textarea>
-                        </div>
-                        <input type="submit" value="保存する">
-                    </form>
-                @endif
+                <div class="pl-12">
+                    <h2 id="book-memo" class="pt-4 font-medium text-xl">アクションリスト</h2>
+                    @if($store_memo->actionlist1_content)
+                        <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST" name="form">
+                            @method('PATCH')
+                            @csrf
+                            <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                                <label for="actionlist1_content" class="block py-4">アクションリスト１</label>
+                                <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" class="rounded">{{$store_memo->actionlist1_content}}</textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="actionlist2_content" class="block py-4">アクションリスト２</label>
+                                <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded">{{$store_memo->actionlist2_content}}</textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="actionlist3_content" class="block py-4">アクションリスト３</label>
+                                <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded">{{$store_memo->actionlist3_content}}</textarea>
+                            </div>
+                            <div class="flex justify-end mt-2">
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                        </form>
+                    @else
+                        <form action="{{route('action-list.store', ['book_id'=>$id])}}" method="POST" name="form">
+                            @csrf
+                            <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                                <label for="actionlist1_content" class="block py-4">アクションリスト１</label>
+                                <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded"></textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="actionlist2_content" class="block py-4">アクションリスト２</label>
+                                <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded"></textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="actionlist3_content" class="block py-4">アクションリスト３</label>
+                                <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded"></textarea>
+                            </div>
+                            <div class="flex justify-end mt-2">
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                        </form>
+                    @endif
+                </div>
             @elseif(strpos(url()->full(),'feedback-list')!== false)
-                <h2 id="book-memo">振り返り</h2>
-                @if($store_memo->feedback1_content)
-                    <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST" name="form">
-                        @method('PATCH')
-                        @csrf
-                        <div>
-                            <label for="feedback1_content" class="block">振り返り１</label>
-                            <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5">{{$store_memo->feedback1_content}}</textarea>
-                        </div>
-                        <div>
-                            <label for="feedback2_content" class="block">振り返り２</label>
-                            <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5">{{$store_memo->feedback2_content}}</textarea>
-                        </div>
-                        <div>
-                            <label for="feedback3_content" class="block">振り返り３</label>
-                            <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5">{{$store_memo->feedback3_content}}</textarea>
-                        </div>
-                        <input type="submit" value="上書きする">
-                    </form>
-                @else
-                    <form action="{{route('feedback-list.store', ['book_id'=>$id])}}" method="POST" name="form">
-                        @csrf
-                        <div>
-                            <label for="feedback1_content" class="block">振り返り１</label>
-                            <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載"></textarea>
-                        </div>
-                        <div>
-                            <label for="feedback2_content" class="block">振り返り２</label>
-                            <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載"></textarea>
-                        </div>
-                        <div>
-                            <label for="feedback3_content" class="block">振り返り３</label>
-                            <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載"></textarea>
-                        </div>
-                        <input type="submit" value="保存する">
-                    </form>
-                @endif
+                <div class="pl-12">
+                    <h2 id="book-memo" class="pt-4 font-medium text-xl">振り返り</h2>
+                    @if($store_memo->feedback1_content)
+                        <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST" name="form">
+                            @method('PATCH')
+                            @csrf
+                            <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                                <label for="feedback1_content" class="block py-4">Q.アクションリスト１を実施した結果は？</label>
+                                <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" class="rounded">{{$store_memo->feedback1_content}}</textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="feedback2_content" class="block py-4">Q.アクションリスト２を実施した結果は？</label>
+                                <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded">{{$store_memo->feedback2_content}}</textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="feedback3_content" class="block py-4">Q.アクションリスト３を実施した結果は？</label>
+                                <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded">{{$store_memo->feedback3_content}}</textarea>
+                            </div>
+                            <div class="flex justify-end mt-2">
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                        </form>
+                    @else
+                        <form action="{{route('feedback-list.store', ['book_id'=>$id])}}" method="POST" name="form">
+                            @csrf
+                            <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                                <label for="feedback1_content" class="block py-4">Q.アクションリスト１を実施した結果は？</label>
+                                <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded"></textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="feedback2_content" class="block py-4">Q.アクションリスト２を実施した結果は？</label>
+                                <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded"></textarea>
+                            </div>
+                            <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <label for="feedback3_content" class="block py-4">Q.アクションリスト３を実施した結果は？</label>
+                                <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded"></textarea>
+                            </div>
+                            <div class="flex justify-end mt-2">
+                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                            </div>
+                        </form>
+                    @endif
+                </div>
             @endif
         </section>
     </div>

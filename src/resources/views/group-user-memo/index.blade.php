@@ -60,7 +60,7 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='読書中')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}</a>
                                         <ul class="pl-6 hidden dropdown">
                                             <li><a href="{{ route('book-memo.show', $book->id) }}" class="marker block">読書メモ</a></li>
                                             <li><a href="{{ route('action-list.show', $book->id) }}" class="marker block">アクションリスト</a></li>
@@ -80,7 +80,7 @@
                             @foreach ($books as $book)
                                 @if ($book->state==='気になる')
                                     <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="marker block">{{$book->title}}</a>
+                                        <a href="{{route('book.show', $book->id)}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}</a>
                                     </li>
                                 @endif
                             @endforeach
@@ -97,7 +97,7 @@
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
                                             <div class="flex">
-                                                <p>{{$memo_group->group_name}}</p>
+                                                <p><iconify-icon inline icon="fa:group" width="16" height="16" class="mr-2"></iconify-icon>{{$memo_group->group_name}}</p>
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
                                                         <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
@@ -110,7 +110,7 @@
                                                 @foreach($group_user->book as $book)
                                                     @foreach($book->memo as $memo)
                                                         @if($memo->group_id == $memo_group->id)
-                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4">{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
+                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
                                                             <ul class="pl-8 hidden groupDropdown">
                                                                 <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">読書メモ</a></li>
                                                                 <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="marker block">アクションリスト</a></li>
@@ -132,7 +132,7 @@
 
         <section class="w-5/12">
             @if(isset($selectedBook))
-                <h2 id="groupName" class="px-10 pt-10 font-medium text-xl">{{ $group_name }}</h2>
+                <h2 id="groupName" class="px-10 pt-10 font-medium text-xl">公開グループ名：{{ $group_name }}</h2>
 
                 <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
                     <div class="text-xl bg-slate-50 py-2 px-4 rounded-xl mt-4 w-9/12">
