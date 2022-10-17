@@ -29,15 +29,18 @@ class GroupUserController extends Controller
             session()->forget('search_user');
         }
 
+        $group_users = GroupUser::where('group_id', session('group')->id)->get();
         $group_user = $request->name;
+        $group_name = MemoGroup::where('id', session('group')->id)->first()->group_name;
 
         if ($group_user) {
             $space_conversioned_group_user = mb_convert_kana($group_user, 's');
             $search_user = User::where('name', $space_conversioned_group_user)->first();
             session()->put(['search_user' => $search_user]);
+            session()->put(['group_name' => $group_name]);
         }
 
-        return view('group-user.search');
+        return view('group-user.search', compact('group_users'));
     }
 
     public function store(GroupUserRequest $request){
@@ -78,18 +81,22 @@ class GroupUserController extends Controller
     }
 
     public function add($id){
-        session()->put(['group' =>MemoGroup::find($id) ]);
         $group_users = GroupUser::where('group_id', $id)->get();
         $group_name = MemoGroup::find($id)->group_name;
 
-        return view('group-user.add', compact('group_users', 'group_name'));
+        session()->put(['group' =>MemoGroup::find($id) ]);
+        session()->put(['group_name' => $group_name]);
+
+        return view('group-user.add', compact('group_users'));
     }
 
     public function edit($id){
         $group_users = GroupUser::where('group_id', $id)->get();
         $group_name = MemoGroup::find($id)->group_name;
 
-        return view('group-user.edit', compact('group_users', 'group_name'));
+        session()->put(['group_name' => $group_name]);
+
+        return view('group-user.edit', compact('group_users'));
     }
 
     public function destroy($group_id, $user_id){

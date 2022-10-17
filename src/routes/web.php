@@ -98,6 +98,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'group-user', 'as' => 'group-user.'], function () {
         Route::get('/search', [GroupUserController::class, 'search'])->name('search');
+        Route::get('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
         Route::post('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
         Route::post('/store', [GroupUserController::class, 'store'])->name('store');
         Route::patch('/update', [GroupUserController::class, 'update'])->name('update');

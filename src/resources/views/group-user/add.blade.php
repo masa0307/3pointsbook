@@ -134,7 +134,7 @@
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">メンバーの追加</h2>
             <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <p class="font-semibold text-lg">グループ名：{{ $group_name }}</p>
+                <p class="font-semibold text-lg">グループ名：{{ session('group_name') }}</p>
                 <div class="pt-10">
                     <p class="border-b border-slate-400">追加するメンバー</p>
 
@@ -156,25 +156,17 @@
                     @error('name')
                         <p class="text-red-600">・{{ $message }}</p>
                     @enderror
+
                 </div>
 
-                @if(isset($group_users))
-                    <p class="pt-6 border-b border-slate-400">現在のメンバー</p>
-                    @foreach($group_users as $group_user)
-                        @if($group_user->is_owner == true)
-                            <p class="pt-4">・{{ $group_user->user->name }}（グループオーナー）</p>
-                        @else
-                            <p class="pt-1">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
-                        @endif
-                    @endforeach
-                @elseif(session('search_user') )
-                    <form action="{{ route('group-user.store') }}" method="post" class="pt-2">
-                        @csrf
-                        <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
-                        <p>・{{ session('search_user')->name }}</p>
-                        <button type="submit" class="px-2 py-1 mt-4 bg-slate-200 rounded">グループに招待する</button>
-                    </form>
-                @endif
+                <p class="pt-6 border-b border-slate-400">現在のメンバー</p>
+                @foreach($group_users as $group_user)
+                    @if($group_user->is_owner == true)
+                        <p class="pt-4">・{{ $group_user->user->name }}（グループオーナー）</p>
+                    @else
+                        <p class="pt-1">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
+                    @endif
+                @endforeach
             </div>
         </section>
     </div>

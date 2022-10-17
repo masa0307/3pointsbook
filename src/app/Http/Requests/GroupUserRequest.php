@@ -40,5 +40,4 @@ class GroupUserRequest extends FormRequest
         ];
     }
 
-    protected $redirect = '/group-user/search';
 }

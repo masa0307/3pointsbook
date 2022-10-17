@@ -134,7 +134,7 @@
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">メンバーの削除</h2>
             <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <p class="font-semibold text-lg">グループ名：{{ $group_name }}</p>
+                <p class="font-semibold text-lg">グループ名：{{ session('group_name') }}</p>
                 <div class="pt-10">
                     @if(isset($group_users))
                         <p class="border-b border-slate-400">メンバー</p>
