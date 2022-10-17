@@ -96,12 +96,13 @@
                                 @foreach ($memo_groups as $memo_group)
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
-                                            <div class="flex">
+                                            <div class="flex justify-between">
                                                 <a href="#" class="marker block"><iconify-icon inline icon="fa:group" width="16" height="16" class="mr-2"></iconify-icon>{{$memo_group->group_name}}</a>
+
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
-                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
-                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block">📝</a>
+                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-2"></iconify-icon>
+                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-10"></iconify-icon></a>
                                                     </div>
                                                 @endif
                                             </div>

@@ -94,12 +94,13 @@
                                 @foreach ($memo_groups as $memo_group)
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
-                                            <div class="flex">
+                                            <div class="flex justify-between">
                                                 <a href="#" class="marker block"><iconify-icon inline icon="fa:group" width="16" height="16" class="mr-2"></iconify-icon>{{$memo_group->group_name}}</a>
+
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
-                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block">👬</a>
-                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block">📝</a>
+                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-2"></iconify-icon>
+                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-10"></iconify-icon></a>
                                                     </div>
                                                 @endif
                                             </div>
@@ -130,23 +131,28 @@
             </div>
         </section>
 
-        <section>
-            <h2>メンバー編集</h2>
-            <h3>グループ名：{{ $group_name }}</h3>
-
-            @if(isset($group_users))
-                <h3>メンバー</h3>
-                @foreach($group_users as $group_user)
-                    @if($group_user->participation_status == '参加中')
-                        <p>・{{ $group_user->user->name }}</p>
-                        <form action="{{ route('group-user.destroy', ['group_id'=>$group_user->group_id, 'user_id'=>$group_user->user_id]) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit">削除</button>
-                        </form>
+        <section class="w-1/3">
+            <h2 class="px-10 pt-10 font-medium text-xl">メンバーの削除</h2>
+            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                <p class="font-semibold text-lg">グループ名：{{ $group_name }}</p>
+                <div class="pt-10">
+                    @if(isset($group_users))
+                        <p class="border-b border-slate-400">メンバー</p>
+                        @foreach($group_users as $group_user)
+                            @if($group_user->participation_status == '参加中')
+                                <div class="flex justify-between mt-2">
+                                    <p class="py-2">・{{ $group_user->user->name }}</p>
+                                    <form action="{{ route('group-user.destroy', ['group_id'=>$group_user->group_id, 'user_id'=>$group_user->user_id]) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="px-2 py-2 bg-slate-200 rounded">削除</button>
+                                    </form>
+                                </div>
+                            @endif
+                        @endforeach
                     @endif
-                @endforeach
-            @endif
+                </div>
+            </div>
         </section>
     </div>
 </body>
