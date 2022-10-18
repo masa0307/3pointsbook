@@ -52,23 +52,23 @@
                 </div>
             </div>
 
-            <div>
+            <div class="mr-4">
                 <ul>
                     <li>
                         <p class="pl-6">読書中</p>
                         <ul class="pl-10">
-                            @foreach ($books as $book)
-                                @if ($book->state==='読書中')
-                                    <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}</a>
-                                        <ul class="pl-6 hidden dropdown">
-                                            <li><a href="{{ route('book-memo.show', $book->id) }}" class="marker block">読書メモ</a></li>
-                                            <li><a href="{{ route('action-list.show', $book->id) }}" class="marker block">アクションリスト</a></li>
-                                            <li><a href="{{ route('feedback-list.show', $book->id) }}" class="marker block">振り返り</a></li>
-                                        </ul>
-                                    </li>
-                                @endif
+                            @foreach ($books_reading as $book_reading)
+                                <li class="mt-2">
+                                    <a href="{{route('book.show', [$book_reading->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_reading->title}}</a>
+                                    <ul class="pl-6 hidden dropdown">
+                                        <li><a href="{{route('book-memo.show', $book_reading->id)}}" class="marker block">読書メモ</a></li>
+                                        <li><a href="{{route('action-list.show', $book_reading->id)}}" class="marker block">アクションリスト</a></li>
+                                        <li><a href="{{route('feedback-list.show', $book_reading->id)}}" class="marker block">振り返り</a></li>
+                                    </ul>
+                                </li>
                             @endforeach
+
+                            {{ $books_reading->links('vendor.pagination.custom') }}
                         </ul>
                     </li>
                 </ul>
@@ -77,13 +77,13 @@
                     <li>
                         <p class="pl-6">気になる</p>
                         <ul class="pl-10">
-                            @foreach ($books as $book)
-                                @if ($book->state==='気になる')
-                                    <li class="mt-2">
-                                        <a href="{{route('book.show', $book->id)}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}</a>
-                                    </li>
-                                @endif
+                            @foreach ($books_interesting as $book_interesting)
+                                <li class="mt-2">
+                                    <a href="{{route('book.show', [$book_interesting->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_interesting->title}}</a>
+                                </li>
                             @endforeach
+
+                            {{ $books_interesting->links('vendor.pagination.custom') }}
                         </ul>
                     </li>
                 </ul>
@@ -97,12 +97,12 @@
                                     @if($memo_group->pivot->participation_status == '参加中')
                                         <li class="mt-2">
                                             <div class="flex justify-between">
-                                                <a href="#" class="marker block"><iconify-icon inline icon="fa:group" width="16" height="16" class="mr-2"></iconify-icon>{{$memo_group->group_name}}</a>
+                                                <p class="marker block"><iconify-icon inline icon="fa:group" width="16" height="16" class="mr-2"></iconify-icon>{{$memo_group->group_name}}</p>
 
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
-                                                        <a href="{{ route('group-user.add', $memo_group->id) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-2"></iconify-icon>
-                                                        <a href="{{ route('group-user.edit', $memo_group->id) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-10"></iconify-icon></a>
+                                                        <a href="{{ route('group-user.add', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-2"></iconify-icon>
+                                                        <a href="{{ route('group-user.edit', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-10"></iconify-icon></a>
                                                     </div>
                                                 @endif
                                             </div>
@@ -111,11 +111,11 @@
                                                 @foreach($group_user->book as $book)
                                                     @foreach($book->memo as $memo)
                                                         @if($memo->group_id == $memo_group->id)
-                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="block groupMarker pl-4"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
+                                                            <a href="{{route('group-user-memo.index', ['book_id'=>$book->id, 'group_id'=>$memo->group_id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="block groupMarker ml-4"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book->title}}（公開ユーザー名：{{ $memo->user->name }}）</a>
                                                             <ul class="pl-8 hidden groupDropdown">
-                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">読書メモ</a></li>
-                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">アクションリスト</a></li>
-                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id])}}" class="groupMarker block">振り返り</a></li>
+                                                                <li><a href="{{route('group-user-book-memo.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="groupMarker block">読書メモ</a></li>
+                                                                <li><a href="{{route('group-user-action-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="groupMarker block">アクションリスト</a></li>
+                                                                <li><a href="{{route('group-user-feedback-list.show', ['book_id'=>$book->id, 'group_id'=>$memo->group_id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="groupMarker block">振り返り</a></li>
                                                             </ul>
                                                         @endif
                                                     @endforeach
@@ -124,6 +124,8 @@
                                         </li>
                                     @endif
                                 @endforeach
+
+                                {{ $memo_groups->links('vendor.pagination.custom') }}
                             @endif
                         </ul>
                     </li>
@@ -131,7 +133,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="w-1/2">
             <h2 id="title" class="px-10 pt-10 font-medium text-xl">{{ $select_book->title }}</h2>
             <p id="groupName" class="px-10 pt-2">（公開グループ名：{{ $group_name }}）</p>
 
@@ -141,17 +143,17 @@
 
                     <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                         <h3 class="py-4">読書前</h3>
-                        <textarea cols="80" rows="5" readonly class="rounded">{{$store_memo->before_reading_content}}</textarea>
+                        <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
                     </section>
 
                     <section class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
                         <h3 class="py-4">読書中</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->reading_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->reading_content}}</textarea>
                     </section>
 
                     <section class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
                         <h3 class="py-4">読書後</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->after_reading_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
                     </section>
                 </div>
 
@@ -161,17 +163,17 @@
 
                     <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                         <h3 class="py-4">アクションリスト１</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->actionlist1_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist1_content}}</textarea>
                     </section>
 
                     <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
                         <h3 class="py-4">アクションリスト２</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->actionlist2_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist2_content}}</textarea>
                     </section>
 
                     <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
                         <h3 class="py-4">アクションリスト３</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->actionlist3_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist3_content}}</textarea>
                     </section>
                 </div>
             @elseif(strpos(url()->full(),'feedback-list')!== false)
@@ -180,17 +182,17 @@
 
                     <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                         <h3 class="py-4">Q.アクションリスト１を実施した結果は？</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->feedback1_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback1_content}}</textarea>
                     </section>
 
                     <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
                         <h3 class="py-4">Q.アクションリスト２を実施した結果は？</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->feedback2_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback2_content}}</textarea>
                     </section>
 
                     <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
                         <h3 class="py-4">Q.アクションリスト３を実施した結果は？</h3>
-                        <textarea  cols="80" rows="5" readonly class="rounded">{{$store_memo->feedback3_content}}</textarea>
+                        <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback3_content}}</textarea>
                     </section>
                 </div>
             @endif

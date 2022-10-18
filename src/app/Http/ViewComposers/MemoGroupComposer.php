@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -21,7 +22,7 @@ class MemoGroupComposer
     public function compose(View $view)
     {
         $view->with([
-            'memo_groups' =>User::find(Auth::id())->memogroup
+            'memo_groups' =>User::find(Auth::id())->memogroup()->paginate(2, ['*'], 'groupPage')->appends(['bookReadingPage' => \Request::get('bookReadingPage'), 'bookInterestingPage' => \Request::get('bookInterestingPage')])
         ]);
     }
 }
