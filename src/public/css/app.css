@@ -893,14 +893,14 @@ select {
 .w-4\/6 {
   width: 66.666667%;
 }
-.w-3\/4 {
-  width: 75%;
-}
 .w-5\/6 {
   width: 83.333333%;
 }
 .w-1\/12 {
   width: 8.333333%;
+}
+.w-3\/4 {
+  width: 75%;
 }
 .w-48 {
   width: 12rem;
@@ -1103,6 +1103,13 @@ select {
 .bg-slate-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+.bg-modal-rgba {
+  background-color: rgba(0,0,0,0.5);
+}
+.bg-modal-window {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 249 249 / var(--tw-bg-opacity));
 }
 .bg-slate-200 {
   --tw-bg-opacity: 1;

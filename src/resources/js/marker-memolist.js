@@ -10,7 +10,18 @@ markers.forEach((marker) => {
 
 dropdowns.forEach((dropdown) => {
     let checkCurrentUrl = location.href.match(/edit/);
+    let anchorLinkBeginIndex =
+        dropdown.previousElementSibling.href.indexOf("show/") + 5;
+    let anchorLinkEndIndex = dropdown.previousElementSibling.href.indexOf("?");
     let anchorLinkBookId = dropdown.previousElementSibling.href.slice(-3);
+
+    if (dropdown.previousElementSibling.href.match(/\?/)) {
+        anchorLinkBookId = dropdown.previousElementSibling.href.substring(
+            anchorLinkBeginIndex,
+            anchorLinkEndIndex
+        );
+    }
+
     if (checkCurrentUrl) {
         let submitLinkBookId = document.form.action.slice(-3);
         if (anchorLinkBookId == submitLinkBookId) {
