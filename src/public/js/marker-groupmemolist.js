@@ -10,7 +10,7 @@ var title = document.getElementById("title");
 var groupName = document.getElementById("groupName");
 markers.forEach(function (marker) {
   dropdowns.forEach(function (dropdown) {
-    if (dropdown.previousElementSibling.textContent.match(title.textContent) && marker.textContent == bookMemo.textContent && dropdown.parentNode.firstElementChild.firstElementChild.textContent == groupName.textContent) {
+    if (dropdown.previousElementSibling.textContent.match(title.textContent) && marker.textContent == bookMemo.textContent && groupName.textContent.match(dropdown.parentNode.firstElementChild.firstElementChild.textContent)) {
       dropdown.style.display = "block";
       marker.style.backgroundColor = "#DFDFDF";
     }

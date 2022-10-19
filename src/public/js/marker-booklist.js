@@ -15,16 +15,6 @@ markers.forEach(function (marker) {
   if (marker.textContent == title.textContent) {
     marker.style.backgroundColor = "#DFDFDF";
   }
-}); // markers.forEach((marker) => {
-//     if (marker.textContent == document.getElementById("title").textContent) {
-//         marker.setAttribute("id", "marked");
-//         let marked = document.getElementById("marked");
-//         if (marked) {
-//             marked.style.backgroundColor = "#C7EDBA";
-//             marked.removeAttribute("id");
-//         }
-//         marked.style.backgroundColor = "#DFDFDF";
-//     }
-// });
+});
 /******/ })()
 ;

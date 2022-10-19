@@ -14,6 +14,11 @@ module.exports = {
             },
             colors: {
                 primary: "#C7EDBA",
+                "modal-rgba": "rgba(0,0,0,0.5)",
+                "modal-window": "#FFF9F9",
+            },
+            inset: {
+                "1/5": "20%",
             },
         },
     },

@@ -19,11 +19,10 @@ let RAKUTEN_APP_ID = process.env.MIX_RAKUTEN_APP_ID;
 
 async function searchBook(titleValue) {
     let res = await fetch(
-        `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=${RAKUTEN_APP_ID}&title=${titleValue}`
+        `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=${RAKUTEN_APP_ID}&title=${titleValue}&hits=10`
     );
     let books = await res.json();
     let bookInformations = books.Items;
-    console.log(bookInformations);
 
     bookInformations.forEach((bookInformation) => {
         let fragment = document.createDocumentFragment();
@@ -38,6 +37,7 @@ async function searchBook(titleValue) {
         let inputAuthor = document.createElement("input");
 
         div.classList.add("searchResult");
+        div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
         inputImg.classList.add("hidden");
         inputTitle.classList.add("hidden");
         inputTitleKana.classList.add("hidden");
@@ -63,10 +63,9 @@ async function searchBook(titleValue) {
 
         div.append(fragment);
 
-        let searchWindow = document.getElementById("searchWindow");
-        let searchSection = document.getElementById("searchSection");
+        let resultWindow = document.getElementById("resultWindow");
 
-        searchSection.insertBefore(div, searchWindow.nextSibling);
+        resultWindow.appendChild(div);
     });
 
     let searchResults = document.querySelectorAll(".searchResult");

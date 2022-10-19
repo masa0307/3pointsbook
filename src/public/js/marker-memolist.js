@@ -13,7 +13,13 @@ markers.forEach(function (marker) {
 });
 dropdowns.forEach(function (dropdown) {
   var checkCurrentUrl = location.href.match(/edit/);
+  var anchorLinkBeginIndex = dropdown.previousElementSibling.href.indexOf("show/") + 5;
+  var anchorLinkEndIndex = dropdown.previousElementSibling.href.indexOf("?");
   var anchorLinkBookId = dropdown.previousElementSibling.href.slice(-3);
+
+  if (dropdown.previousElementSibling.href.match(/\?/)) {
+    anchorLinkBookId = dropdown.previousElementSibling.href.substring(anchorLinkBeginIndex, anchorLinkEndIndex);
+  }
 
   if (checkCurrentUrl) {
     var submitLinkBookId = document.form.action.slice(-3);
