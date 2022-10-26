@@ -23,9 +23,14 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['verified']], function () {
     Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
         Route::get('/', [BookController::class, 'index'])->name('index');
+    });
+});
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
         Route::get('/search', [BookController::class, 'search'])->name('search');
         Route::get('/manual', [BookController::class, 'manual'])->name('manual');
         Route::post('/temporaryStore', [BookController::class, 'temporaryStore']);
