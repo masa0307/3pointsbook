@@ -149,7 +149,7 @@
                         <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書前</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-before.edit', ['id'=>$id])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                                 <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
                             </div>
                             <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
@@ -158,7 +158,7 @@
                         <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書前</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-before.edit', ['id'=>$id])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                                 <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
                             </div>
                             <textarea cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載" class="rounded w-full"></textarea>
@@ -171,7 +171,7 @@
                                 <h3 class="my-auto">読書中</h3>
                                 <div>
                                     <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                                    <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-during.edit', ['id'=>$id])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                    <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                                 </div>
                             </div>
                             <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->reading_content}}</textarea>
@@ -180,7 +180,7 @@
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書中</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-during.edit', ['id'=>$id])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             </div>
                             <textarea cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載" class="rounded w-full"></textarea>
                         </section>
@@ -192,7 +192,7 @@
                                 <h3 class="my-auto">読書後</h3>
                                 <div>
                                     <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                                    <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-after.edit', ['id'=>$id])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                    <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                                 </div>
                             </div>
                             <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
@@ -201,7 +201,7 @@
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書後</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-after.edit', ['id'=>$id])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             </div>
                             <textarea cols="80" rows="5" readonly placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full"></textarea>
                         </section>
@@ -252,7 +252,7 @@
                             @if($store_memo->actionlist1_content)
                                 <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             @endif
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('action-list.edit', ['id'=>$id])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
                         </div>
                     @else
@@ -261,7 +261,7 @@
                             <textarea cols="80" rows="5" readonly placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
                         </section>
                         <div class="flex justify-end mt-2">
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('action-list.edit', ['id'=>$id])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
                         </div>
                     @endif
@@ -312,7 +312,7 @@
                             @if($store_memo->feedback1_content)
                                 <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             @endif
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('feedback-list.edit', ['id'=>$id])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
                         </div>
                     @else
@@ -321,7 +321,7 @@
                             <textarea cols="80" rows="5" readonly placeholder="※振り返りを記載" class="rounded w-full"></textarea>
                         </section>
                         <div class="flex justify-end mt-2">
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('feedback-list.edit', ['id'=>$id])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
                             <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
                         </div>
                     @endif
