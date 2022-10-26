@@ -15,20 +15,29 @@ dropdowns.forEach(function (dropdown) {
   var checkCurrentUrl = location.href.match(/edit/);
   var anchorLinkBeginIndex = dropdown.previousElementSibling.href.indexOf("show/") + 5;
   var anchorLinkEndIndex = dropdown.previousElementSibling.href.indexOf("?");
-  var anchorLinkBookId = dropdown.previousElementSibling.href.slice(-3);
+  var anchorLinkBookId = dropdown.previousElementSibling.href.substring(anchorLinkBeginIndex);
 
   if (dropdown.previousElementSibling.href.match(/\?/)) {
     anchorLinkBookId = dropdown.previousElementSibling.href.substring(anchorLinkBeginIndex, anchorLinkEndIndex);
   }
 
   if (checkCurrentUrl) {
-    var submitLinkBookId = document.form.action.slice(-3);
+    var submitLinkBeginIndex;
+
+    if (document.form.action.match(/store/)) {
+      submitLinkBeginIndex = document.form.action.indexOf("book_id=") + 8;
+    } else if (document.form.action.match(/update/)) {
+      submitLinkBeginIndex = document.form.action.indexOf("update/") + 7;
+    }
+
+    var submitLinkBookId = document.form.action.substring(submitLinkBeginIndex);
 
     if (anchorLinkBookId == submitLinkBookId) {
       dropdown.style.display = "block";
     }
   } else {
-    var editBookId = document.getElementById("edit").href.slice(-3);
+    var editLinkBeginIndex = document.getElementById("edit").href.indexOf("edit/") + 5;
+    var editBookId = document.getElementById("edit").href.substring(editLinkBeginIndex);
 
     if (anchorLinkBookId == editBookId) {
       dropdown.style.display = "block";

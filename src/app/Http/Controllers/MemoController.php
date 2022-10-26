@@ -60,11 +60,11 @@ class MemoController extends Controller
         $store_memo->save();
 
         if($request->before_reading_content || $request->reading_content || $request->after_reading_content){
-            return redirect()->route('book-memo.show', ['id'=>$store_memo->book_id]);
+            return redirect()->route('book-memo.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
         }elseif($request->actionlist1_content || $request->actionlist2_content || $request->actionlist3_content){
-            return redirect()->route('action-list.show', ['id'=>$store_memo->book_id]);
+            return redirect()->route('action-list.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
         }elseif($request->feedback1_content || $request->feedback2_content || $request->feedback3_content){
-            return redirect()->route('feedback-list.show', ['id'=>$store_memo->book_id]);
+            return redirect()->route('feedback-list.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
         }
     }
 
@@ -90,11 +90,11 @@ class MemoController extends Controller
         $store_memo->save();
 
         if($request->before_reading_content || $request->reading_content || $request->after_reading_content){
-            return redirect()->route('book-memo.show', ['id'=>$store_memo->book_id]);
+            return redirect()->route('book-memo.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
         }elseif($request->actionlist1_content || $request->actionlist2_content || $request->actionlist3_content){
-            return redirect()->route('action-list.show', ['id'=>$store_memo->book_id]);
+            return redirect()->route('action-list.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
         }elseif($request->feedback1_content || $request->feedback2_content || $request->feedback3_content){
-            return redirect()->route('feedback-list.show', ['id'=>$store_memo->book_id]);
+            return redirect()->route('feedback-list.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
         }
     }
 
