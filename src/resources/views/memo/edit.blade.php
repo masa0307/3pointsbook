@@ -143,7 +143,7 @@
                             @csrf
                             <div class="flex justify-between py-2">
                                 <label for="before_reading_content" class="block">読書前</label>
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                             <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
                         </form>
@@ -152,7 +152,7 @@
                             @csrf
                             <div class="flex justify-between py-2">
                                 <label for="before_reading_content" class="block">読書前</label>
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                             <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded w-full"></textarea>
                         </form>
@@ -167,7 +167,7 @@
                             @csrf
                             <div class="flex justify-between py-2">
                                 <label for="reading_content" class="block">読書中</label>
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                             <textarea name="reading_content" id="reading_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->reading_content}}</textarea>
 
@@ -177,7 +177,7 @@
                             @csrf
                             <div class="flex justify-between py-2">
                                 <label for="reading_content" class="block">読書中</label>
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                             <textarea name="reading_content" id="reading_content" cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded w-full"></textarea>
                         </form>
@@ -192,7 +192,7 @@
                             @csrf
                             <div class="flex justify-between py-2">
                                 <label for="after_reading_content" class="block">読書後</label>
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                             <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
                         </form>
@@ -201,7 +201,7 @@
                             @csrf
                             <div class="flex justify-between py-2">
                                 <label for="after_reading_content" class="block">読書後</label>
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                             <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
                         </form>
@@ -227,7 +227,7 @@
                                 <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{$store_memo->actionlist3_content}}</textarea>
                             </div>
                             <div class="flex justify-end mt-2">
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                         </form>
                     @else
@@ -246,7 +246,7 @@
                                 <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
                             </div>
                             <div class="flex justify-end mt-2">
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                         </form>
                     @endif
@@ -271,7 +271,7 @@
                                 <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{$store_memo->feedback3_content}}</textarea>
                             </div>
                             <div class="flex justify-end mt-2">
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                         </form>
                     @else
@@ -290,7 +290,7 @@
                                 <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full"></textarea>
                             </div>
                             <div class="flex justify-end mt-2">
-                                <button type="submit" class="px-6 py-1 bg-slate-200 rounded"><iconify-icon inline icon="fluent:save-edit-24-regular" width="24" height="24"></iconify-icon></button>
+                                <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
                         </form>
                     @endif
