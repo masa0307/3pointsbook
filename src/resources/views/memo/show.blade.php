@@ -146,64 +146,76 @@
                     @endif
 
                     @if($is_store_memo)
+                        @if(strpos(url()->previous(),'book-memo/before/edit'))
+                            <p class="text-red-600 pt-2 pl-4">読書前メモの保存に成功しました！</p>
+                        @elseif(strpos(url()->previous(),'book-memo/during/edit'))
+                            <p class="text-red-600 pt-2 pl-4">読書中メモの保存に成功しました！</p>
+                        @elseif(strpos(url()->previous(),'book-memo/after/edit'))
+                            <p class="text-red-600 pt-2 pl-4">読書後メモの保存に成功しました！</p>
+                        @endif
+
                         <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書前</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                                <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
+                                <a href="{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                             </div>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->before_reading_content}}</textarea>
                         </section>
                     @else
                         <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書前</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                                <a href="{{route('book-memo-before.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
+                                <a href="{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                             </div>
-                            <textarea cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
 
-                    @if($is_store_memo)
+                    @if($is_store_memo && $store_memo->reading_content)
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書中</h3>
-                                <div>
-                                    <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                                    <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <div class="flex justify-between">
+                                    @if($store_memo->reading_content)
+                                        <button class="shareButton px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 mr-2">共有する</button>
+                                    @endif
+
+                                    <a href="{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                                 </div>
                             </div>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->reading_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->reading_content}}</textarea>
                         </section>
                     @else
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書中</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <a href="{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                             </div>
-                            <textarea cols="80" rows="5" readonly placeholder="※目次から学びたい内容を３点記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
 
-                    @if($is_store_memo)
+                    @if($is_store_memo && $store_memo->after_reading_content)
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書後</h3>
-                                <div>
-                                    <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                                    <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <div class="flex justify-between">
+                                    @if($store_memo->after_reading_content)
+                                        <button class="shareButton px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 mr-2">共有する</button>
+                                    @endif
+
+                                    <a href="{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                                 </div>
                             </div>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->after_reading_content}}</textarea>
                         </section>
                     @else
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <div class="flex justify-between py-2">
                                 <h3 class="my-auto">読書後</h3>
-                                <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <a href="{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                             </div>
-                            <textarea cols="80" rows="5" readonly placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
                 </div>
@@ -212,6 +224,10 @@
                 <div class="pl-12">
                     <h2 id="book-memo" class="pt-4 font-medium text-xl">アクションリスト</h2>
 
+                    @if(strpos(url()->previous(),'action-list/edit'))
+                        <p class="text-red-600 pt-2 pl-4">アクションリストメモの保存に成功しました！</p>
+                    @endif
+
                     @if (session('errors'))
                         <div class="text-red-600 pt-2">
                             {{ session('errors')->first('none_book_memo') }}
@@ -219,50 +235,57 @@
                         </div>
                     @endif
 
-                    @if($is_store_memo)
+                    @if($is_store_memo && $store_memo->actionlist1_content)
                         <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト１</h3>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist1_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->actionlist1_content}}</textarea>
                         </section>
                     @else
                         <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト１</h3>
-                            <textarea cols="80" rows="5" readonly  placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
 
-                    @if($is_store_memo)
+                    @if($is_store_memo && $store_memo->actionlist2_content)
                         <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト２</h3>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist2_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->actionlist2_content}}</textarea>
                         </section>
                     @else
                         <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト２</h3>
-                            <textarea cols="80" rows="5" readonly placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
 
-                    @if($is_store_memo)
-                        <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                            <h3 class="my-auto py-4">アクションリスト３</h3>
-                            <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist3_content}}</textarea>
-                        </section>
+                    @if($is_store_memo && $store_memo->actionlist1_content)
+                        @if($store_memo->actionlist3_content)
+                            <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <h3 class="my-auto py-4">アクションリスト３</h3>
+                                <textarea  cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->actionlist3_content}}</textarea>
+                            </section>
+                        @else
+                            <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <h3 class="my-auto py-4">アクションリスト３</h3>
+                                <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
+                            </section>
+                        @endif
+
                         <div class="flex justify-end mt-2">
                             @if($store_memo->actionlist1_content)
-                                <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <button class="shareButton px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 mr-2">共有する</button>
                             @endif
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                            <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
+
+                            <a href="{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                         </div>
                     @else
                         <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト３</h3>
-                            <textarea cols="80" rows="5" readonly placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
                         </section>
                         <div class="flex justify-end mt-2">
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                            <a href="{{route('action-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
+                            <a href="{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                         </div>
                     @endif
                 </div>
@@ -270,6 +293,10 @@
             @elseif(strpos(url()->full(),'feedback-list')!== false)
                 <div class="pl-12">
                     <h2 id="book-memo" class="pt-4 font-medium text-xl">振り返り</h2>
+
+                    @if(strpos(url()->previous(),'feedback-list/edit'))
+                        <p class="text-red-600 pt-2 pl-4">振り返りメモの保存に成功しました！</p>
+                    @endif
 
                     @if (session('errors'))
                         <div class="text-red-600 pt-2">
@@ -279,50 +306,57 @@
                         </div>
                     @endif
 
-                    @if($is_store_memo)
+                    @if($is_store_memo && $store_memo->feedback1_content)
                         <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト１を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback1_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->feedback1_content}}</textarea>
                         </section>
                     @else
-                        <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
+                        <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト１を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" readonly placeholder="※振り返りを記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
 
-                    @if($is_store_memo)
+                    @if($is_store_memo && $store_memo->feedback2_content)
                         <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト２を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback2_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->feedback2_content}}</textarea>
                         </section>
                     @else
-                        <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                        <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト２を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" readonly placeholder="※振り返りを記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
                         </section>
                     @endif
 
-                    @if($is_store_memo)
-                        <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                            <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback3_content}}</textarea>
-                        </section>
+                    @if($is_store_memo && $store_memo->feedback1_content)
+                        @if($store_memo->feedback3_content)
+                            <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
+                                <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->feedback3_content}}</textarea>
+                            </section>
+                        @else
+                            <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                                <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
+                                <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
+                            </section>
+                        @endif
+
                         <div class="flex justify-end mt-2">
                             @if($store_memo->feedback1_content)
-                                <iconify-icon inline icon="ant-design:share-alt-outlined" width="24" height="24" class="shareButton px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
+                                <button class="shareButton px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 mr-2">共有する</button>
                             @endif
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 ml-4 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                            <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
+
+                            <a href="{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                         </div>
                     @else
-                        <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
+                        <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" readonly placeholder="※振り返りを記載" class="rounded w-full"></textarea>
+                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
                         </section>
                         <div class="flex justify-end mt-2">
-                            <iconify-icon inline icon="fa:edit" width="24" height="24" onclick="location.href='{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}'" class="px-6 py-2 bg-slate-200 rounded cursor-pointer"></iconify-icon>
-                            <a href="{{route('feedback-list.edit', ['id'=>$id])}}" id="edit" class="hidden"></a>
+                            <a href="{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                         </div>
                     @endif
                 </div>

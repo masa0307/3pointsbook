@@ -133,26 +133,43 @@
 
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">ジャンル名の追加</h2>
-            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <form action="{{ route('genre-name.store', Auth::id()) }}" method="POST">
-                    @csrf
+
+            @if(strpos(url()->full(),'store'))
+                <p class="text-red-600 pt-8 ml-20">ジャンル名の追加に成功しました！</p>
+                <div class="bg-primary p-8 ml-20 mt-2 rounded-xl">
                     <div>
-                        <p>現在のジャンル名</p>
-                        @foreach($genres as $genre)
-                            <p class="pl-3 pt-2">{{ $genre->genre_name }}</p>
-                        @endforeach
-                    </div>
-                    <div class="pt-8">
-                        <p>追加するジャンル名</p>
-                        <div class="pl-3 pt-2">
-                            <input type="text" name="genre_name" placeholder="ジャンル名" class="border-none rounded w-full">
+                        <p>現在</p>
+                        <div class="bg-slate-50 mt-2 rounded p-2">
+                            @foreach($genres as $genre)
+                                <p class="pl-3 pt-2 w-full">{{ $genre->genre_name }}</p>
+                            @endforeach
                         </div>
+
                     </div>
-                    <div class="pt-8">
-                        <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">追加</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+            @else
+                <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                    <form action="{{ route('genre-name.store', Auth::id()) }}" method="POST">
+                        @csrf
+                        <div>
+                            <p>現在のジャンル名</p>
+                            @foreach($genres as $genre)
+                                <p class="pl-3 pt-2">{{ $genre->genre_name }}</p>
+                            @endforeach
+                        </div>
+                        <div class="pt-8">
+                            <p>追加するジャンル名</p>
+                            <div class="pl-3 pt-2">
+                                <input type="text" name="genre_name" placeholder="ジャンル名" class="border-none rounded w-full">
+                            </div>
+                        </div>
+                        <div class="pt-8">
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">追加</button>
+                        </div>
+                    </form>
+                </div>
+            @endif
+
         </section>
     </div>
 </body>
