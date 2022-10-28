@@ -149,13 +149,13 @@
                             </div>
                         @else
                             <div class="flex justify-between">
-                                <button class="bg-slate-200 p-1 rounded-xl px-4">
+                                <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
                                     <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}" class="text-xl">メモの公開・非公開</a>
                                 </button>
                                 <form action="{{route('book.destroy', $selectedBook)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                    <button type="submit" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
                                 </form>
                             </div>
                         @endif
