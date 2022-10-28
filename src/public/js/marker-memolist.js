@@ -37,7 +37,14 @@ dropdowns.forEach(function (dropdown) {
     }
   } else {
     var editLinkBeginIndex = document.getElementById("edit").href.indexOf("edit/") + 5;
-    var editBookId = document.getElementById("edit").href.substring(editLinkBeginIndex);
+    var editLinkEndIndex = document.getElementById("edit").href.indexOf("?");
+    var editBookId;
+
+    if (editLinkEndIndex != -1) {
+      editBookId = document.getElementById("edit").href.substring(editLinkBeginIndex, editLinkEndIndex);
+    } else {
+      editBookId = document.getElementById("edit").href.substring(editLinkBeginIndex);
+    }
 
     if (anchorLinkBookId == editBookId) {
       dropdown.style.display = "block";
