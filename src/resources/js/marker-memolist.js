@@ -41,9 +41,20 @@ dropdowns.forEach((dropdown) => {
     } else {
         let editLinkBeginIndex =
             document.getElementById("edit").href.indexOf("edit/") + 5;
-        let editBookId = document
+        let editLinkEndIndex = document
             .getElementById("edit")
-            .href.substring(editLinkBeginIndex);
+            .href.indexOf("?");
+        let editBookId;
+
+        if (editLinkEndIndex != -1) {
+            editBookId = document
+                .getElementById("edit")
+                .href.substring(editLinkBeginIndex, editLinkEndIndex);
+        } else {
+            editBookId = document
+                .getElementById("edit")
+                .href.substring(editLinkBeginIndex);
+        }
 
         if (anchorLinkBookId == editBookId) {
             dropdown.style.display = "block";
