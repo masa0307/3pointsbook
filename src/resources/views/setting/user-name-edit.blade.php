@@ -133,29 +133,41 @@
 
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">ユーザー名称の変更</h2>
-            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <form action="{{ route('user-name.update', Auth::id()) }}" method="POST">
-                    @method('PATCH')
-                    @csrf
+
+            @if(strpos(url()->full(),'update'))
+                <p class="text-red-600 pt-8 ml-20">ユーザー名称の変更に成功しました！</p>
+                <div class="bg-primary p-8 ml-20 mt-2 rounded-xl">
                     <div>
                         <p>現在</p>
-                        <p class="pl-3 pt-2">{{ $user_name }}</p>
+                        <input type="text" value="{{ $user_name }}" class="pl-3 pt-2 mt-2 border-none rounded w-full" disabled>
                     </div>
-                    <div class="pt-8">
-                        @error('name')
-                            <p class="text-red-600">・{{ $message }}</p>
-                        @enderror
-
-                        <p>変更後</p>
-                        <div class="pt-2">
-                            <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}" class="border-none rounded w-full">
+                </div>
+            @else
+                <div class="bg-primary p-8 ml-20 mt-2 rounded-xl">
+                    <form action="{{ route('user-name.update', Auth::id()) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <div>
+                            <p>現在</p>
+                            <p class="pl-3 pt-2">{{ $user_name }}</p>
                         </div>
-                    </div>
-                    <div class="pt-8">
-                        <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
-                    </div>
-                </form>
-            </div>
+                        <div class="pt-8">
+                            @error('name')
+                                <p class="text-red-600">・{{ $message }}</p>
+                            @enderror
+
+                            <p>変更後</p>
+                            <div class="pt-2">
+                                <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}" class="border-none rounded w-full">
+                            </div>
+                        </div>
+                        <div class="pt-8">
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
+                        </div>
+                    </form>
+                </div>
+            @endif
+
         </section>
     </div>
 </body>

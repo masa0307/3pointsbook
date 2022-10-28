@@ -133,29 +133,41 @@
 
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">メールアドレスの変更</h2>
-            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <form action="{{ route('email.update', Auth::id()) }}" method="POST">
-                    @method('PATCH')
-                    @csrf
+
+            @if(strpos(url()->full(),'update'))
+                <p class="text-red-600 pt-8 ml-20">メールアドレスの変更に成功しました！</p>
+                <div class="bg-primary p-8 ml-20 mt-2 rounded-xl">
                     <div>
                         <p>現在</p>
-                        <p class="pl-3 pt-2">{{ $email }}</p>
+                        <input type="text" value="{{ $email }}" class="pl-3 pt-2 mt-2 border-none rounded w-full" disabled>
                     </div>
-                    <div class="pt-8">
-                        @error('email')
-                            <p class="text-red-600">・{{ $message }}</p>
-                        @enderror
+                </div>
+            @else
+                <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                    <form action="{{ route('email.update', Auth::id()) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <div>
+                            <p>現在</p>
+                            <p class="pl-3 pt-2">{{ $email }}</p>
+                        </div>
+                        <div class="pt-8">
+                            @error('email')
+                                <p class="text-red-600">・{{ $message }}</p>
+                            @enderror
 
-                        <p>変更後</p>
-                        <p class="pt-2">
-                            <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}" class="border-none rounded w-full">
-                        </p>
-                    </div>
-                    <div class="pt-8">
-                        <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
-                    </div>
-                </form>
-            </div>
+                            <p>変更後</p>
+                            <p class="pt-2">
+                                <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}" class="border-none rounded w-full">
+                            </p>
+                        </div>
+                        <div class="pt-8">
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
+                        </div>
+                    </form>
+                </div>
+            @endif
+
         </section>
     </div>
 </body>

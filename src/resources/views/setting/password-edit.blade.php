@@ -133,32 +133,64 @@
 
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">パスワードの変更</h2>
-            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <form action="{{ route('login-password.update', Auth::id()) }}" method="POST">
-                    @method('PATCH')
-                    @csrf
-                    @if (session('errors'))
+
+            @if(strpos(url()->full(),'update'))
+                <p class="text-red-600 pt-8 ml-20">パスワードの変更に成功しました！</p>
+                <div class="bg-primary p-8 ml-20 mt-2 rounded-xl">
+                    <form action="{{ route('login-password.update', Auth::id()) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        @if (session('errors'))
+                            <div class="text-red-600">
+                                {{ session('errors')->first('not_match_password') }}
+                            </div>
+                        @endif
                         <div>
-                            {{ session('errors')->first('not_match_password') }}
+                            <p>現在</p>
+                            <div class="pt-2">
+                                <input type="password" name="current_password" placeholder="現在のパスワード" class="border-none rounded w-full">
+                            </div>
                         </div>
-                    @endif
-                    <div>
-                        <p>現在</p>
-                        <div class="pt-2">
-                            <input type="password" name="current_password" placeholder="現在のパスワード" class="border-none rounded w-full">
+                        <div class="pt-8">
+                            <p>変更後</p>
+                            <div class="pt-2">
+                                <input type="password" name="update_password" placeholder="変更後のパスワード" class="border-none rounded w-full">
+                            </div>
                         </div>
-                    </div>
-                    <div class="pt-8">
-                        <p>変更後</p>
-                        <div class="pt-2">
-                            <input type="password" name="update_password" placeholder="変更後のパスワード" class="border-none rounded w-full">
+                        <div class="pt-8">
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
                         </div>
-                    </div>
-                    <div class="pt-8">
-                        <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            @else
+                <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                    <form action="{{ route('login-password.update', Auth::id()) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        @if (session('errors'))
+                            <div class="text-red-600">
+                                {{ session('errors')->first('not_match_password') }}
+                            </div>
+                        @endif
+                        <div>
+                            <p>現在</p>
+                            <div class="pt-2">
+                                <input type="password" name="current_password" placeholder="現在のパスワード" class="border-none rounded w-full">
+                            </div>
+                        </div>
+                        <div class="pt-8">
+                            <p>変更後</p>
+                            <div class="pt-2">
+                                <input type="password" name="update_password" placeholder="変更後のパスワード" class="border-none rounded w-full">
+                            </div>
+                        </div>
+                        <div class="pt-8">
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
+                        </div>
+                    </form>
+                </div>
+            @endif
+
         </section>
     </div>
 </body>

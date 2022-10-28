@@ -134,31 +134,43 @@
 
         <section class="w-1/3">
             <h2 class="px-10 pt-10 font-medium text-xl">本の並び替え</h2>
-            <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                <form action="{{ route('book-sort.update', Auth::id()) }}" method="POST">
-                    @method('PATCH')
-                    @csrf
+
+            @if(strpos(url()->full(),'update'))
+                <p class="text-red-600 pt-8 ml-20">本の並び替えに成功しました！</p>
+                <div class="bg-primary p-8 ml-20 mt-2 rounded-xl">
                     <div>
                         <p>現在</p>
-                        <p class="pl-3 pt-2">{{ $sort_name }}</p>
+                        <input type="text" value="{{ $sort_name }}" class="pl-3 pt-2 mt-2 border-none rounded w-full" disabled>
                     </div>
-                    <div class="pt-8">
-                        <p>変更後</p>
-                        <div class="pl-3 pt-2">
-                            <select name="sort_name" id="state" class="block border-none rounded w-full" required>
-                                <option value="" selected hidden>選択してください</option>
-                                <option value="追加順（昇順）">追加順（昇順）</option>
-                                <option value="追加順（降順）">追加順（降順）</option>
-                                <option value="タイトル順（昇順）">タイトル順（昇順）</option>
-                                <option value="タイトル順（降順）">タイトル順（降順）</option>
-                            </select>
+                </div>
+            @else
+                <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
+                    <form action="{{ route('book-sort.update', Auth::id()) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <div>
+                            <p>現在</p>
+                            <p class="pl-3 pt-2">{{ $sort_name }}</p>
                         </div>
-                    </div>
-                    <div class="pt-8">
-                        <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
-                    </div>
-                </form>
-            </div>
+                        <div class="pt-8">
+                            <p>変更後</p>
+                            <div class="pl-3 pt-2">
+                                <select name="sort_name" id="state" class="block border-none rounded w-full" required>
+                                    <option value="" selected hidden>選択してください</option>
+                                    <option value="追加順（昇順）">追加順（昇順）</option>
+                                    <option value="追加順（降順）">追加順（降順）</option>
+                                    <option value="タイトル順（昇順）">タイトル順（昇順）</option>
+                                    <option value="タイトル順（降順）">タイトル順（降順）</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pt-8">
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">変更</button>
+                        </div>
+                    </form>
+                </div>
+            @endif
+
         </section>
     </div>
 </body>

@@ -39,6 +39,9 @@ class SettingController extends Controller
 
             $user->name = $request->name;
             $user->save();
+            $user_name = $user->name;
+
+            return view('setting.user-name-edit', compact('user_name'));
         }elseif(strpos(url()->full(), 'email')){
             $request->validate([
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -46,23 +49,30 @@ class SettingController extends Controller
 
             $user->email = $request->email;
             $user->save();
+            $email = $user->email;
+
+            return view('setting.email-edit', compact('email'));
         }elseif(strpos(url()->full(), 'password')){
             $user->password = Hash::make($request->update_password);
             $user->save();
+
+            return view('setting.password-edit');
         }elseif(strpos(url()->full(), 'sort')){
             $user->sort_name = $request->sort_name;
             $user->save();
-        }
+            $sort_name = $user->sort_name;
 
-        return redirect()->route('book.index');
+            return view('setting.book-sort-edit', compact('sort_name'));
+        }
     }
 
-    public function store(Request $request){
+    public function store(Request $request, $id){
         $genre = new Genre;
         $genre->genre_name = $request->genre_name;
         $genre->user_id = Auth::id();
         $genre->save();
+        $genres =  User::find($id)->genre;
 
-        return redirect()->route('book.index');
+        return view('setting.genre-name-edit', compact('genres'));
     }
 }

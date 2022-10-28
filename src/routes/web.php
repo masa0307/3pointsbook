@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'genre-name', 'as' => 'genre-name.'], function () {
         Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('edit');
-        Route::post('/store', [SettingController::class, 'store'])->name('store');
+        Route::post('/store/{id}', [SettingController::class, 'store'])->name('store');
     });
 
     Route::group(['prefix' => 'search-book', 'as' => 'search-book.'], function () {
