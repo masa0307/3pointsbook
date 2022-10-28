@@ -138,16 +138,28 @@
                 @if($selectedBook->state == '読書中')
                     <h2 class="px-10 pt-10 font-medium text-xl">読書中</h2>
                     <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
-                        <div class="flex justify-between">
-                            <button class="bg-slate-200 p-1 rounded-xl px-4">
-                                <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}" class="text-xl">メモの公開・非公開</a>
-                            </button>
-                            <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
-                            </form>
-                        </div>
+
+                        @if($memo_groups->isEmpty())
+                            <div class="flex justify-end">
+                                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                </form>
+                            </div>
+                        @else
+                            <div class="flex justify-between">
+                                <button class="bg-slate-200 p-1 rounded-xl px-4">
+                                    <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}" class="text-xl">メモの公開・非公開</a>
+                                </button>
+                                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                </form>
+                            </div>
+                        @endif
+
                         <div class="flex w-full my-8">
                             <div class="w-1/3">
                                 <img src="{{$selectedBook->image_path}}" class="w-full">
