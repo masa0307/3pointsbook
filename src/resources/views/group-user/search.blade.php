@@ -161,11 +161,11 @@
 
 
                 @error('user_id')
-                    <p class="text-red-600">・{{ $message }}</p>
+                    <p class="text-red-600 pt-1">※{{ $message }}</p>
                 @enderror
 
                 @error('name')
-                    <p class="text-red-600">・{{ $message }}</p>
+                    <p class="text-red-600 pt-1">※{{ $message }}</p>
                 @enderror
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SettingRequest;
 use App\Http\ViewComposers\BookComposer;
 use App\Models\Genre;
 use App\Models\User;
@@ -29,24 +30,16 @@ class SettingController extends Controller
         }
     }
 
-    public function update(Request $request, $id){
+    public function update(SettingRequest $request, $id){
         $user = User::find($id);
 
         if(strpos(url()->full(), 'user-name')){
-            $request->validate([
-                'name' => ['required', 'string', 'max:255', 'unique:users'],
-            ]);
-
             $user->name = $request->name;
             $user->save();
             $user_name = $user->name;
 
             return view('setting.user-name-edit', compact('user_name'));
         }elseif(strpos(url()->full(), 'email')){
-            $request->validate([
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            ]);
-
             $user->email = $request->email;
             $user->save();
             $email = $user->email;
@@ -66,7 +59,7 @@ class SettingController extends Controller
         }
     }
 
-    public function store(Request $request, $id){
+    public function store(SettingRequest $request, $id){
         $genre = new Genre;
         $genre->genre_name = $request->genre_name;
         $genre->user_id = Auth::id();

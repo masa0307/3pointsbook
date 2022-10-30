@@ -141,20 +141,30 @@
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
                             @csrf
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between py-2 items-center">
                                 <label for="before_reading_content" class="block">読書前</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
-                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
+
+                            @error('before_reading_content')
+                                <p class="text-red-600 pl-2">※{{ $message }}</p>
+                            @enderror
+
+                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" class="rounded w-full">{{old('before_reading_content', $store_memo->before_reading_content)}}</textarea>
                         </form>
                     @else
                         <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @csrf
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between py-2 items-center">
                                 <label for="before_reading_content" class="block">読書前</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
-                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded w-full"></textarea>
+
+                            @error('before_reading_content')
+                                <p class="text-red-600 pl-2">※{{ $message }}</p>
+                            @enderror
+
+                            <textarea name="before_reading_content" id="before_reading_content" cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded w-full">{{old('before_reading_content')}}</textarea>
                         </form>
                     @endif
                 </div>
@@ -165,21 +175,31 @@
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
                             @csrf
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between py-2 items-center">
                                 <label for="reading_content" class="block">読書中</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
-                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->reading_content}}</textarea>
+
+                            @error('reading_content')
+                                <p class="text-red-600 pl-2">※{{ $message }}</p>
+                            @enderror
+
+                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" class="rounded w-full">{{old('reading_content', $store_memo->reading_content)}}</textarea>
 
                         </form>
                     @else
                         <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @csrf
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between py-2 items-center">
                                 <label for="reading_content" class="block">読書中</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
-                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded w-full"></textarea>
+
+                            @error('reading_content')
+                                <p class="text-red-600 pl-2">※{{ $message }}</p>
+                            @enderror
+
+                            <textarea name="reading_content" id="reading_content" cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded w-full">{{old('reading_content')}}</textarea>
                         </form>
                     @endif
                 </div>
@@ -190,20 +210,30 @@
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
                             @csrf
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between py-2 items-center">
                                 <label for="after_reading_content" class="block">読書後</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
-                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
+
+                            @error('after_reading_content')
+                                <p class="text-red-600 pl-2">※{{ $message }}</p>
+                            @enderror
+
+                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" class="rounded w-full">{{old('after_reading_content', $store_memo->after_reading_content)}}</textarea>
                         </form>
                     @else
                         <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @csrf
-                            <div class="flex justify-between py-2">
+                            <div class="flex justify-between py-2 items-center">
                                 <label for="after_reading_content" class="block">読書後</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
-                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
+
+                            @error('after_reading_content')
+                                <p class="text-red-600 pl-2">※{{ $message }}</p>
+                            @enderror
+
+                            <textarea name="after_reading_content" id="after_reading_content" cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full">{{old('after_reading_content')}}</textarea>
                         </form>
                     @endif
                 </div>
@@ -216,15 +246,30 @@
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                                 <label for="actionlist1_content" class="block py-4">アクションリスト１</label>
-                                <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->actionlist1_content}}</textarea>
+
+                                @error('actionlist1_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" class="rounded w-full">{{old('actionlist1_content', $store_memo->actionlist1_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="actionlist2_content" class="block py-4">アクションリスト２</label>
-                                <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{$store_memo->actionlist2_content}}</textarea>
+
+                                @error('actionlist2_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{old('actionlist2_content', $store_memo->actionlist2_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="actionlist3_content" class="block py-4">アクションリスト３</label>
-                                <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{$store_memo->actionlist3_content}}</textarea>
+
+                                @error('actionlist3_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{old('actionlist3_content', $store_memo->actionlist3_content)}}</textarea>
                             </div>
                             <div class="flex justify-end mt-2">
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
@@ -235,15 +280,30 @@
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                                 <label for="actionlist1_content" class="block py-4">アクションリスト１</label>
-                                <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
+
+                                @error('actionlist1_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{ old('actionlist1_content') }}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="actionlist2_content" class="block py-4">アクションリスト２</label>
-                                <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
+
+                                @error('actionlist2_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{ old('actionlist2_content') }}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="actionlist3_content" class="block py-4">アクションリスト３</label>
-                                <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full"></textarea>
+
+                                @error('actionlist3_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="actionlist3_content" id="actionlist3_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{ old('actionlist3_content') }}</textarea>
                             </div>
                             <div class="flex justify-end mt-2">
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
@@ -260,15 +320,30 @@
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                                 <label for="feedback1_content" class="block py-4">Q.アクションリスト１を実施した結果は？</label>
-                                <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" class="rounded w-full">{{$store_memo->feedback1_content}}</textarea>
+
+                                @error('feedback1_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback1_content', $store_memo->feedback1_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="feedback2_content" class="block py-4">Q.アクションリスト２を実施した結果は？</label>
-                                <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{$store_memo->feedback2_content}}</textarea>
+
+                                @error('feedback2_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback2_content', $store_memo->feedback2_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="feedback3_content" class="block py-4">Q.アクションリスト３を実施した結果は？</label>
-                                <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{$store_memo->feedback3_content}}</textarea>
+
+                                @error('feedback3_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback3_content', $store_memo->feedback3_content)}}</textarea>
                             </div>
                             <div class="flex justify-end mt-2">
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
@@ -279,15 +354,30 @@
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                                 <label for="feedback1_content" class="block py-4">Q.アクションリスト１を実施した結果は？</label>
-                                <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full"></textarea>
+
+                                @error('feedback1_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback3_content')}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="feedback2_content" class="block py-4">Q.アクションリスト２を実施した結果は？</label>
-                                <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full"></textarea>
+
+                                @error('feedback2_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback3_content')}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <label for="feedback3_content" class="block py-4">Q.アクションリスト３を実施した結果は？</label>
-                                <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full"></textarea>
+
+                                @error('feedback3_content')
+                                    <p class="text-red-600 pl-2">※{{ $message }}</p>
+                                @enderror
+
+                                <textarea name="feedback3_content" id="feedback3_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback3_content')}}</textarea>
                             </div>
                             <div class="flex justify-end mt-2">
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>

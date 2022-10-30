@@ -139,17 +139,45 @@
             <div class="p-2 ml-20 rounded w-full h-3/4 bg-modal-window flex align-center">
                 <form action="{{route('book.store')}}" method="POST" class="w-full h-fit my-auto bg-slate-300">
                     @csrf
+
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="title" class="block pt-2 pl-2 text-white">タイトル（必須）</label>
-                        <input name="title" type="text" value="{{$temporary_store_book->title}}" id="title" class="block rounded  border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+
+                        @if($errors->has('title'))
+                            @error('title')
+                                <p class="text-red-600 pl-4 pt-1">※{{ $message }}</p>
+                            @enderror
+                            <input name="title" type="text" value="{{old('title')}}" id="title" class="block rounded  border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                        @else
+                            <input name="title" type="text" value="{{$temporary_store_book->title}}" id="title" class="block rounded  border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                        @endif
+
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="titleKana" class="block pt-2 pl-2 text-white">タイトル（カナ）（必須）</label>
-                        <input name="title_kana" type="text" value="{{$temporary_store_book->title_kana}}" id="titleKana" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+
+                        @if($errors->has('title_kana'))
+                            @error('title_kana')
+                                <p class="text-red-600 pl-4 pt-1">※{{ $message }}</p>
+                                <input name="title_kana" type="text" value="{{old('title_kana')}}" id="titleKana" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                            @enderror
+                        @else
+                            <input name="title_kana" type="text" value="{{$temporary_store_book->title_kana}}" id="titleKana" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                        @endif
+
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="author" class="block pt-2 pl-2 text-white">著者名（必須）</label>
-                        <input name="author" type="text" value="{{$temporary_store_book->author}}" id="author" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+
+                        @if($errors->has('author'))
+                            @error('author')
+                                <p class="text-red-600 pl-4 pt-1">※{{ $message }}</p>
+                            @enderror
+                            <input name="author" type="text" value="{{old('author')}}" id="author" class="block rounded  border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                        @else
+                            <input name="author" type="text" value="{{$temporary_store_book->author}}" id="author" class="block rounded  border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+                        @endif
+
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="genre" class="block pt-2 pl-2 text-white">ジャンル（任意）（選択式）</label>

@@ -1,6 +1,8 @@
 const { get } = require("lodash");
 
 let title = document.getElementById("title");
+let resultMessage = document.getElementById("resultMessage");
+
 if (location.pathname == "/book/search") {
     let searchButton = document.getElementById("searchButton");
     searchButton.addEventListener("click", () => {
@@ -24,74 +26,83 @@ async function searchBook(titleValue) {
     let books = await res.json();
     let bookInformations = books.Items;
 
-    bookInformations.forEach((bookInformation) => {
-        let fragment = document.createDocumentFragment();
-        let div = document.createElement("div");
-        let img = document.createElement("img");
-        let titleParagraph = document.createElement("p");
-        let authorParagraph = document.createElement("p");
+    if (bookInformations.length) {
+        resultMessage.classList.replace("block", "hidden");
 
-        let inputImg = document.createElement("input");
-        let inputTitle = document.createElement("input");
-        let inputTitleKana = document.createElement("input");
-        let inputAuthor = document.createElement("input");
+        bookInformations.forEach((bookInformation) => {
+            let fragment = document.createDocumentFragment();
+            let div = document.createElement("div");
+            let img = document.createElement("img");
+            let titleParagraph = document.createElement("p");
+            let authorParagraph = document.createElement("p");
 
-        div.classList.add("searchResult");
-        div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
-        inputImg.classList.add("hidden");
-        inputTitle.classList.add("hidden");
-        inputTitleKana.classList.add("hidden");
-        inputAuthor.classList.add("hidden");
+            let inputImg = document.createElement("input");
+            let inputTitle = document.createElement("input");
+            let inputTitleKana = document.createElement("input");
+            let inputAuthor = document.createElement("input");
 
-        img.src = bookInformation.Item.mediumImageUrl;
-        titleParagraph.innerHTML = bookInformation.Item.title;
-        authorParagraph.innerHTML = bookInformation.Item.author;
+            div.classList.add("searchResult");
+            div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
+            inputImg.classList.add("hidden");
+            inputTitle.classList.add("hidden");
+            inputTitleKana.classList.add("hidden");
+            inputAuthor.classList.add("hidden");
 
-        inputImg.setAttribute("value", bookInformation.Item.mediumImageUrl);
-        inputTitle.setAttribute("value", bookInformation.Item.title);
-        inputTitleKana.setAttribute("value", bookInformation.Item.titleKana);
-        inputAuthor.setAttribute("value", bookInformation.Item.author);
+            img.src = bookInformation.Item.mediumImageUrl;
+            titleParagraph.innerHTML = bookInformation.Item.title;
+            authorParagraph.innerHTML = bookInformation.Item.author;
 
-        fragment.append(img);
-        fragment.append(titleParagraph);
-        fragment.append(authorParagraph);
+            inputImg.setAttribute("value", bookInformation.Item.mediumImageUrl);
+            inputTitle.setAttribute("value", bookInformation.Item.title);
+            inputTitleKana.setAttribute(
+                "value",
+                bookInformation.Item.titleKana
+            );
+            inputAuthor.setAttribute("value", bookInformation.Item.author);
 
-        fragment.append(inputImg);
-        fragment.append(inputTitle);
-        fragment.append(inputTitleKana);
-        fragment.append(inputAuthor);
+            fragment.append(img);
+            fragment.append(titleParagraph);
+            fragment.append(authorParagraph);
 
-        div.append(fragment);
+            fragment.append(inputImg);
+            fragment.append(inputTitle);
+            fragment.append(inputTitleKana);
+            fragment.append(inputAuthor);
 
-        let resultWindow = document.getElementById("resultWindow");
+            div.append(fragment);
 
-        resultWindow.appendChild(div);
-    });
+            let resultWindow = document.getElementById("resultWindow");
 
-    let searchResults = document.querySelectorAll(".searchResult");
-    searchResults.forEach((searchResult) => {
-        searchResult.addEventListener("click", (e) => {
-            let bookElements = e.currentTarget.childNodes;
-            let bookImageSrc = bookElements[3].value;
-            let bookTitle = bookElements[4].value;
-            let bookTitleKana = bookElements[5].value;
-            let bookAuthor = bookElements[6].value;
-
-            const postData = new FormData();
-            postData.append("img", bookImageSrc);
-            postData.append("title", bookTitle);
-            postData.append("title_kana", bookTitleKana);
-            postData.append("author", bookAuthor);
-
-            fetch("/book/temporaryStore", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector(
-                        'meta[name="csrf-token"]'
-                    ).content,
-                },
-                body: postData,
-            }).then(() => (window.location.href = "/book/create"));
+            resultWindow.appendChild(div);
         });
-    });
+
+        let searchResults = document.querySelectorAll(".searchResult");
+        searchResults.forEach((searchResult) => {
+            searchResult.addEventListener("click", (e) => {
+                let bookElements = e.currentTarget.childNodes;
+                let bookImageSrc = bookElements[3].value;
+                let bookTitle = bookElements[4].value;
+                let bookTitleKana = bookElements[5].value;
+                let bookAuthor = bookElements[6].value;
+
+                const postData = new FormData();
+                postData.append("img", bookImageSrc);
+                postData.append("title", bookTitle);
+                postData.append("title_kana", bookTitleKana);
+                postData.append("author", bookAuthor);
+
+                fetch("/book/temporaryStore", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+                    },
+                    body: postData,
+                }).then(() => (window.location.href = "/book/create"));
+            });
+        });
+    } else {
+        resultMessage.classList.replace("hidden", "block");
+    }
 }

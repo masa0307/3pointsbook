@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemoRequest;
 use App\Models\Book;
 use App\Models\Memo;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class MemoController extends Controller
         return view('memo.edit', compact('store_memo', 'is_store_memo', 'id', 'select_book'));
     }
 
-    public function store(Request $request){
+    public function store(MemoRequest $request){
         $store_memo = Memo::where('book_id',$request->book_id)->first();
 
         if($request->before_reading_content){
@@ -68,7 +69,7 @@ class MemoController extends Controller
         }
     }
 
-    public function update(Request $request){
+    public function update(MemoRequest $request){
         $store_memo = Memo::where('book_id',$request->id)->first();
 
         if($request->before_reading_content){

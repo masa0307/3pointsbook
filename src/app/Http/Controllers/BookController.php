@@ -65,6 +65,12 @@ class BookController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'title' => ['required', 'string', 'max:50'],
+            'title_kana' => ['required', 'string', 'max:50'],
+            'author' => ['required', 'string', 'max:20'],
+        ]);
+
         if(parse_url(url()->previous())['path'] == "/book/create"){
             $temporary_store_book = Book::latest('created_at')->first();
             $temporary_store_book->title = $request->title;

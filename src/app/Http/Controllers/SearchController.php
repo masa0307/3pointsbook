@@ -15,6 +15,7 @@ class SearchController extends Controller
         }
 
         $search_title = $request->search_title;
+        $is_search_result = true;
 
         if ($search_title) {
             $space_conversioned_search_title = mb_convert_kana($search_title, 's');
@@ -24,8 +25,20 @@ class SearchController extends Controller
                 $search_book = Book::where('user_id', Auth::id())->where('title', 'like', '%'.$value.'%')->get();
                 session()->put(['search_book' => $search_book]);
             }
+
+            if($search_book->isEmpty()){
+                $is_search_result = false;
+
+                return view('search-book.index', compact('is_search_result'));
+            }else{
+                $is_search_result = true;
+
+                return view('search-book.index', compact('is_search_result'));
+            }
+
+        }else{
+            return view('search-book.index', compact('is_search_result'));
         }
 
-        return view('search-book.index');
     }
 }

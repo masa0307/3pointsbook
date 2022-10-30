@@ -152,11 +152,12 @@
                             <p class="pl-3 pt-2">{{ $user_name }}</p>
                         </div>
                         <div class="pt-8">
+                            <p>変更後</p>
+
                             @error('name')
-                                <p class="text-red-600">・{{ $message }}</p>
+                                <p class="text-red-600 pt-1">※{{ $message }}</p>
                             @enderror
 
-                            <p>変更後</p>
                             <div class="pt-2">
                                 <input type="text" name="name" placeholder="ユーザー名称" value="{{ old('name') }}" class="border-none rounded w-full">
                             </div>

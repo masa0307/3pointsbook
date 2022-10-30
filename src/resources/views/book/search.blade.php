@@ -142,6 +142,7 @@
                 </button>
             </div>
             <div id="resultWindow" class="flex flex-wrap p-2 ml-20 rounded w-full h-3/4 bg-modal-window">
+                <p class="text-red-600 hidden" id="resultMessage">※該当する本がありません</p>
             </div>
         </section>
     </div>

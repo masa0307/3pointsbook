@@ -151,11 +151,11 @@
                     </form>
 
                     @error('user_id')
-                        <p class="text-red-600">・{{ $message }}</p>
+                        <p class="text-red-600">※{{ $message }}</p>
                     @enderror
 
                     @error('name')
-                        <p class="text-red-600">・{{ $message }}</p>
+                        <p class="text-red-600">※{{ $message }}</p>
                     @enderror
 
                 </div>

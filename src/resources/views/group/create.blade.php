@@ -140,7 +140,10 @@
                         <label for="group_name">グループ名</label>
                     </div>
                     <div class="pt-8">
-                        <input type="text" placeholder="作成するグループ名" name="group_name" class="border-none rounded w-full">
+                        @error('group_name')
+                            <p class="text-red-600">※{{ $message }}</p>
+                        @enderror
+                        <input type="text" placeholder="作成するグループ名" name="group_name" class="border-none rounded w-full mt-2">
                     </div>
                     <div class="pt-8">
                         <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded">保存する</button>

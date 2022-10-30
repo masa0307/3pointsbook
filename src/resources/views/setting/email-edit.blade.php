@@ -152,11 +152,12 @@
                             <p class="pl-3 pt-2">{{ $email }}</p>
                         </div>
                         <div class="pt-8">
+                            <p>変更後</p>
+
                             @error('email')
-                                <p class="text-red-600">・{{ $message }}</p>
+                                <p class="text-red-600 pt-1">※{{ $message }}</p>
                             @enderror
 
-                            <p>変更後</p>
                             <p class="pt-2">
                                 <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}" class="border-none rounded w-full">
                             </p>
