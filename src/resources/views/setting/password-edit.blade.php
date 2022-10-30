@@ -140,13 +140,15 @@
                     <form action="{{ route('login-password.update', Auth::id()) }}" method="POST">
                         @method('PATCH')
                         @csrf
-                        @if (session('errors'))
-                            <div class="text-red-600">
-                                {{ session('errors')->first('not_match_password') }}
-                            </div>
-                        @endif
                         <div>
                             <p>現在</p>
+
+                            @if (session('errors'))
+                                <div class="text-red-600 pt-1">
+                                    {{ session('errors')->first('not_match_password') }}
+                                </div>
+                            @endif
+
                             <div class="pt-2">
                                 <input type="password" name="current_password" placeholder="現在のパスワード" class="border-none rounded w-full">
                             </div>
@@ -167,13 +169,15 @@
                     <form action="{{ route('login-password.update', Auth::id()) }}" method="POST">
                         @method('PATCH')
                         @csrf
-                        @if (session('errors'))
-                            <div class="text-red-600">
-                                {{ session('errors')->first('not_match_password') }}
-                            </div>
-                        @endif
                         <div>
                             <p>現在</p>
+
+                            @if (session('errors'))
+                                <div class="text-red-600 pt-1">
+                                    {{ session('errors')->first('not_match_password') }}
+                                </div>
+                            @endif
+
                             <div class="pt-2">
                                 <input type="password" name="current_password" placeholder="現在のパスワード" class="border-none rounded w-full">
                             </div>
@@ -181,7 +185,12 @@
                         <div class="pt-8">
                             <p>変更後</p>
                             <div class="pt-2">
-                                <input type="password" name="update_password" placeholder="変更後のパスワード" class="border-none rounded w-full">
+
+                                @error('update_password')
+                                    <p class="text-red-600">※{{ $message }}</p>
+                                @enderror
+
+                                <input type="password" name="update_password" placeholder="変更後のパスワード" class="border-none rounded w-full mt-1">
                             </div>
                         </div>
                         <div class="pt-8">

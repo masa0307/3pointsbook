@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemoGroupRequest;
 use App\Models\GroupUser;
 use App\Models\MemoGroup;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class MemoGroupController extends Controller
         return view('group.create');
     }
 
-    public function store(Request $request){
+    public function store(MemoGroupRequest $request){
         $group = new MemoGroup;
         $group->group_name = $request->group_name;
         $group->save();

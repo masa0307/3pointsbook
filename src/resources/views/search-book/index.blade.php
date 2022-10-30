@@ -134,7 +134,7 @@
         <section class="w-1/2">
             <h2 class="px-10 pt-10 font-medium text-xl">本の検索</h2>
             <form method="GET" action="{{ route('search-book.index') }}" class="bg-primary p-2 ml-20 mt-8 rounded-xl w-full text-center flex">
-                <input type="search" placeholder="本のタイトルを入力" name="search_title" value="@if (isset($search)) {{ $search }} @endif" class="rounded w-5/6">
+                <input type="search" placeholder="本のタイトルを入力" name="title" value="@if (isset($search)) {{ $search }} @endif" class="rounded w-5/6">
                 <div class="flex align-center">
                     <button type="submit" class="px-2">検索</button>
                     <button>
@@ -145,6 +145,10 @@
                 </div>
             </form>
             <div class="flex flex-wrap p-2 ml-20 rounded w-full h-3/4 bg-modal-window">
+                @if($is_search_result == false)
+                    <p class="text-red-600">※該当する本がありません</p>
+                @endif
+
                 @if(session("search_book"))
                     @foreach(session("search_book") as $value)
                         <div class="basis-1/5 pt-6 pr-4">

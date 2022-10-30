@@ -160,7 +160,10 @@
                         <div class="pt-8">
                             <p>追加するジャンル名</p>
                             <div class="pl-3 pt-2">
-                                <input type="text" name="genre_name" placeholder="ジャンル名" class="border-none rounded w-full">
+                                @error('genre_name')
+                                    <p class="text-red-600">※{{ $message }}</p>
+                                @enderror
+                                <input type="text" name="genre_name" placeholder="ジャンル名" class="border-none rounded w-full mt-1">
                             </div>
                         </div>
                         <div class="pt-8">

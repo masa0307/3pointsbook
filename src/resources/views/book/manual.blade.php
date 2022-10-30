@@ -139,15 +139,30 @@
                     @csrf
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="title"class="block pt-2 pl-2 text-white">タイトル（必須）</label>
-                        <input name="title" type="text" id="title" class="block rounded w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+
+                        @error('title')
+                            <p class="text-red-600 pl-4 pt-1">※{{ $message }}</p>
+                        @enderror
+
+                        <input name="title" type="text" value="{{old('title')}}" id="title" class="block rounded w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="titleKana" class="block pt-2 pl-2 text-white">タイトル（カナ）（必須）</label>
-                        <input name="title_kana" type="text" id="title_kana" class="block rounded w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+
+                        @error('title_kana')
+                            <p class="text-red-600 pl-4 pt-1">※{{ $message }}</p>
+                        @enderror
+
+                        <input name="title_kana" type="text" value="{{old('title_kana')}}" id="title" class="block rounded w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="author" class="block pt-2 pl-2 text-white">著者名（必須）</label>
-                        <input name="author" type="text" id="author" class="block rounded w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
+
+                        @error('author')
+                            <p class="text-red-600 pl-4 pt-1">※{{ $message }}</p>
+                        @enderror
+
+                        <input name="author" type="text" value="{{old('author')}}" id="title" class="block rounded w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
                         <label for="genre" class="block pt-2 pl-2 text-white">ジャンル（任意）（選択式）</label>
