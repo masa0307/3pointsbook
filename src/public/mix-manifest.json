@@ -8,5 +8,6 @@
     "/js/web-share.js": "/js/web-share.js",
     "/js/marker-groupbooklist.js": "/js/marker-groupbooklist.js",
     "/js/marker-groupmemolist.js": "/js/marker-groupmemolist.js",
+    "/js/show-bookinformation.js": "/js/show-bookinformation.js",
     "/css/app.css": "/css/app.css"
 }

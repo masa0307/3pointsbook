@@ -1,10 +1,27 @@
-let settingScreenOpen = document.getElementById("settingScreenOpen");
-let settingMenu = document.getElementById("settingMenu");
+if (
+    window.matchMedia &&
+    window.matchMedia("(max-device-width: 640px)").matches
+) {
+    let settingScreenOpenBySp = document.getElementById(
+        "settingScreenOpenBySp"
+    );
+    let settingMenuBySp = document.getElementById("settingMenuBySp");
 
-settingScreenOpen.addEventListener("click", function () {
-    settingMenu.style.display = "block";
-});
+    settingScreenOpenBySp.addEventListener("click", function () {
+        settingMenuBySp.style.display = "block";
+    });
+    settingMenuBySp.addEventListener("click", function () {
+        settingMenuBySp.style.display = "none";
+    });
+} else {
+    let settingScreenOpen = document.getElementById("settingScreenOpen");
+    let settingMenu = document.getElementById("settingMenu");
 
-settingMenu.addEventListener("click", function () {
-    settingMenu.style.display = "none";
-});
+    settingScreenOpen.addEventListener("click", function () {
+        settingMenu.style.display = "block";
+    });
+
+    settingMenu.addEventListener("click", function () {
+        settingMenu.style.display = "none";
+    });
+}

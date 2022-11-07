@@ -130,6 +130,7 @@ class GroupUserController extends Controller
         $store_memo = Memo::where('book_id',$book_id)->first();
         $select_book = Book::where('id', $book_id)->first();
         $group_name = MemoGroup::find($group_id)->group_name;
+        $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
 
         if($store_memo ){
             $is_store_memo = true;
@@ -137,7 +138,7 @@ class GroupUserController extends Controller
             $is_store_memo = false;
         }
 
-        return view('group-user-memo.show', compact('store_memo', 'is_store_memo', 'select_book', 'book_id', 'group_id', 'group_name'));
+        return view('group-user-memo.show', compact('store_memo', 'is_store_memo', 'select_book', 'book_id', 'group_id', 'group_name', 'group_id_parameter'));
     }
 
     public function showPublishStatus($book_id){

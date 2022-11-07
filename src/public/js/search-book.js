@@ -17314,15 +17314,31 @@ function _searchBook() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            if (!(window.matchMedia && window.matchMedia("(max-device-width: 640px)").matches)) {
+              _context.next = 6;
+              break;
+            }
+
+            _context.next = 3;
+            return fetch("https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=".concat(RAKUTEN_APP_ID, "&title=").concat(titleValue, "&hits=4"));
+
+          case 3:
+            res = _context.sent;
+            _context.next = 9;
+            break;
+
+          case 6:
+            _context.next = 8;
             return fetch("https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=".concat(RAKUTEN_APP_ID, "&title=").concat(titleValue, "&hits=10"));
 
-          case 2:
+          case 8:
             res = _context.sent;
-            _context.next = 5;
+
+          case 9:
+            _context.next = 11;
             return res.json();
 
-          case 5:
+          case 11:
             books = _context.sent;
             bookInformations = books.Items;
 
@@ -17332,6 +17348,7 @@ function _searchBook() {
                 var fragment = document.createDocumentFragment();
                 var div = document.createElement("div");
                 var img = document.createElement("img");
+                var bookInformationDiv = document.createElement("div");
                 var titleParagraph = document.createElement("p");
                 var authorParagraph = document.createElement("p");
                 var inputImg = document.createElement("input");
@@ -17339,11 +17356,18 @@ function _searchBook() {
                 var inputTitleKana = document.createElement("input");
                 var inputAuthor = document.createElement("input");
                 div.classList.add("searchResult");
-                div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
+
+                if (window.matchMedia && window.matchMedia("(max-device-width: 640px)").matches) {
+                  div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer", "flex");
+                } else {
+                  div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
+                }
+
                 inputImg.classList.add("hidden");
                 inputTitle.classList.add("hidden");
                 inputTitleKana.classList.add("hidden");
                 inputAuthor.classList.add("hidden");
+                img.classList.add("mr-4");
                 img.src = bookInformation.Item.mediumImageUrl;
                 titleParagraph.innerHTML = bookInformation.Item.title;
                 authorParagraph.innerHTML = bookInformation.Item.author;
@@ -17352,8 +17376,9 @@ function _searchBook() {
                 inputTitleKana.setAttribute("value", bookInformation.Item.titleKana);
                 inputAuthor.setAttribute("value", bookInformation.Item.author);
                 fragment.append(img);
-                fragment.append(titleParagraph);
-                fragment.append(authorParagraph);
+                bookInformationDiv.append(titleParagraph);
+                bookInformationDiv.append(authorParagraph);
+                fragment.append(bookInformationDiv);
                 fragment.append(inputImg);
                 fragment.append(inputTitle);
                 fragment.append(inputTitleKana);
@@ -17366,10 +17391,11 @@ function _searchBook() {
               searchResults.forEach(function (searchResult) {
                 searchResult.addEventListener("click", function (e) {
                   var bookElements = e.currentTarget.childNodes;
-                  var bookImageSrc = bookElements[3].value;
-                  var bookTitle = bookElements[4].value;
-                  var bookTitleKana = bookElements[5].value;
-                  var bookAuthor = bookElements[6].value;
+                  console.log(bookElements);
+                  var bookImageSrc = bookElements[2].value;
+                  var bookTitle = bookElements[3].value;
+                  var bookTitleKana = bookElements[4].value;
+                  var bookAuthor = bookElements[5].value;
                   var postData = new FormData();
                   postData.append("img", bookImageSrc);
                   postData.append("title", bookTitle);
@@ -17390,7 +17416,7 @@ function _searchBook() {
               resultMessage.classList.replace("hidden", "block");
             }
 
-          case 8:
+          case 14:
           case "end":
             return _context.stop();
         }
