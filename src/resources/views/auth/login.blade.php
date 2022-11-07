@@ -42,13 +42,13 @@
                     <div>
                         @if (Route::has('password.request'))
                             <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                                ※{{ __('Forgot your password?') }}
+                                ※パスワードを忘れた方
                             </a>
                         @endif
                     </div>
                     <div>
                         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                            ※アカウントをお持ちでない方はこちら
+                            ※アカウントをお持ちでない方
                         </a>
                     </div>
                 </div>

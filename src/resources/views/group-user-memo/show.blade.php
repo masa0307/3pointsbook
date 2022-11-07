@@ -13,47 +13,93 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
 </head>
 <body>
-    <div class="flex">
-        <section class="w-1/4 h-screen bg-primary">
-            <div class="flex my-10">
-                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded ml-4 mr-4">＋ 本の追加</button>
+    <div class="md:flex">
+        <section class="md:w-1/4 md:h-screen md:bg-primary">
+            <div class="hidden md:flex justify-around my-10">
+                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
                 <div id="addBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                     <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
-                        <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800">本を検索する</a>
-                        <a href="{{route('book.manual')}}" class="block py-4">本を手動で登録する</a>
+                        <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800 rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を検索する</a>
+                        <a href="{{route('book.manual')}}" class="block py-4 rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">本を手動で登録する</a>
                     </div>
 
                     <div class="modal-content-logout bg-modal-window mx-auto my-10 w-1/4 text-center text-2xl rounded-2xl">
-                        <button id="addBookClose" class="block py-4 w-full">キャンセル</button>
+                        <button id="addBookClose" class="block py-4 w-full rounded-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
                     </div>
                 </div>
-                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                     <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
                 <div id="settingMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                     <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
-                        <a href="{{route('user-name.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">ユーザー名称の変更</a>
-                        <a href="{{route('email.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">メールアドレスの変更</a>
-                        <a href="{{route('login-password.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">パスワードの変更</a>
-                        <a href="{{route('book-sort.edit', Auth::id())}}" class="block py-4 border-b border-gray-800">本の並び替え</a>
-                        <a href="{{route('genre-name.edit', Auth::id())}}" class="block py-4">ジャンル名の追加</a>
+                        <a href="{{route('user-name.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">ユーザー名称の変更</a>
+                        <a href="{{route('email.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 hover:bg-sky-500 hover:text-slate-50">メールアドレスの変更</a>
+                        <a href="{{route('login-password.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 hover:bg-sky-500 hover:text-slate-50">パスワードの変更</a>
+                        <a href="{{route('book-sort.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 hover:bg-sky-500 hover:text-slate-50">本の並び替え</a>
+                        <a href="{{route('genre-name.edit', Auth::id())}}" class="block py-4 rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">ジャンル名の追加</a>
                     </div>
 
                     <div class="modal-content-logout bg-modal-window mx-auto my-10 w-1/4 text-center text-2xl rounded-2xl">
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
-                            <input type="submit" value="ログアウト" class="py-4 cursor-pointer w-full">
+                            <input type="submit" value="ログアウト" class="py-4 cursor-pointer w-full rounded-2xl hover:bg-sky-500 hover:text-slate-50">
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class="mr-4">
-                <ul>
+            <div class="flex justify-between bg-primary py-4 px-2 items-center md:hidden">
+                <button id="addBookOpenBySp" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="fluent:add-24-regular" width="24" height="24" flip="vertical"></iconify-icon></button>
+                <div id="addBookMenuBySp" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                    <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 text-center text-xl rounded-2xl">
+                        <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800 rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を検索する</a>
+                        <a href="{{route('book.manual')}}" class="block py-4 rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">本を手動で登録する</a>
+                    </div>
+
+                    <div class="modal-content-logout bg-modal-window mx-auto my-10 w-3/4 text-center text-xl rounded-2xl">
+                        <button id="addBookCloseBySp" class="block py-4 w-full rounded-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
+                    </div>
+                </div>
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
+                    <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
+                </button>
+
+                @if(strpos(url()->full(),'book-memo')!== false)
+                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$book_id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
+                @elseif(strpos(url()->full(),'action-list')!== false)
+                    <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
+                @elseif(strpos(url()->full(),'feedback-list')!== false)
+                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                @endif
+
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
+                    <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
+                </button>
+                <button id="settingScreenOpenBySp" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
+                <div id="settingMenuBySp" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                    <div class="modal-content-setting bg-modal-window mx-auto mt-32 w-3/4 text-center text-xl rounded-2xl">
+                        <a href="{{route('user-name.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">ユーザー名称の変更</a>
+                        <a href="{{route('email.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 hover:bg-sky-500 hover:text-slate-50">メールアドレスの変更</a>
+                        <a href="{{route('login-password.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 hover:bg-sky-500 hover:text-slate-50">パスワードの変更</a>
+                        <a href="{{route('book-sort.edit', Auth::id())}}" class="block py-4 border-b border-gray-800 hover:bg-sky-500 hover:text-slate-50">本の並び替え</a>
+                        <a href="{{route('genre-name.edit', Auth::id())}}" class="block py-4 rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">ジャンル名の追加</a>
+                    </div>
+
+                    <div class="modal-content-logout bg-modal-window mx-auto my-10 w-3/4 text-center text-xl rounded-2xl ">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <input type="submit" value="ログアウト" class="py-4 cursor-pointer w-full rounded-2xl hover:bg-sky-500 hover:text-slate-50">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden md:block mt-8">
+                <ul class="pr-4 pb-5 border-b">
                     <li>
                         <p class="pl-6">読書中</p>
                         <ul class="pl-10">
@@ -73,7 +119,7 @@
                     </li>
                 </ul>
 
-                <ul class="mt-10">
+                <ul class="pt-5 pb-5 border-b">
                     <li>
                         <p class="pl-6">気になる</p>
                         <ul class="pl-10">
@@ -88,7 +134,7 @@
                     </li>
                 </ul>
 
-                <ul class="mt-10">
+                <ul class="pr-4 pt-5">
                     <li>
                         <p class="pl-6">グループ</p>
                         <ul class="pl-10">
@@ -101,8 +147,8 @@
 
                                                 @if($memo_group->pivot->is_owner == true)
                                                     <div class="flex">
-                                                        <a href="{{ route('group-user.add', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-2"></iconify-icon>
-                                                        <a href="{{ route('group-user.edit', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="16" height="16" class="px-1.5 py-1 bg-slate-50 rounded mr-10"></iconify-icon></a>
+                                                        <a href="{{ route('group-user.add', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded mr-8"></iconify-icon>
+                                                        <a href="{{ route('group-user.edit', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded"></iconify-icon></a>
                                                     </div>
                                                 @endif
                                             </div>
@@ -133,64 +179,64 @@
             </div>
         </section>
 
-        <section class="w-1/2">
-            <h2 id="title" class="px-10 pt-10 font-medium text-xl">{{ $select_book->title }}</h2>
+        <section class="md:w-1/2">
+            <h2 id="title" class="px-10 pt-8 font-medium text-xl">{{ $select_book->title }}</h2>
             <p id="groupName" class="px-10 pt-2">（公開グループ名：{{ $group_name }}）</p>
 
             @if(strpos(url()->full(),'book-memo')!== false)
-                <div class="pl-12">
-                    <h2 id="book-memo" class="pt-6 font-medium text-xl">読書メモ</h2>
+                <div class="px-4 md:px-0 pb-4 md:pl-12">
+                    <h2 id="book-memo" class="hidden md:block pt-6 font-medium text-xl">読書メモ</h2>
 
                     <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                         <h3 class="py-4">読書前</h3>
                         <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
                     </section>
 
-                    <section class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
+                    <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                         <h3 class="py-4">読書中</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->reading_content}}</textarea>
                     </section>
 
-                    <section class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
+                    <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                         <h3 class="py-4">読書後</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
                     </section>
                 </div>
 
             @elseif(strpos(url()->full(),'action-list')!== false)
-                <div class="pl-12">
-                    <h2 id="book-memo" class="pt-6 font-medium text-xl">アクションリスト</h2>
+                <div class="px-4 md:px-0 pb-4 md:pl-12">
+                    <h2 id="book-memo" class="hidden md:block pt-6 font-medium text-xl">アクションリスト</h2>
 
                     <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                         <h3 class="py-4">アクションリスト１</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist1_content}}</textarea>
                     </section>
 
-                    <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
+                    <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                         <h3 class="py-4">アクションリスト２</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist2_content}}</textarea>
                     </section>
 
-                    <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
+                    <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                         <h3 class="py-4">アクションリスト３</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist3_content}}</textarea>
                     </section>
                 </div>
             @elseif(strpos(url()->full(),'feedback-list')!== false)
-                <div class="pl-12">
-                    <h2 id="book-memo" class="pt-6 font-medium text-xl">振り返り</h2>
+                <div class="px-4 md:px-0 pb-4 md:pl-12">
+                    <h2 id="book-memo" class="hidden md:block pt-6 font-medium text-xl">振り返り</h2>
 
                     <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                         <h3 class="py-4">Q.アクションリスト１を実施した結果は？</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback1_content}}</textarea>
                     </section>
 
-                    <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
+                    <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                         <h3 class="py-4">Q.アクションリスト２を実施した結果は？</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback2_content}}</textarea>
                     </section>
 
-                    <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-4 rounded bg-primary">
+                    <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                         <h3 class="py-4">Q.アクションリスト３を実施した結果は？</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback3_content}}</textarea>
                     </section>

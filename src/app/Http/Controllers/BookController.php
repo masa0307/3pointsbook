@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\GroupUser;
@@ -64,13 +65,7 @@ class BookController extends Controller
         return view('book.create', compact("temporary_store_book"));
     }
 
-    public function store(Request $request){
-        $request->validate([
-            'title' => ['required', 'string', 'max:50'],
-            'title_kana' => ['required', 'string', 'max:50'],
-            'author' => ['required', 'string', 'max:20'],
-        ]);
-
+    public function store(BookRequest $request){
         if(parse_url(url()->previous())['path'] == "/book/create"){
             $temporary_store_book = Book::latest('created_at')->first();
             $temporary_store_book->title = $request->title;
@@ -101,7 +96,7 @@ class BookController extends Controller
         $genre_name = $book->genre->genre_name;
         $is_invited_group_users = false;
 
-        return view('book.index',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users]);
+        return view('book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users]);
     }
 
     public function destroy(Book $book){
