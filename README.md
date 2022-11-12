@@ -50,3 +50,11 @@ URL：https://3pointsbook.com/
 4. 招待を受けたユーザーが「参加する」をクリックするとグループへ追加され、グループ内で公開されたメモが閲覧可能
 
 ![create-group](https://raw.github.com/wiki/masa0307/3pointsbook/images/create-group.gif)
+
+### ■メモの共有
+1. 本の詳細ページから「メモの公開・非公開」ボタンをクリック
+2. グループを選択し、メモを公開   
+3. グループ内のユーザーは公開されたメモを閲覧可能  
+
+![share-memo](https://raw.github.com/wiki/masa0307/3pointsbook/images/share-memo.gif)
+ 
