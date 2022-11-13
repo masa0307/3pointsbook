@@ -58,3 +58,37 @@ URL：https://3pointsbook.com/
 
 ![share-memo](https://raw.github.com/wiki/masa0307/3pointsbook/images/share-memo.gif)
  
+# 使用技術
+■バックエンド
+- PHP 8.0.25  
+- Laravel 8.83.23  
+
+■フロントエンド
+- HTML  
+- CSS  
+- JavaScript   
+- Tailwind CSS 3.2.4
+
+■インフラ
+- mysql 8.0.30
+- AWS(VPC, EC2, RDS, Route53, ALB, ACM)
+- Docker 20.10.17 / Docker compose 2.12.0
+
+■その他の使用技術
+- Git(GitHub) 
+- Visual Studio Code 
+- Figma(画面遷移図)
+- Lucidchart(ER図) 
+- Draw.io(AWS構成図)
+
+# インフラ構成図
+
+![infra](https://raw.github.com/wiki/masa0307/3pointsbook/images/infra.png)
+
+# DB設計
+- ER図
+![ER](https://raw.github.com/wiki/masa0307/3pointsbook/images/ER.png)
+
+- テーブル定義
+![table](https://raw.github.com/wiki/masa0307/3pointsbook/images/table.png)
+
