@@ -92,3 +92,7 @@ URL：https://3pointsbook.com/
 - テーブル定義
 ![table](https://raw.github.com/wiki/masa0307/3pointsbook/images/table.png)
 
+# 画面遷移図
+※ 一部のみ
+![screen-transition](https://raw.github.com/wiki/masa0307/3pointsbook/images/screen-transition.png)
+
