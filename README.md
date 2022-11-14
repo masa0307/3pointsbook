@@ -89,16 +89,16 @@ URL：https://3pointsbook.com/
 - ER図
 ![ER](https://raw.github.com/wiki/masa0307/3pointsbook/images/ER.png)
 
-- テーブル定義
+- テーブル定義  
 ![table](https://raw.github.com/wiki/masa0307/3pointsbook/images/table.png)
 
 # 画面遷移図
-※ 一部のみ
+※ 下記は画面遷移図の一部抜粋
 ![screen-transition](https://raw.github.com/wiki/masa0307/3pointsbook/images/screen-transition.png)
 
 # アプリの機能一覧
 ### ■メイン機能
-- メモする本の新規作成・表示・削除
+- メモする本の新規登録・表示・削除（Rakuten Books API使用）
 - メモの新規作成・表示・編集・削除（CRUD処理）
 - メモを共有するグループの新規作成・表示・編集・削除（CRUD処理）
 - グループへのメモ内容の公開・非公開
