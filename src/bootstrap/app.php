@@ -41,6 +41,18 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+switch ($_SERVER['HTTP_HOST'] ?? 'localhost') {
+    // 開発環境
+    case 'localhost':
+        $app->loadEnvironmentFrom('.env');
+        break;
+
+    // 本番環境
+    case '3pointsbook.com':
+        $app->loadEnvironmentFrom('.env.production');
+        break;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
