@@ -12,7 +12,7 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
 </head>
 <body>
-    <div class="flex">
+    <div class="md:flex">
         <section class="md:w-1/4 h-screen md:bg-primary">
             <div class="hidden md:flex justify-around my-10">
                 <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="mt-8">
-                <ul class="pr-4 pb-5 border-b">
+                <ul class="pr-4 pb-5 border-b md:border-b-0">
                     <li>
                         <p class="pl-6">読書中</p>
                         <ul class="pl-10">
@@ -109,7 +109,7 @@
                     </li>
                 </ul>
 
-                <ul class="pt-5 pb-5 border-b">
+                <ul class="pt-5 pb-5 border-b md:border-b-0">
                     <li>
                         <p class="pl-6">気になる</p>
                         <ul class="pl-10">

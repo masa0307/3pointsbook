@@ -90,7 +90,7 @@
             </div>
 
             <div class="mt-8">
-                <ul class="pr-4 pb-5 border-b">
+                <ul class="pr-4 pb-5 border-b  md:border-b-0">
                     <li>
                         <p class="pl-6">読書中</p>
                         <ul class="pl-10">
@@ -110,7 +110,7 @@
                     </li>
                 </ul>
 
-                <ul class="pt-5 pb-5 border-b">
+                <ul class="pt-5 pb-5 border-b  md:border-b-0">
                     <li>
                         <p class="pl-6">気になる</p>
                         <ul class="pl-10">
