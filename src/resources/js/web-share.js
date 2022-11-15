@@ -10,7 +10,7 @@ if (typeof navigator.share === "undefined") {
             try {
                 if (location.href.match(/book-memo/)) {
                     let shareData = {
-                        text: `${e.target.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.textContent}
+                        text: `${e.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[1].textContent}
                                 （${e.target.parentNode.previousElementSibling.textContent}メモ）
                                 ・${e.target.parentNode.parentNode.nextElementSibling.value}
                         `.replace(/^\n|\s+$|^ {28}/gm, ""),
@@ -21,7 +21,7 @@ if (typeof navigator.share === "undefined") {
                         text: `
                             ${
                                 e.target.parentNode.parentNode.parentNode
-                                    .firstElementChild.textContent
+                                    .children[1].textContent
                             }
                                 （アクションリスト１メモ）
                                 ・${
@@ -48,7 +48,7 @@ if (typeof navigator.share === "undefined") {
                         text: `
                             ${
                                 e.target.parentNode.parentNode.parentNode
-                                    .firstElementChild.textContent
+                                    .children[1].textContent
                             }
                                 （フィードバック１メモ）
                                 ・${

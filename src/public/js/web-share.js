@@ -35,7 +35,7 @@ if (typeof navigator.share === "undefined") {
                 }
 
                 shareData = {
-                  text: "".concat(e.target.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.textContent, "\n                                \uFF08").concat(e.target.parentNode.previousElementSibling.textContent, "\u30E1\u30E2\uFF09\n                                \u30FB").concat(e.target.parentNode.parentNode.nextElementSibling.value, "\n                        ").replace(/^\n|\s+$|^ {28}/gm, "")
+                  text: "".concat(e.target.parentNode.parentNode.parentNode.parentNode.parentNode.children[1].textContent, "\n                                \uFF08").concat(e.target.parentNode.previousElementSibling.textContent, "\u30E1\u30E2\uFF09\n                                \u30FB").concat(e.target.parentNode.parentNode.nextElementSibling.value, "\n                        ").replace(/^\n|\s+$|^ {28}/gm, "")
                 };
                 _context.next = 5;
                 return navigator.share(shareData);
@@ -51,7 +51,7 @@ if (typeof navigator.share === "undefined") {
                 }
 
                 _shareData = {
-                  text: "\n                            ".concat(e.target.parentNode.parentNode.parentNode.firstElementChild.textContent, "\n                                \uFF08\u30A2\u30AF\u30B7\u30E7\u30F3\u30EA\u30B9\u30C8\uFF11\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("actionMemo1").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30A2\u30AF\u30B7\u30E7\u30F3\u30EA\u30B9\u30C8\uFF12\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("actionMemo2").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30A2\u30AF\u30B7\u30E7\u30F3\u30EA\u30B9\u30C8\uFF13\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("actionMemo3").lastElementChild.textContent, "\n                        ").replace(/^\n|\s+$|^ {28}/gm, "")
+                  text: "\n                            ".concat(e.target.parentNode.parentNode.parentNode.children[1].textContent, "\n                                \uFF08\u30A2\u30AF\u30B7\u30E7\u30F3\u30EA\u30B9\u30C8\uFF11\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("actionMemo1").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30A2\u30AF\u30B7\u30E7\u30F3\u30EA\u30B9\u30C8\uFF12\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("actionMemo2").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30A2\u30AF\u30B7\u30E7\u30F3\u30EA\u30B9\u30C8\uFF13\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("actionMemo3").lastElementChild.textContent, "\n                        ").replace(/^\n|\s+$|^ {28}/gm, "")
                 };
                 _context.next = 11;
                 return navigator.share(_shareData);
@@ -67,7 +67,7 @@ if (typeof navigator.share === "undefined") {
                 }
 
                 _shareData2 = {
-                  text: "\n                            ".concat(e.target.parentNode.parentNode.parentNode.firstElementChild.textContent, "\n                                \uFF08\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF11\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("feedbackMemo1").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF12\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("feedbackMemo2").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF13\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("feedbackMemo3").lastElementChild.textContent, "\n                        ").replace(/^\n|\s+$|^ {28}/gm, "")
+                  text: "\n                            ".concat(e.target.parentNode.parentNode.parentNode.children[1].textContent, "\n                                \uFF08\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF11\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("feedbackMemo1").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF12\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("feedbackMemo2").firstElementChild.nextElementSibling.textContent, "\n                                \uFF08\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF13\u30E1\u30E2\uFF09\n                                \u30FB").concat(document.getElementById("feedbackMemo3").lastElementChild.textContent, "\n                        ").replace(/^\n|\s+$|^ {28}/gm, "")
                 };
                 _context.next = 17;
                 return navigator.share(_shareData2);
