@@ -14,8 +14,8 @@
 <body>
     <div class="flex">
         <section class="hidden md:block w-1/4 h-screen bg-primary">
-            <div class="flex my-10">
-                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded ml-4 mr-4">＋ 本の追加</button>
+            <div class="flex justify-around my-10">
+                <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
                 <div id="addBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                     <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">
                         <a href="{{route('book.search')}}" class="block py-4 border-b border-gray-800 rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を検索する</a>
@@ -26,10 +26,10 @@
                         <button id="addBookClose" class="block py-4 w-full rounded-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
                     </div>
                 </div>
-                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center mr-4">
+                <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                     <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
                 <button id="settingScreenOpen" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="ep:setting" width="24" height="24"></iconify-icon></button>
@@ -179,10 +179,10 @@
                 </div>
             </div>
 
-            <h2 class="px-5 md:px-10 pt-8 md:pt-10 pb-2 font-medium text-xl">{{ $select_book->title }}</h2>
+            <h2 class="px-5 md:px-10 pt-8 pb-2 font-medium text-xl">{{ $select_book->title }}</h2>
             @if(strpos(url()->full(),'before')!== false)
-                <div class="px-4 md:px-0 md:pl-12 md:pt-4">
-                    <h2 id="book-memo" class="hidden md:block pt-4 md:pt-0 font-medium text-xl">読書メモ</h2>
+                <div class="px-4 md:px-0 md:pl-12 pb-4">
+                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ</h2>
                     @if($is_store_memo)
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
@@ -215,7 +215,7 @@
                     @endif
                 </div>
             @elseif(strpos(url()->full(),'during')!== false)
-                <div class="px-4 md:px-0 md:pl-12 md:pt-4">
+                <div class="px-4 md:px-0 md:pl-12 pb-4">
                     <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ</h2>
                     @if($store_memo->reading_content)
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
@@ -250,7 +250,7 @@
                     @endif
                 </div>
             @elseif(strpos(url()->full(),'after')!== false)
-                <div class="px-4 md:px-0 md:pl-12 md:pt-4">
+                <div class="px-4 md:px-0 md:pl-12 pb-4">
                     <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ</h2>
                     @if($store_memo->after_reading_content)
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
@@ -284,7 +284,7 @@
                     @endif
                 </div>
             @elseif(strpos(url()->full(),'action-list')!== false)
-                <div class="px-4 md:px-0 md:pl-12 md:pt-4">
+                <div class="px-4 md:px-0 md:pl-12 pb-4">
                     <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">アクションリスト</h2>
                     @if($store_memo->actionlist1_content)
                         <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST" name="form">
@@ -358,7 +358,7 @@
                     @endif
                 </div>
             @elseif(strpos(url()->full(),'feedback-list')!== false)
-                <div class="px-4 md:px-0 md:pl-12 md:pt-4">
+                <div class="px-4 md:px-0 md:pl-12 pb-4">
                     <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">振り返り</h2>
                     @if($store_memo->feedback1_content)
                         <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST" name="form">

@@ -133,7 +133,7 @@
             </div>
         </section>
 
-        <section class="md:w-1/2">
+        <section>
             <div class="flex justify-between bg-primary py-4 px-2 items-center md:hidden">
                 <button id="addBookOpenBySp" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="fluent:add-24-regular" width="24" height="24" flip="vertical"></iconify-icon></button>
                 <div id="addBookMenuBySp" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
@@ -204,7 +204,7 @@
                                 <h3 class="my-auto">読書前</h3>
                                 <a href="{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                             </div>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->before_reading_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->before_reading_content}}</textarea>
                         </section>
                     @else
                         <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
@@ -212,7 +212,7 @@
                                 <h3 class="my-auto">読書前</h3>
                                 <a href="{{route('book-memo-before.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                             </div>
-                            <textarea cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※目次から学びたい内容を３点記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
 
@@ -228,7 +228,7 @@
                                     <a href="{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                                 </div>
                             </div>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->reading_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->reading_content}}</textarea>
                         </section>
                     @else
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
@@ -236,7 +236,7 @@
                                 <h3 class="my-auto">読書中</h3>
                                 <a href="{{route('book-memo-during.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                             </div>
-                            <textarea cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※自由なメモを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
 
@@ -252,7 +252,7 @@
                                     <a href="{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">編集する</a>
                                 </div>
                             </div>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->after_reading_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->after_reading_content}}</textarea>
                         </section>
                     @else
                         <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
@@ -260,7 +260,7 @@
                                 <h3 class="my-auto">読書後</h3>
                                 <a href="{{route('book-memo-after.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
                             </div>
-                            <textarea cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※読書前に記載した３点に関して得た情報を記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
                 </div>
@@ -283,24 +283,24 @@
                     @if($is_store_memo && $store_memo->actionlist1_content)
                         <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト１</h3>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->actionlist1_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->actionlist1_content}}</textarea>
                         </section>
                     @else
                         <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト１</h3>
-                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
 
                     @if($is_store_memo && $store_memo->actionlist2_content)
                         <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト２</h3>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->actionlist2_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->actionlist2_content}}</textarea>
                         </section>
                     @else
                         <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト２</h3>
-                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
 
@@ -308,12 +308,12 @@
                         @if($store_memo->actionlist3_content)
                             <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <h3 class="my-auto py-4">アクションリスト３</h3>
-                                <textarea  cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->actionlist3_content}}</textarea>
+                                <textarea  cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->actionlist3_content}}</textarea>
                             </section>
                         @else
                             <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <h3 class="my-auto py-4">アクションリスト３</h3>
-                                <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
+                                <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                             </section>
                         @endif
 
@@ -327,7 +327,7 @@
                     @else
                         <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">アクションリスト３</h3>
-                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                         <div class="flex justify-end mt-2">
                             <a href="{{route('action-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
@@ -354,24 +354,24 @@
                     @if($is_store_memo && $store_memo->feedback1_content)
                         <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト１を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->feedback1_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->feedback1_content}}</textarea>
                         </section>
                     @else
                         <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト１を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
 
                     @if($is_store_memo && $store_memo->feedback2_content)
                         <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト２を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->feedback2_content}}</textarea>
+                            <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->feedback2_content}}</textarea>
                         </section>
                     @else
                         <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト２を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                     @endif
 
@@ -379,12 +379,12 @@
                         @if($store_memo->feedback3_content)
                             <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
-                                <textarea cols="80" rows="5" class="rounded w-full" disabled>{{$store_memo->feedback3_content}}</textarea>
+                                <textarea cols="80" rows="5" class="rounded w-full focus:outline-none" readonly>{{$store_memo->feedback3_content}}</textarea>
                             </section>
                         @else
                             <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                                 <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
-                                <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
+                                <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                             </section>
                         @endif
 
@@ -398,7 +398,7 @@
                     @else
                         <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
                             <h3 class="my-auto py-4">Q.アクションリスト３を実施した結果は？</h3>
-                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full" disabled></textarea>
+                            <textarea cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full focus:outline-none" readonly></textarea>
                         </section>
                         <div class="flex justify-end mt-2">
                             <a href="{{route('feedback-list.edit', [$id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" id="edit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200 block">メモする</a>
