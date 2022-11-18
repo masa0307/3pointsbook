@@ -14,7 +14,7 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
 </head>
 <body>
-    <div class="flex">
+    <div class="md:flex">
         <section id="topMenu" class="md:w-1/4 h-screen md:bg-primary">
             <x-side-menu />
 
