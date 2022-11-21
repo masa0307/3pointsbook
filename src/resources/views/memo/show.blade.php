@@ -18,16 +18,30 @@
             <x-side-menu />
 
             <x-top-menu>
-                @if(strpos(url()->full(),'book-memo')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
-                @elseif(strpos(url()->full(),'action-list')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
-                @elseif(strpos(url()->full(),'feedback-list')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                @if(strpos(url()->full(),'search_title')!== false)
+                    @if(strpos(url()->full(),'book-memo')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('search-book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
+                    @elseif(strpos(url()->full(),'action-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('search-book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
+                    @elseif(strpos(url()->full(),'feedback-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('search-book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                    @endif
+                @else
+                    @if(strpos(url()->full(),'book-memo')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
+                    @elseif(strpos(url()->full(),'action-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
+                    @elseif(strpos(url()->full(),'feedback-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                    @endif
                 @endif
             </x-top-menu>
 
-            <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+            @if(strpos(url()->full(),'search_title') !== false)
+                <x-sp-hidden-search-memo-list />
+            @else
+                <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+            @endif
 
         </section>
 

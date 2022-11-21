@@ -41,7 +41,7 @@
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                         </button>
-                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書中</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$selectedBook->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書中</a></h2>
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                         </button>
