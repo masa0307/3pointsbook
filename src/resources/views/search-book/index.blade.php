@@ -19,7 +19,34 @@
                 <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>本の検索</a></h2>
             </x-top-menu>
 
-            <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+            <div class="hidden md:block mr-4">
+                <ul>
+                    <li>
+                        @if(session("search_books"))
+                            <h3 class="pl-4">検索結果</h3>
+                            <p class="pl-6 pt-2">読書中</p>
+                            <ul class="pl-10">
+
+                            @foreach (session("search_books") as $book_reading)
+                                <li class="mt-2">
+                                    <a href="{{route('search-book.show', [$book_reading->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_reading->title}}</a>
+                                    <ul class="pl-6 hidden dropdown">
+                                        <li><a href="{{route('book-memo.show', [$book_reading->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block">読書メモ</a></li>
+                                        <li><a href="{{route('action-list.show', [$book_reading->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block">アクションリスト</a></li>
+                                        <li><a href="{{route('feedback-list.show', [$book_reading->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block">振り返り</a></li>
+                                    </ul>
+                                </li>
+                            @endforeach
+
+                            {{ $search_books->links('vendor.pagination.custom') }}
+                        @else
+                            <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+                        @endif
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
 
         </section>
 
@@ -36,10 +63,10 @@
                     <p class="text-red-600">※該当する本がありません</p>
                 @endif
 
-                @if(session("search_book"))
-                    @foreach(session("search_book") as $value)
+                @if(session("search_books"))
+                    @foreach(session("search_books") as $value)
                         <div class="md:basis-1/5 pt-6 pr-4">
-                            <a href="{{ route("book.show", $value->id) }}" class="flex md:block">
+                            <a href="{{ route("search-book.show", [$value->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="flex md:block">
                                 <img src="{{$value->image_path}}" class="mr-4">
                                 <div>
                                     <p id="title">{{$value->title}}</p>

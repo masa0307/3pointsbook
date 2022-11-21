@@ -11,6 +11,9 @@
         </div>
     </div>
     <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
+        <a href="{{ route('book.index') }}"><iconify-icon icon="mingcute:home-5-fill" width="24" height="24"></iconify-icon></a>
+    </button>
+    <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
         <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
     </button>
     <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">

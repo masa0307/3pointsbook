@@ -94,6 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'search-book', 'as' => 'search-book.'], function () {
         Route::get('/', [SearchController::class, 'index'])->name('index');
+        Route::get('/show/{book}', [SearchController::class, 'show'])->name('show');
     });
 
     Route::group(['prefix' => 'group', 'as' => 'group.'], function () {
