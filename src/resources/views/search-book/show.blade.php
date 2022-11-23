@@ -52,13 +52,13 @@
                     <div class="w-1/3">
                         <img src="{{$selectedBook->image_path}}" class="w-full">
                     </div>
-                    <div class="w-2/3 md:m-auto px-4 text-xl md:w-1/2">
+                    <div class="w-2/3 md:m-auto px-4 text-xl md:w-1/2 text-normal">
                         <p id="title">{{$selectedBook->title}}</p>
                         <p class="pt-6">{{$selectedBook->author}}</p>
                         <p class="pt-6">{{$genre_name}}</p>
 
                         @if(!($selectedBook->memo->isEmpty()))
-                            <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4">
+                            <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                 <p class="pt-2">公開中のグループ：</p>
                                 @foreach($selectedBook->memo as $memo)
                                     @if($memo_groups->find($memo->group_id))

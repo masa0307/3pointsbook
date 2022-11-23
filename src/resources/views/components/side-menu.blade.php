@@ -1,4 +1,4 @@
-<div class="hidden md:flex justify-around my-10">
+<div class="hidden md:flex justify-around py-4 bg-menu">
     <button id="addBookOpen" class="px-1.5 py-1 bg-slate-50 rounded">＋ 本の追加</button>
     <div id="addBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
         <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 text-center text-2xl rounded-2xl">

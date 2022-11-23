@@ -10,6 +10,7 @@ dropdowns.forEach((dropdown) => {
 
 markers.forEach((marker) => {
     if (marker.textContent == title.textContent) {
-        marker.style.backgroundColor = "#DFDFDF";
+        marker.style.backgroundColor = "#5d5a79";
+        marker.style.color = "#ddd";
     }
 });

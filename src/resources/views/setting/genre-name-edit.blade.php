@@ -16,7 +16,7 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-sm"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>ジャンル名の追加</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-sm text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>ジャンル名の追加</a></h2>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -28,7 +28,7 @@
 
             @if(strpos(url()->full(),'store'))
                 <p class="text-red-600 pt-8 md:ml-20 mx-4">ジャンル名の追加に成功しました！</p>
-                <div class="bg-primary p-8 md:ml-20 mt-2 mx-4 rounded-xl">
+                <div class="bg-primary p-8 md:ml-20 mt-2 mx-4 rounded-xl text-normal">
                     <div>
                         <p>現在</p>
                         <div class="bg-slate-50 mt-2 rounded p-2">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             @else
-                <div class="bg-primary p-8 md:ml-20 mt-8 mx-4 rounded-xl">
+                <div class="bg-primary p-8 md:ml-20 mt-8 mx-4 rounded-xl text-normal">
                     <form action="{{ route('genre-name.store', Auth::id()) }}" method="POST">
                         @csrf
                         <div>
@@ -55,11 +55,11 @@
                                 @error('genre_name')
                                     <p class="text-red-600">※{{ $message }}</p>
                                 @enderror
-                                <input type="text" name="genre_name" placeholder="ジャンル名" class="border-none rounded w-full mt-1">
+                                <input type="text" name="genre_name" placeholder="ジャンル名" class="border-none rounded w-full mt-1 text-black">
                             </div>
                         </div>
                         <div class="pt-8">
-                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded hover:bg-sky-500 hover:text-slate-50">追加</button>
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded hover:bg-sky-500 hover:text-slate-50 text-black">追加</button>
                         </div>
                     </form>
                 </div>

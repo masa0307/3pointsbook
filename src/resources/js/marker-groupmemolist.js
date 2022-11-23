@@ -17,7 +17,8 @@ markers.forEach((marker) => {
             )
         ) {
             dropdown.style.display = "block";
-            marker.style.backgroundColor = "#DFDFDF";
+            marker.style.backgroundColor = "#5d5a79";
+            marker.style.color = "#ddd";
         }
     });
 });

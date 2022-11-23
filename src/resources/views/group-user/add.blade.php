@@ -16,7 +16,7 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-sm"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>メンバーの追加</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-sm text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>メンバーの追加</a></h2>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -25,7 +25,7 @@
 
         <section class="md:w-1/3">
             <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">メンバーの追加</h2>
-            <div class="bg-primary p-8 mx-4 md:ml-20 mt-8 rounded-xl">
+            <div class="bg-primary p-8 mx-4 md:ml-20 mt-8 rounded-xl text-normal">
                 <p class="font-semibold text-lg">グループ名：{{ session('group_name') }}</p>
                 <div class="pt-10">
                     <p class="border-b border-slate-400">追加するメンバー</p>
@@ -33,7 +33,7 @@
                     <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4">
                         @csrf
                         <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12">
-                        <button type="submit" class="ml-2 px-2 py-2 bg-slate-200 rounded">検索</button>
+                        <button type="submit" class="ml-2 px-2 py-2 bg-slate-200 rounded text-black">検索</button>
                     </form>
 
                     @error('user_id')

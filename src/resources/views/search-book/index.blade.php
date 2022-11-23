@@ -16,16 +16,16 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>本の検索</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center text-normal"><iconify-icon icon="ci:external-link"></iconify-icon>本の検索</a></h2>
             </x-top-menu>
 
-            <div class="hidden md:block mr-4">
+            <div class="hidden md:block mr-4 mt-8">
                 <ul>
                     <li>
                         @if(session("search_books"))
-                            <h3 class="pl-4">検索結果</h3>
-                            <p class="pl-6 pt-2">読書中</p>
-                            <ul class="pl-10">
+                            <h3 class="pl-4 md:text-subtitle">検索結果</h3>
+                            <p class="pl-6 pt-2 text-normal">読書中</p>
+                            <ul class="pl-10 text-normal">
 
                             @foreach (session("search_books") as $book_reading)
                                 <li class="mt-2">

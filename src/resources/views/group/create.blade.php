@@ -16,7 +16,7 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>グループの作成</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{ route('book.index') }}" class="flex items-center justify-center text-normal"><iconify-icon icon="ci:external-link"></iconify-icon>グループの作成</a></h2>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -29,7 +29,7 @@
                 <form action="{{ route('group.store') }}" method="post">
                     @csrf
                     <div>
-                        <label for="group_name">グループ名</label>
+                        <label for="group_name" class="text-normal">グループ名</label>
                     </div>
                     <div class="pt-8">
                         @error('group_name')

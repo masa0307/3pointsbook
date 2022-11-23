@@ -17,14 +17,14 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-sm"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>メモの公開・非公開</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-sm text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>メモの公開・非公開</a></h2>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
 
         </section>
 
-        <section class="md:w-5/12">
+        <section class="md:w-5/12 text-black">
             <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">メモの公開</h2>
 
             <div class="md:bg-primary md:p-8 px-4 md:ml-20 mt-8 rounded-xl h-1/2">
@@ -35,7 +35,7 @@
                             @if(($published_book->memo)->isEmpty())
                                 <p class="pt-2 text-red-500 ml-2">※保存済みのメモがないため、公開できません</p>
                             @else
-                                <label for="group_name" class="font-semibold">メモの公開：&emsp;</label>
+                                <label for="group_name" class="font-semibold md:text-subtitle">メモの公開：&emsp;</label>
                                 <select name="group_id" id="group_name" class="rounded">
                                     @foreach($not_published_groups as $not_published_group)
                                         <option value="{{ $not_published_group->id }}">{{ $not_published_group->group_name }}</option>
@@ -52,7 +52,7 @@
                     @if(!($published_groups->isEmpty()))
                         <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST" class="mt-2">
                             @csrf
-                            <label for="group_name" class="font-semibold">メモの非公開：</label>
+                            <label for="group_name" class="font-semibold md:text-subtitle">メモの非公開：</label>
                             <select name="non_group_id" id="group_name" class="rounded">
                                 @foreach($published_groups as $published_group)
                                     <option value="{{ $published_group->id }}">{{ $published_group->group_name }}</option>
@@ -70,7 +70,7 @@
                     <div class="w-1/3">
                         <img src="{{$published_book->image_path}}" class="w-full">
                     </div>
-                    <div class="m-auto px-4 text-xl w-1/2">
+                    <div class="m-auto px-4 text-xl w-1/2 md:text-normal">
                         <p id="title">{{$published_book->title}}</p>
                         <p class="pt-6">{{$published_book->author}}</p>
                         <p class="pt-6">{{$genre_name}}</p>
