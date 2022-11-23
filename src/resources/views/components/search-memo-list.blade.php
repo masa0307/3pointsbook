@@ -2,7 +2,7 @@
     <ul class="pr-4 pb-5 border-b md:border-b-0">
         <li>
             <div class="flex justify-between">
-                <h3 class="pl-4">検索結果</h3>
+                <h3 class="pl-4 md:text-subtitle">検索結果</h3>
                 <button class=" text-cyan-600"><a href="{{ route('book.index') }}">検索解除</a></button>
             </div>
             <p class="pl-6 pt-2">読書中</p>

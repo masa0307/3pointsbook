@@ -13,9 +13,12 @@ module.exports = {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: "#98fb98",
+                primary: "#3b394d",
                 "modal-rgba": "rgba(0,0,0,0.5)",
                 "modal-window": "#FFF9F9",
+                subtitle: "#efefef",
+                normal: "#ddd",
+                menu: "#1a2546",
             },
             inset: {
                 "1/5": "20%",

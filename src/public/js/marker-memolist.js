@@ -8,7 +8,8 @@ var markers = document.querySelectorAll(".marker");
 var bookMemo = document.getElementById("book-memo");
 markers.forEach(function (marker) {
   if (marker.textContent == bookMemo.textContent) {
-    marker.style.backgroundColor = "#DFDFDF";
+    marker.style.backgroundColor = "#5d5a79";
+    marker.style.color = "#ddd";
   }
 });
 dropdowns.forEach(function (dropdown) {

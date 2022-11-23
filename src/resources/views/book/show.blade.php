@@ -26,7 +26,7 @@
         <section id="bookInformation" class="hidden md:block md:w-5/12">
             @if(isset($selectedBook))
                 @if($selectedBook->state == '読書中')
-                    <div class="flex justify-between bg-primary py-4 px-2 items-center md:hidden">
+                    <div class="flex justify-between bg-primary py-4 px-2 items-center md:hidden bg-menu">
                         <button id="addBookOpenBySp" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="fluent:add-24-regular" width="24" height="24" flip="vertical"></iconify-icon></button>
                         <div id="addBookMenuBySp" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                             <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 text-center text-xl rounded-2xl">
@@ -41,7 +41,7 @@
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                         </button>
-                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$selectedBook->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書中</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl text-normal"><a href="{{route('book.show', [$selectedBook->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書中</a></h2>
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                         </button>
@@ -91,13 +91,13 @@
                             <div class="w-1/3">
                                 <img src="{{$selectedBook->image_path}}" class="w-full">
                             </div>
-                            <div class="w-2/3 md:m-auto px-4 text-xl md:w-1/2">
+                            <div class="w-2/3 md:m-auto px-4 text-xl md:w-1/2 md:text-normal">
                                 <p id="title">{{$selectedBook->title}}</p>
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
 
                                 @if(!($selectedBook->memo->isEmpty()))
-                                    <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4">
+                                    <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                         <p class="pt-2">公開中のグループ：</p>
                                         @foreach($selectedBook->memo as $memo)
                                             @if($memo_groups->find($memo->group_id))
@@ -112,7 +112,7 @@
                         </div>
 
                         @if(!($selectedBook->memo->isEmpty()))
-                            <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4">
+                            <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4 text-normal">
                                 <p class="pt-2">公開中のグループ：</p>
                                 @foreach($selectedBook->memo as $memo)
                                     @if($memo_groups->find($memo->group_id))

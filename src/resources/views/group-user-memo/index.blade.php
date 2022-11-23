@@ -74,7 +74,7 @@
                         <div class="w-1/3">
                             <img src="{{$selectedBook->image_path}}" class="w-full">
                         </div>
-                        <div class="md:m-auto px-4 text-xl w-2/3 md:w-1/2">
+                        <div class="md:m-auto px-4 text-xl w-2/3 md:w-1/2 text-normal">
                             <p id="title">{{$selectedBook->title}}</p>
                             <p class="pt-6">{{$selectedBook->author}}</p>
                             <p class="pt-6">{{$genre_name}}</p>

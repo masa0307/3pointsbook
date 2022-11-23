@@ -4,7 +4,8 @@ let bookMemo = document.getElementById("book-memo");
 
 markers.forEach((marker) => {
     if (marker.textContent == bookMemo.textContent) {
-        marker.style.backgroundColor = "#DFDFDF";
+        marker.style.backgroundColor = "#5d5a79";
+        marker.style.color = "#ddd";
     }
 });
 

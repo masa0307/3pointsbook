@@ -16,7 +16,7 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-sm"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>メールアドレスの変更</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-sm text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>メールアドレスの変更</a></h2>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -29,13 +29,13 @@
             @if(strpos(url()->full(),'update'))
                 <p class="text-red-600 pt-8 md:ml-20 mx-4">メールアドレスの変更に成功しました！</p>
                 <div class="bg-primary p-8 md:ml-20 mt-2 mx-4 rounded-xl">
-                    <div>
+                    <div class="text-normal">
                         <p>現在</p>
-                        <input type="text" value="{{ $email }}" class="pl-3 pt-2 mt-2 border-none rounded w-full" disabled>
+                        <input type="text" value="{{ $email }}" class="pl-3 pt-2 mt-2 border-none rounded w-full text-black" disabled>
                     </div>
                 </div>
             @else
-                <div class="bg-primary p-8 md:ml-20 mt-8 mx-4 rounded-xl">
+                <div class="bg-primary p-8 md:ml-20 mt-8 mx-4 rounded-xl text-normal">
                     <form action="{{ route('email.update', Auth::id()) }}" method="POST">
                         @method('PATCH')
                         @csrf
@@ -51,11 +51,11 @@
                             @enderror
 
                             <p class="pt-2">
-                                <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}" class="border-none rounded w-full">
+                                <input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}" class="border-none rounded w-full text-black">
                             </p>
                         </div>
                         <div class="pt-8">
-                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded hover:bg-sky-500 hover:text-slate-50">変更</button>
+                            <button type="submit" class="block text-center w-full bg-slate-200 p-1 rounded hover:bg-sky-500 hover:text-slate-50 text-black">変更</button>
                         </div>
                     </form>
                 </div>

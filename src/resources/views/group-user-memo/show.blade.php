@@ -18,13 +18,15 @@
             <x-side-menu />
 
             <x-top-menu>
-                @if(strpos(url()->full(),'book-memo')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$book_id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
-                @elseif(strpos(url()->full(),'action-list')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
-                @elseif(strpos(url()->full(),'feedback-list')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
-                @endif
+                <div class="text-normal">
+                    @if(strpos(url()->full(),'book-memo')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$book_id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
+                    @elseif(strpos(url()->full(),'action-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
+                    @elseif(strpos(url()->full(),'feedback-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                    @endif
+                </div>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -40,17 +42,17 @@
                     <h2 id="book-memo" class="hidden md:block pt-6 font-medium text-xl">読書メモ</h2>
 
                     <section class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                        <h3 class="py-4">読書前</h3>
+                        <h3 class="py-4 text-normal">読書前</h3>
                         <textarea cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->before_reading_content}}</textarea>
                     </section>
 
                     <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                        <h3 class="py-4">読書中</h3>
+                        <h3 class="py-4 text-normal">読書中</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->reading_content}}</textarea>
                     </section>
 
                     <section class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                        <h3 class="py-4">読書後</h3>
+                        <h3 class="py-4 text-normal">読書後</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->after_reading_content}}</textarea>
                     </section>
                 </div>
@@ -60,17 +62,17 @@
                     <h2 id="book-memo" class="hidden md:block pt-6 font-medium text-xl">アクションリスト</h2>
 
                     <section id="actionMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                        <h3 class="py-4">アクションリスト１</h3>
+                        <h3 class="py-4 text-normal">アクションリスト１</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist1_content}}</textarea>
                     </section>
 
                     <section id="actionMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                        <h3 class="py-4">アクションリスト２</h3>
+                        <h3 class="py-4 text-normal">アクションリスト２</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist2_content}}</textarea>
                     </section>
 
                     <section id="actionMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                        <h3 class="py-4">アクションリスト３</h3>
+                        <h3 class="py-4 text-normal">アクションリスト３</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->actionlist3_content}}</textarea>
                     </section>
                 </div>
@@ -79,17 +81,17 @@
                     <h2 id="book-memo" class="hidden md:block pt-6 font-medium text-xl">振り返り</h2>
 
                     <section id="feedbackMemo1" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                        <h3 class="py-4">Q.アクションリスト１を実施した結果は？</h3>
+                        <h3 class="py-4 text-normal">Q.アクションリスト１を実施した結果は？</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback1_content}}</textarea>
                     </section>
 
                     <section id="feedbackMemo2" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                        <h3 class="py-4">Q.アクションリスト２を実施した結果は？</h3>
+                        <h3 class="py-4 text-normal">Q.アクションリスト２を実施した結果は？</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback2_content}}</textarea>
                     </section>
 
                     <section id="feedbackMemo3" class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                        <h3 class="py-4">Q.アクションリスト３を実施した結果は？</h3>
+                        <h3 class="py-4 text-normal">Q.アクションリスト３を実施した結果は？</h3>
                         <textarea  cols="80" rows="5" readonly class="rounded w-full">{{$store_memo->feedback3_content}}</textarea>
                     </section>
                 </div>

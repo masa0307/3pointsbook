@@ -12,7 +12,8 @@ markers.forEach(function (marker) {
   dropdowns.forEach(function (dropdown) {
     if (dropdown.previousElementSibling.textContent.match(title.textContent) && marker.textContent == bookMemo.textContent && groupName.textContent.match(dropdown.parentNode.firstElementChild.firstElementChild.textContent)) {
       dropdown.style.display = "block";
-      marker.style.backgroundColor = "#DFDFDF";
+      marker.style.backgroundColor = "#5d5a79";
+      marker.style.color = "#ddd";
     }
   });
 });

@@ -16,7 +16,7 @@
             <x-side-menu />
 
             <x-top-menu>
-                <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>本の登録</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center text-normal"><iconify-icon icon="ci:external-link"></iconify-icon>本の登録</a></h2>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -25,7 +25,7 @@
 
         <section class="md:w-1/2">
             <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">本の追加</h2>
-            <div class="hidden md:block bg-primary p-3 ml-20 mt-8 rounded-xl w-full text-center text-lg">
+            <div class="hidden md:block bg-primary p-3 ml-20 mt-8 rounded-xl w-full text-center text-lg text-normal">
                 本の登録
             </div>
             <div class="p-2 mt-10 md:mt-0 md:ml-20 rounded w-full h-3/4 bg-modal-window flex align-center">

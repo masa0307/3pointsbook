@@ -1,8 +1,8 @@
 <div class="mt-8">
     <ul class="pr-4 pb-5 border-b md:border-b-0">
         <li>
-            <p class="pl-6">読書中</p>
-            <ul class="pl-10">
+            <p class="pl-6 md:text-subtitle">読書中</p>
+            <ul class="pl-10 md:text-normal">
                 @foreach ($books_reading as $book_reading)
                     <li class="mt-2">
                         <a href="{{route('book.show', [$book_reading->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker showInformation block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_reading->title}}</a>
@@ -21,8 +21,8 @@
 
     <ul class="pt-5 pb-5 border-b md:border-b-0">
         <li>
-            <p class="pl-6">気になる</p>
-            <ul class="pl-10">
+            <p class="pl-6 md:text-subtitle">気になる</p>
+            <ul class="pl-10 md:text-normal">
                 @foreach ($books_interesting as $book_interesting)
                     <li class="mt-2">
                         <a href="{{route('book.show', [$book_interesting->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_interesting->title}}</a>
@@ -36,8 +36,8 @@
 
     <ul class="pr-4 pt-5">
         <li>
-            <p class="pl-6">グループ</p>
-            <ul class="pl-10">
+            <p class="pl-6 md:text-subtitle">グループ</p>
+            <ul class="pl-10 md:text-normal">
                 @if($memo_groups)
                     @foreach ($memo_groups as $memo_group)
                         @if($memo_group->pivot->participation_status == '参加中')
@@ -47,8 +47,8 @@
 
                                     @if($memo_group->pivot->is_owner == true)
                                         <div class="flex">
-                                            <a href="{{ route('group-user.add', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-add" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded mr-8"></iconify-icon>
-                                            <a href="{{ route('group-user.edit', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block"><iconify-icon inline icon="material-symbols:group-remove" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded"></iconify-icon></a>
+                                            <a href="{{ route('group-user.add', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block text-black"><iconify-icon inline icon="material-symbols:group-add" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded mr-8"></iconify-icon>
+                                            <a href="{{ route('group-user.edit', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block text-black"><iconify-icon inline icon="material-symbols:group-remove" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded"></iconify-icon></a>
                                         </div>
                                     @endif
                                 </div>

@@ -14,7 +14,8 @@ dropdowns.forEach(function (dropdown) {
 });
 markers.forEach(function (marker) {
   if (marker.textContent.match(title.textContent) && groupName.textContent.match(marker.parentNode.firstElementChild.firstElementChild.textContent)) {
-    marker.style.backgroundColor = "#DFDFDF";
+    marker.style.backgroundColor = "#5d5a79";
+    marker.style.color = "#ddd";
   }
 });
 /******/ })()

@@ -17,13 +17,15 @@
             <x-side-menu />
 
             <x-top-menu>
-                @if(strpos(url()->full(),'book-memo')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
-                @elseif(strpos(url()->full(),'action-list')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
-                @elseif(strpos(url()->full(),'feedback-list')!== false)
-                    <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
-                @endif
+                <div class="text-normal">
+                    @if(strpos(url()->full(),'book-memo')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
+                    @elseif(strpos(url()->full(),'action-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
+                    @elseif(strpos(url()->full(),'feedback-list')!== false)
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$select_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                    @endif
+                </div>
             </x-top-menu>
 
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
@@ -40,7 +42,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="flex justify-between py-2 items-center">
-                                <label for="before_reading_content" class="block">読書前</label>
+                                <label for="before_reading_content" class="block text-normal">読書前</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
 
@@ -54,7 +56,7 @@
                         <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @csrf
                             <div class="flex justify-between py-2 items-center">
-                                <label for="before_reading_content" class="block">読書前</label>
+                                <label for="before_reading_content" class="block text-normal">読書前</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
 
@@ -74,7 +76,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="flex justify-between py-2 items-center">
-                                <label for="reading_content" class="block">読書中</label>
+                                <label for="reading_content" class="block text-normal">読書中</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
 
@@ -89,7 +91,7 @@
                         <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @csrf
                             <div class="flex justify-between py-2 items-center">
-                                <label for="reading_content" class="block">読書中</label>
+                                <label for="reading_content" class="block text-normal">読書中</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
 
@@ -109,7 +111,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="flex justify-between py-2 items-center">
-                                <label for="after_reading_content" class="block">読書後</label>
+                                <label for="after_reading_content" class="block text-normal">読書後</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
 
@@ -123,7 +125,7 @@
                         <form action="{{route('book-memo.store', ['book_id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @csrf
                             <div class="flex justify-between py-2 items-center">
-                                <label for="after_reading_content" class="block">読書後</label>
+                                <label for="after_reading_content" class="block text-normal">読書後</label>
                                 <button type="submit" class="px-6 py-2 bg-slate-50 rounded hover:bg-sky-500 hover:text-slate-50 border border-slate-200">保存する</button>
                             </div>
 
@@ -143,7 +145,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                                <label for="actionlist1_content" class="block py-4">アクションリスト１</label>
+                                <label for="actionlist1_content" class="block py-4 text-normal">アクションリスト１</label>
 
                                 @error('actionlist1_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -152,7 +154,7 @@
                                 <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" class="rounded w-full">{{old('actionlist1_content', $store_memo->actionlist1_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="actionlist2_content" class="block py-4">アクションリスト２</label>
+                                <label for="actionlist2_content" class="block py-4 text-normal">アクションリスト２</label>
 
                                 @error('actionlist2_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -161,7 +163,7 @@
                                 <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{old('actionlist2_content', $store_memo->actionlist2_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="actionlist3_content" class="block py-4">アクションリスト３</label>
+                                <label for="actionlist3_content" class="block py-4 text-normal">アクションリスト３</label>
 
                                 @error('actionlist3_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -177,7 +179,7 @@
                         <form action="{{route('action-list.store', ['book_id'=>$id])}}" method="POST" name="form">
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                                <label for="actionlist1_content" class="block py-4">アクションリスト１</label>
+                                <label for="actionlist1_content" class="block py-4 text-normal">アクションリスト１</label>
 
                                 @error('actionlist1_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -186,7 +188,7 @@
                                 <textarea name="actionlist1_content" id="actionlist1_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{ old('actionlist1_content') }}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="actionlist2_content" class="block py-4">アクションリスト２</label>
+                                <label for="actionlist2_content" class="block py-4 text-normal">アクションリスト２</label>
 
                                 @error('actionlist2_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -195,7 +197,7 @@
                                 <textarea name="actionlist2_content" id="actionlist2_content" cols="80" rows="5" placeholder="※行動に移すことを記載" class="rounded w-full">{{ old('actionlist2_content') }}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="actionlist3_content" class="block py-4">アクションリスト３</label>
+                                <label for="actionlist3_content" class="block py-4 text-normal">アクションリスト３</label>
 
                                 @error('actionlist3_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -217,7 +219,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                                <label for="feedback1_content" class="block py-4">Q.アクションリスト１を実施した結果は？</label>
+                                <label for="feedback1_content" class="block py-4 text-normal">Q.アクションリスト１を実施した結果は？</label>
 
                                 @error('feedback1_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -226,7 +228,7 @@
                                 <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback1_content', $store_memo->feedback1_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="feedback2_content" class="block py-4">Q.アクションリスト２を実施した結果は？</label>
+                                <label for="feedback2_content" class="block py-4 text-normal">Q.アクションリスト２を実施した結果は？</label>
 
                                 @error('feedback2_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -235,7 +237,7 @@
                                 <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback2_content', $store_memo->feedback2_content)}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="feedback3_content" class="block py-4">Q.アクションリスト３を実施した結果は？</label>
+                                <label for="feedback3_content" class="block py-4 text-normal">Q.アクションリスト３を実施した結果は？</label>
 
                                 @error('feedback3_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -251,7 +253,7 @@
                         <form action="{{route('feedback-list.store', ['book_id'=>$id])}}" method="POST" name="form">
                             @csrf
                             <div class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
-                                <label for="feedback1_content" class="block py-4">Q.アクションリスト１を実施した結果は？</label>
+                                <label for="feedback1_content" class="block py-4 text-normal">Q.アクションリスト１を実施した結果は？</label>
 
                                 @error('feedback1_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -260,7 +262,7 @@
                                 <textarea name="feedback1_content" id="feedback1_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback3_content')}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="feedback2_content" class="block py-4">Q.アクションリスト２を実施した結果は？</label>
+                                <label for="feedback2_content" class="block py-4 text-normal">Q.アクションリスト２を実施した結果は？</label>
 
                                 @error('feedback2_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
@@ -269,7 +271,7 @@
                                 <textarea name="feedback2_content" id="feedback2_content" cols="80" rows="5" placeholder="※振り返りを記載" class="rounded w-full">{{old('feedback3_content')}}</textarea>
                             </div>
                             <div class="px-6 pt-2 pb-4 mt-6 rounded bg-primary">
-                                <label for="feedback3_content" class="block py-4">Q.アクションリスト３を実施した結果は？</label>
+                                <label for="feedback3_content" class="block py-4 text-normal">Q.アクションリスト３を実施した結果は？</label>
 
                                 @error('feedback3_content')
                                     <p class="text-red-600 pl-2">※{{ $message }}</p>
