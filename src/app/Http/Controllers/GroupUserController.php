@@ -117,12 +117,13 @@ class GroupUserController extends Controller
         $selectedBook = Book::where('id', $book_id)->first();
         $group_name = MemoGroup::find($group_id)->group_name;
         $users = User::all();
+        $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
 
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-            return view('group-user-memo.index', compact('selectedBook', 'genre_name', 'group_name', 'users'));
+            return view('group-user-memo.index', compact('selectedBook', 'genre_name', 'group_name', 'users', 'group_id_parameter'));
         }else{
-            return view('group-user-memo.index', compact('selectedBook', 'users'));
+            return view('group-user-memo.index', compact('selectedBook', 'users', 'group_id_parameter'));
         }
     }
 

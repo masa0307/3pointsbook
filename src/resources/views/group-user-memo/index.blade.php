@@ -25,7 +25,7 @@
         </section>
 
         <section id="bookInformation" class="hidden md:block md:w-5/12">
-            <div class="flex justify-between bg-primary py-4 px-2 items-center md:hidden">
+            <div class="flex justify-between bg-menu py-4 px-2 items-center md:hidden">
                 <button id="addBookOpenBySp" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="fluent:add-24-regular" width="24" height="24" flip="vertical"></iconify-icon></button>
                 <div id="addBookMenuBySp" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                     <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 text-center text-2xl rounded-2xl">
@@ -40,7 +40,7 @@
                 <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                     <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                 </button>
-                <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>グループ</a></h2>
+                <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$selectedBook->id, $group_id_parameter])}}" class="flex items-center justify-center text-normal"><iconify-icon icon="ci:external-link"></iconify-icon>グループ</a></h2>
                 <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                     <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                 </button>
@@ -67,14 +67,14 @@
                 <h2 id="groupName" class="mt-8 px-4 md:px-10 md:mt-10 font-medium text-xl py-2">公開グループ名：{{ $group_name }}</h2>
 
                 <div class="md:bg-primary md:p-8 md:ml-20 md:mt-8 rounded-xl md:h-1/2">
-                    <div class="bg-primary text-xl w-5/6 mx-4 md:mx-0 md:bg-slate-50 py-2 px-10 my-2 md:px-4 rounded-xl md:mt-4 md:w-9/12">
+                    <div class="bg-primary text-xl w-5/6 mx-4 md:mx-0 md:bg-slate-50 py-2 px-10 my-2 md:px-4 rounded-xl md:mt-4 md:w-9/12 text-normal md:text-black">
                         公開ユーザー名：{{ $users->find($selectedBook->memo->first()->user_id)->name }}
                     </div>
                     <div class="flex w-full md:my-8 p-4 md:p-0">
                         <div class="w-1/3">
                             <img src="{{$selectedBook->image_path}}" class="w-full">
                         </div>
-                        <div class="md:m-auto px-4 text-xl w-2/3 md:w-1/2 text-normal">
+                        <div class="md:m-auto px-4 text-xl w-2/3 md:w-1/2 md:text-normal">
                             <p id="title">{{$selectedBook->title}}</p>
                             <p class="pt-6">{{$selectedBook->author}}</p>
                             <p class="pt-6">{{$genre_name}}</p>

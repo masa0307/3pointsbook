@@ -26,7 +26,7 @@
         <section id="bookInformation" class="hidden md:block md:w-5/12">
             @if(isset($selectedBook))
                 @if($selectedBook->state == '読書中')
-                    <div class="flex justify-between bg-primary py-4 px-2 items-center md:hidden bg-menu">
+                    <div class="flex justify-between py-4 px-2 items-center md:hidden bg-menu">
                         <button id="addBookOpenBySp" class="px-1.5 py-1 bg-slate-50 rounded"><iconify-icon inline icon="fluent:add-24-regular" width="24" height="24" flip="vertical"></iconify-icon></button>
                         <div id="addBookMenuBySp" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                             <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 text-center text-xl rounded-2xl">
