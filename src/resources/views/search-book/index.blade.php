@@ -40,7 +40,7 @@
 
                             {{ $search_books->links('vendor.pagination.custom') }}
                         @else
-                            <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+                            <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
                         @endif
                         </ul>
                     </li>

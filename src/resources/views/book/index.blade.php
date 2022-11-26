@@ -18,7 +18,7 @@
 
             <x-top-menu />
 
-            <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+            <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
 
         </section>
 
@@ -26,7 +26,7 @@
             @if(isset($selectedBook))
                 @if($selectedBook->state == '読書中')
                     <h2 class="px-10 pt-10 font-medium text-xl">読書中</h2>
-                    <div class="bg-primary p-8 ml-20 mt-8 rounded-xl h-1/2">
+                    <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
 
                         @if($memo_groups->isEmpty())
                             <div class="flex justify-end">
@@ -59,13 +59,11 @@
                                 <p class="pt-6">{{$genre_name}}</p>
 
                                 @if(!($selectedBook->memo->isEmpty()))
-                                    <div class="text-xl bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
+                                    <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                         <p class="pt-2">公開中のグループ：</p>
                                         @foreach($selectedBook->memo as $memo)
                                             @if($memo_groups->find($memo->group_id))
                                                 <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                            @else
-                                                <p class="pt-2 pl-6">※グループなし</p>
                                             @endif
                                         @endforeach
                                     </div>
@@ -97,19 +95,6 @@
                                 <p id="title">{{$selectedBook->title}}</p>
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
-
-                                @if(!($selectedBook->memo->isEmpty()))
-                                    <div class="text-xl bg-slate-50 py-2 px-4 rounded-xl mt-4">
-                                        <p class="pt-2">公開中のグループ：</p>
-                                        @foreach($selectedBook->memo as $memo)
-                                            @if($memo_groups->find($memo->group_id))
-                                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                            @else
-                                                <p class="pt-2 pl-6">※グループなし</p>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                @endif
                             </div>
                         </div>
                     </div>
