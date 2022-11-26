@@ -43,7 +43,7 @@
             @if(strpos(url()->full(),'search_title') !== false)
                 <x-sp-hidden-search-memo-list />
             @else
-                <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+                <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
             @endif
 
         </section>

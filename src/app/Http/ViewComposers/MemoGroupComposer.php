@@ -22,7 +22,8 @@ class MemoGroupComposer
     public function compose(View $view)
     {
         $view->with([
-            'memo_groups' =>User::find(Auth::id())->memogroup()->paginate(2, ['*'], 'groupPage')->appends(['bookReadingPage' => \Request::get('bookReadingPage'), 'bookInterestingPage' => \Request::get('bookInterestingPage')])
+            'memo_groups_paginate' => User::find(Auth::id())->memogroup()->paginate(2, ['*'], 'groupPage')->appends(['bookReadingPage' => \Request::get('bookReadingPage'), 'bookInterestingPage' => \Request::get('bookInterestingPage')]),
+            'memo_groups' => User::find(Auth::id())->memogroup()->get()
         ]);
     }
 }

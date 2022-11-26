@@ -19,7 +19,7 @@
 
             <x-top-menu />
 
-            <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups" />
+            <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
 
         </section>
 
@@ -65,7 +65,7 @@
                     </div>
 
                     <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">読書中</h2>
-                    <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl md:h-1/2">
+                    <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl">
                         @if($memo_groups->isEmpty())
                             <div class="flex justify-end">
                                 <form action="{{route('book.destroy', $selectedBook)}}" method="post">
@@ -102,8 +102,6 @@
                                         @foreach($selectedBook->memo as $memo)
                                             @if($memo_groups->find($memo->group_id))
                                                 <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                            @else
-                                                <p class="pt-2 pl-6">※グループなし</p>
                                             @endif
                                         @endforeach
                                     </div>
@@ -117,8 +115,6 @@
                                 @foreach($selectedBook->memo as $memo)
                                     @if($memo_groups->find($memo->group_id))
                                         <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                    @else
-                                        <p class="pt-2 pl-6">※グループなし</p>
                                     @endif
                                 @endforeach
                             </div>
@@ -163,8 +159,9 @@
                             </div>
                         </div>
                     </div>
+
                     <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">気になる</h2>
-                    <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl md:h-1/2">
+                    <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl">
                         <div class="flex justify-between">
                             <div class="hover:after:content-['「気になる」から「読書中」に移動する'] hover:after:relative hover:after:-top-10 hover:after:-left-10 hover:after:bg-gray-700 hover:after:text-stone-50 hover:after:rounded hover:after:p-2 hover:after:text-">
                                 <a href="{{ route('book.update', $selectedBook->id) }}" class="inline-block bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="cil:data-transfer-up" width="24" height="24"></iconify-icon></a>
