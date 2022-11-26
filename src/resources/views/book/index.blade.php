@@ -108,8 +108,8 @@
             @foreach ($invited_group_users as $count => $invited_group_user)
                 @if($count === 0)
                     <div class="fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
-                        <div class="modal-content-setting bg-modal-window mt-40 pb-4 w-11/12 md:w-1/4 md:h-2/5 mx-auto text-center text-xl md:text-2xl rounded-2xl">
-                            <div class="bg-primary p-3 rounded-xl w-full text-center">招待通知</div>
+                        <div class="modal-content-setting bg-modal-window mt-40 pb-4 w-11/12 md:w-1/4 md:h-2/5 mx-auto text-center text-xl md:text-2xl rounded-xl">
+                            <div class="bg-primary p-3 rounded-xl w-full text-center text-normal">招待通知</div>
                             <p class="flex justify-start w-3/4 mx-auto pt-8 text-xl">招待ユーザー：{{ $invitee }}</p>
                             <p class="flex justify-start w-3/4 mx-auto pt-6 text-xl">招待グループ名：{{ $invtee_group_name }}</p>
                             <div class="mt-8">
