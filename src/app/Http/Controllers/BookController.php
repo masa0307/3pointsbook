@@ -15,19 +15,12 @@ class BookController extends Controller
     public function index()
     {
         $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
+        $memo_groups  = User::find(Auth::id())->memogroup()->get();
 
         if(!(Genre::where('user_id', Auth::id())->first())){
-            $genre = new Genre;
+            $genre          = new Genre;
             $genre->user_id = Auth::id();
             $genre->save();
-        }
-
-        if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
-            $is_invited_group_users = true;
-            $invited_group_users    = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
-        }else{
-            $is_invited_group_users = false;
-            $invited_group_users    = null;
         }
 
         if($selectedBook){
@@ -36,7 +29,24 @@ class BookController extends Controller
             $genre_name = null;
         }
 
-        return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users'));
+        if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
+            $is_invited_group_users = true;
+            $invited_group_users    = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
+
+            foreach ($invited_group_users as $count => $invited_group_user){
+                $invitee = User::find($memo_groups[0]->pivot->where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id)->name;
+                $invtee_group_name = $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name;
+            }
+
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users', 'invitee', 'invtee_group_name'));
+        }else{
+            $is_invited_group_users = false;
+
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users'));
+        }
+
+
+
 
     }
 
