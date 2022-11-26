@@ -31,7 +31,7 @@
                     <p class="border-b border-slate-400">追加するメンバー</p>
                     <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4">
                         @csrf
-                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12 md:w-10/12">
+                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12 md:w-10/12 text-black">
                         <button type="submit" class="mx-2 md:mx-1 px-2 py-2 bg-slate-200 rounded text-black">検索</button>
                     </form>
 
@@ -40,7 +40,7 @@
                             @csrf
                             <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
                             <p>・{{ session('search_user')->name }}</p>
-                            <button type="submit" class="px-2 py-1 mt-4 bg-slate-200 rounded">グループに招待する</button>
+                            <button type="submit" class="px-2 py-1 mt-4 bg-slate-200 rounded text-black hover:bg-sky-500 hover:text-slate-50">グループに招待する</button>
                         </form>
                     @endif
                 </div>
@@ -58,9 +58,9 @@
                 <p class="pt-6 border-b border-slate-400">現在のメンバー</p>
                 @foreach($group_users as $group_user)
                     @if($group_user->is_owner == true)
-                        <p class="pt-4">・{{ $group_user->user->name }}（グループオーナー）</p>
+                        <p class="pt-2">・{{ $group_user->user->name }}（グループオーナー）</p>
                     @else
-                        <p class="pt-1">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
+                        <p class="pt-2">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
                     @endif
                 @endforeach
 
