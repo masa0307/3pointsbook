@@ -19,13 +19,13 @@
         </li>
     </ul>
 
-    <ul class="pt-5 pb-5 border-b md:border-b-0">
+    <ul class="pt-5 pb-5 pr-4 border-b md:border-b-0">
         <li>
             <p class="pl-6 md:text-subtitle">気になる</p>
             <ul class="pl-10 md:text-normal">
                 @foreach ($books_interesting as $book_interesting)
                     <li class="mt-2">
-                        <a href="{{route('book.show', [$book_interesting->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_interesting->title}}</a>
+                        <a href="{{route('book.show', [$book_interesting->id, str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="marker showInformation block"><iconify-icon inline icon="clarity:book-line" width="16" height="16" class="mr-2"></iconify-icon>{{$book_interesting->title}}</a>
                     </li>
                 @endforeach
 

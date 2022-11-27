@@ -96,12 +96,12 @@
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
 
-                                @if(!($selectedBook->memo->isEmpty()))
+                                @if($is_publish_memo)
                                     <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
-                                        <p class="pt-2">公開中のグループ：</p>
+                                        <p class="pt-2">公開中のグループ</p>
                                         @foreach($selectedBook->memo as $memo)
                                             @if($memo_groups->find($memo->group_id))
-                                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
+                                                <p class="pt-2 pl-2">・{{ $memo_groups->find($memo->group_id)->group_name}}</p>
                                             @endif
                                         @endforeach
                                     </div>
@@ -109,12 +109,12 @@
                             </div>
                         </div>
 
-                        @if(!($selectedBook->memo->isEmpty()))
+                        @if($is_publish_memo)
                             <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4 text-normal">
-                                <p class="pt-2">公開中のグループ：</p>
+                                <p class="pt-2">公開中のグループ</p>
                                 @foreach($selectedBook->memo as $memo)
                                     @if($memo_groups->find($memo->group_id))
-                                        <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
+                                        <p class="pt-2 pl-2">・{{ $memo_groups->find($memo->group_id)->group_name}}</p>
                                     @endif
                                 @endforeach
                             </div>
@@ -137,7 +137,7 @@
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                         </button>
-                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>気になる</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl text-normal"><a href="{{route('book.show', [$selectedBook->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>気になる</a></h2>
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                         </button>
@@ -177,7 +177,7 @@
                             <div class="w-1/3">
                                 <img src="{{$selectedBook->image_path}}" class="w-full">
                             </div>
-                            <div class="w-2/3 md:m-auto px-4 text-xl md:w-1/2">
+                            <div class="w-2/3 md:m-auto px-4 text-xl md:w-1/2 md:text-normal">
                                 <p id="title">{{$selectedBook->title}}</p>
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
