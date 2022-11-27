@@ -106,7 +106,13 @@ class BookController extends Controller
         $genre_name = $book->genre->genre_name;
         $is_invited_group_users = false;
 
-        return view('book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users]);
+        if($book->state == '読書中' && $book->memo()->first()->group_id){
+            $is_publish_memo = true;
+        }else{
+            $is_publish_memo = false;
+        }
+
+        return view('book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users, 'is_publish_memo'=>$is_publish_memo]);
     }
 
     public function destroy(Book $book){

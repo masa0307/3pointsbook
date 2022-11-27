@@ -96,7 +96,7 @@
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
 
-                                @if(!($selectedBook->memo->isEmpty()))
+                                @if($is_publish_memo)
                                     <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                         <p class="pt-2">公開中のグループ：</p>
                                         @foreach($selectedBook->memo as $memo)
@@ -109,7 +109,7 @@
                             </div>
                         </div>
 
-                        @if(!($selectedBook->memo->isEmpty()))
+                        @if($is_publish_memo)
                             <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4 text-normal">
                                 <p class="pt-2">公開中のグループ：</p>
                                 @foreach($selectedBook->memo as $memo)
@@ -137,7 +137,7 @@
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('search-book.index') }}"><iconify-icon inline icon="fe:search" width="24" height="24"></iconify-icon></a>
                         </button>
-                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>気になる</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('book.show', [$selectedBook->id,  str_replace('?', '', mb_strstr(url()->full(), '?'))])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>気になる</a></h2>
                         <button class="px-1.5 py-1 bg-slate-50 rounded flex align-center">
                             <a href="{{ route('group.create') }}"><iconify-icon inline icon="fa:group" width="24" height="24"></iconify-icon></a>
                         </button>
