@@ -1,4 +1,4 @@
-let topMenu = document.getElementById("topMenu");
+let sideMenu = document.getElementById("sideMenu");
 let bookInformation = document.getElementById("bookInformation");
 let showInformations = document.querySelectorAll(".showInformation");
 let title = document.getElementById("title");
@@ -10,7 +10,7 @@ if (
     previous_url = document.referrer;
 
     if (previous_url.indexOf("search-book?") !== -1) {
-        topMenu.classList.toggle("hidden");
+        sideMenu.classList.toggle("hidden");
         bookInformation.classList.toggle("hidden");
     }
 
@@ -18,7 +18,7 @@ if (
         showInformation.addEventListener("click", function (e) {
             if (e.target.textContent.match(title.textContent)) {
                 e.preventDefault();
-                topMenu.classList.toggle("hidden");
+                sideMenu.classList.toggle("hidden");
                 bookInformation.classList.toggle("hidden");
             }
         });
