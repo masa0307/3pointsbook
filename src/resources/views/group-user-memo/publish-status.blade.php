@@ -35,13 +35,13 @@
                             @if(($published_book->memo)->isEmpty())
                                 <p class="pt-2 text-red-500 ml-2">※保存済みのメモがないため、公開できません</p>
                             @else
-                                <label for="group_name" class="font-semibold md:text-subtitle">メモの公開：&emsp;</label>
-                                <select name="group_id" id="group_name" class="rounded">
+                                <label for="group_name" class="font-semibold md:text-subtitle">メモの公開&emsp;：</label>
+                                <select name="group_id" id="group_name" class="rounded w-1/3 md:w-1/4">
                                     @foreach($not_published_groups as $not_published_group)
                                         <option value="{{ $not_published_group->id }}">{{ $not_published_group->group_name }}</option>
                                     @endforeach
                                 </select>
-                                <button type="submit" class="bg-slate-200 py-1 rounded-xl px-4 ml-4">公開</button>
+                                <button type="submit" class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 py-1 rounded-xl px-4 ml-4 w-1/4 md:w-1/6">公開</button>
                             @endif
 
                         </form>
@@ -53,12 +53,12 @@
                         <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST" class="mt-2">
                             @csrf
                             <label for="group_name" class="font-semibold md:text-subtitle">メモの非公開：</label>
-                            <select name="non_group_id" id="group_name" class="rounded">
+                            <select name="non_group_id" id="group_name" class="rounded w-1/3 md:w-1/4">
                                 @foreach($published_groups as $published_group)
                                     <option value="{{ $published_group->id }}">{{ $published_group->group_name }}</option>
                                 @endforeach
                             </select>
-                            <button type="submit" class="bg-slate-200 py-1 rounded-xl px-4 ml-4">非公開</button>
+                            <button type="submit" class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 py-1 rounded-xl px-4 ml-4 w-1/4 md:w-1/6">非公開</button>
                         </form>
                     @else
                         <p class="pt-2 text-red-500 ml-2">※非公開にするグループはありません</p>

@@ -106,7 +106,9 @@ class BookController extends Controller
         $genre_name = $book->genre->genre_name;
         $is_invited_group_users = false;
 
-        if($book->state == '読書中' && $book->memo()->first()->group_id){
+        if(empty($book->memo()->first())){
+            $is_publish_memo = false;
+        }elseif($book->state == '読書中' && $book->memo()->first()->group_id){
             $is_publish_memo = true;
         }else{
             $is_publish_memo = false;
