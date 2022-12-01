@@ -30,7 +30,7 @@
             <div class="md:bg-primary md:p-8 px-4 md:ml-20 mt-8 rounded-xl h-1/2">
                 @if($memo_groups)
                     @if(!($not_published_groups->isEmpty()))
-                        <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST">
+                        <form action="{{ route('group-user-memo.publish', [$published_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" method="POST">
                             @csrf
                             @if(($published_book->memo)->isEmpty())
                                 <p class="pt-2 text-red-500 ml-2">※保存済みのメモがないため、公開できません</p>
@@ -50,7 +50,7 @@
                     @endif
 
                     @if(!($published_groups->isEmpty()))
-                        <form action="{{ route('group-user-memo.publish', $published_book->id) }}" method="POST" class="mt-2">
+                        <form action="{{ route('group-user-memo.publish', [$published_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" method="POST" class="mt-2">
                             @csrf
                             <label for="group_name" class="font-semibold md:text-subtitle">メモの非公開：</label>
                             <select name="non_group_id" id="group_name" class="rounded w-1/3 md:w-1/4">

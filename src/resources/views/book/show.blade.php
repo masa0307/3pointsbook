@@ -41,7 +41,7 @@
                         @else
                             <div class="flex justify-between">
                                 <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
-                                    <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}" class="text-xl">メモの公開・非公開</a>
+                                    <a href="{{ route('group-user-memo.publish_status',[$selectedBook->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="text-xl">メモの公開・非公開</a>
                                 </button>
                                 <form action="{{route('book.destroy', $selectedBook)}}" method="post">
                                     @csrf
