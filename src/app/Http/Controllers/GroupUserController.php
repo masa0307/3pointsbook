@@ -178,9 +178,10 @@ class GroupUserController extends Controller
     }
 
     public function publish(Request $request){
+        $book = Book::find($request->id);
         if($request->group_id){
-            $published_memo = Book::find($request->id)->memo->where('group_id', null)->first();
-            $memo = Book::find($request->id)->memo->first();
+            $published_memo = $book->memo->where('group_id', null)->first();
+            $memo = $book->memo->first();
 
             if($published_memo){
                 $published_memo->group_id = $request->group_id;
@@ -192,11 +193,11 @@ class GroupUserController extends Controller
             }
 
         }elseif($request->non_group_id){
-            $published_memo = Book::find($request->id)->memo->where('group_id', $request->non_group_id)->first();
+            $published_memo = $book->memo->where('group_id', $request->non_group_id)->first();
             $published_memo->group_id = null;
             $published_memo->save();
         }
 
-        return redirect()->route('book.index');
+        return redirect()->route('book.show', [$book, str_replace('?', '', mb_strstr(url()->full(), '?'))]);
     }
 }
