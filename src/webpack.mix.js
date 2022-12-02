@@ -14,6 +14,7 @@ const mix = require("laravel-mix");
 mix.js("resources/js/app.js", "public/js")
     .js("resources/js/marker-booklist.js", "public/js")
     .js("resources/js/add-book.js", "public/js")
+    .js("resources/js/delete-book.js", "public/js")
     .js("resources/js/search-book.js", "public/js")
     .js("resources/js/marker-memolist.js", "public/js")
     .js("resources/js/set-application.js", "public/js")
