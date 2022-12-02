@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/marker-booklist.js": "/js/marker-booklist.js",
     "/js/add-book.js": "/js/add-book.js",
+    "/js/delete-book.js": "/js/delete-book.js",
     "/js/search-book.js": "/js/search-book.js",
     "/js/marker-memolist.js": "/js/marker-memolist.js",
     "/js/set-application.js": "/js/set-application.js",
