@@ -70,12 +70,12 @@
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
 
-                                @if(!($selectedBook->memo->isEmpty()))
+                                @if($is_publish_memo)
                                     <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
-                                        <p class="pt-2">公開中のグループ：</p>
+                                        <p class="pt-2">公開中のグループ</p>
                                         @foreach($selectedBook->memo as $memo)
                                             @if($memo_groups->find($memo->group_id))
-                                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
+                                                <p class="pt-2 pl-2">・{{ $memo_groups->find($memo->group_id)->group_name}}</p>
                                             @endif
                                         @endforeach
                                     </div>
