@@ -17,6 +17,14 @@ class BookController extends Controller
         $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
         $memo_groups  = User::find(Auth::id())->memogroup()->get();
 
+        if(empty($selectedBook->memo()->first())){
+            $is_publish_memo = false;
+        }elseif($selectedBook->state == '読書中' && $selectedBook->memo()->first()->group_id){
+            $is_publish_memo = true;
+        }else{
+            $is_publish_memo = false;
+        }
+
         if(!(Genre::where('user_id', Auth::id())->first())){
             $genre          = new Genre;
             $genre->user_id = Auth::id();
@@ -38,11 +46,11 @@ class BookController extends Controller
                 $invtee_group_name = $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name;
             }
 
-            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users', 'invitee', 'invtee_group_name'));
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users', 'invitee', 'invtee_group_name', 'is_publish_memo'));
         }else{
             $is_invited_group_users = false;
 
-            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users'));
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'is_publish_memo'));
         }
 
 

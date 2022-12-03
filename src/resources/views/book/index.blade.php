@@ -28,20 +28,25 @@
                 @if($selectedBook->state == '読書中')
                     <h2 class="px-10 pt-10 font-medium text-xl">読書中</h2>
                     <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-
-                        @if($memo_groups->isEmpty())
-                            <div class="flex justify-end">
+                        @if(!($memo_groups->isEmpty()) && !($selectedBook->memo->isEmpty()))
+                            <div class="flex justify-between">
+                                <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
+                                    <a href="{{ route('group-user-memo.publish_status',[$selectedBook->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="text-xl">メモの公開・非公開</a>
+                                </button>
                                 <form action="{{route('book.destroy', $selectedBook)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="text-xl bg-slate-200 p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                    <button type="button" id="deleteBookOpen" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                    <div id="deleteBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                                        <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 md:w-1/4 text-center text-xl rounded-2xl">
+                                            <button type="submit" class="block py-4 border-b border-gray-800 w-full rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を削除する</button>
+                                            <button type="button" id="deleteBookClose" class="block py-4 w-full rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         @else
-                            <div class="flex justify-between">
-                                <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
-                                    <a href="{{ route('group-user-memo.publish_status',['book_id'=> $selectedBook->id]) }}" class="text-xl">メモの公開・非公開</a>
-                                </button>
+                            <div class="flex justify-end">
                                 <form action="{{route('book.destroy', $selectedBook)}}" method="post">
                                     @csrf
                                     @method('delete')
@@ -65,12 +70,12 @@
                                 <p class="pt-6">{{$selectedBook->author}}</p>
                                 <p class="pt-6">{{$genre_name}}</p>
 
-                                @if(!($selectedBook->memo->isEmpty()))
+                                @if($is_publish_memo)
                                     <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
-                                        <p class="pt-2">公開中のグループ：</p>
+                                        <p class="pt-2">公開中のグループ</p>
                                         @foreach($selectedBook->memo as $memo)
                                             @if($memo_groups->find($memo->group_id))
-                                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
+                                                <p class="pt-2 pl-2">・{{ $memo_groups->find($memo->group_id)->group_name}}</p>
                                             @endif
                                         @endforeach
                                     </div>
