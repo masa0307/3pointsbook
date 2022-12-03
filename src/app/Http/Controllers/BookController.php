@@ -17,7 +17,7 @@ class BookController extends Controller
         $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
         $memo_groups  = User::find(Auth::id())->memogroup()->get();
 
-        if(empty($selectedBook->memo()->first())){
+        if(!$selectedBook || empty($selectedBook->memo()->first())){
             $is_publish_memo = false;
         }elseif($selectedBook->state == '読書中' && $selectedBook->memo()->first()->group_id){
             $is_publish_memo = true;
