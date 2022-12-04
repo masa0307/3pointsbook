@@ -31,7 +31,7 @@
                 <div class="bg-primary p-8 md:ml-20 mt-2 mx-4 rounded-xl text-normal">
                     <div>
                         <p>現在</p>
-                        <input type="text" value="{{ $user_name }}" class="pl-3 pt-2 mt-2 border-none rounded w-full" disabled>
+                        <input type="text" value="{{ $user_name }}" class="pl-3 pt-2 mt-2 border-none rounded w-full text-black" disabled>
                     </div>
                 </div>
             @else
