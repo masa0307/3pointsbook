@@ -31,9 +31,9 @@
                 <div class="bg-primary p-8 md:ml-20 mt-2 mx-4 rounded-xl text-normal">
                     <div>
                         <p>現在</p>
-                        <div class="bg-slate-50 mt-2 rounded p-2">
+                        <div class="bg-slate-50 mt-2 rounded p-2 text-black">
                             @foreach($genres as $genre)
-                                <p class="pl-3 pt-2 w-full">{{ $genre->genre_name }}</p>
+                                <p class="pl-3 pt-2 w-full">・{{ $genre->genre_name }}</p>
                             @endforeach
                         </div>
 
@@ -46,7 +46,7 @@
                         <div>
                             <p>現在のジャンル名</p>
                             @foreach($genres as $genre)
-                                <p class="pl-3 pt-2">{{ $genre->genre_name }}</p>
+                                <p class="pl-3 pt-2">・{{ $genre->genre_name }}</p>
                             @endforeach
                         </div>
                         <div class="pt-8">
