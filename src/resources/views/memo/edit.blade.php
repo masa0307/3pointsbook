@@ -36,7 +36,7 @@
             <h2 class="px-5 md:px-10 pt-8 pb-2 font-medium text-xl">{{ $select_book->title }}</h2>
             @if(strpos(url()->full(),'before')!== false)
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
-                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ</h2>
+                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ<span class="text-red-500">（※編集画面）</span></h2>
                     @if($is_store_memo)
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
@@ -70,7 +70,7 @@
                 </div>
             @elseif(strpos(url()->full(),'during')!== false)
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
-                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ</h2>
+                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ<span class="text-red-500">（※編集画面）</span></h2>
                     @if($store_memo->reading_content)
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
@@ -105,7 +105,7 @@
                 </div>
             @elseif(strpos(url()->full(),'after')!== false)
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
-                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ</h2>
+                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">読書メモ<span class="text-red-500">（※編集画面）</span></h2>
                     @if($store_memo->after_reading_content)
                         <form action="{{route('book-memo.update', ['id'=>$id])}}" method="POST" name="form" class="px-6 pt-2 pb-4 mt-2 rounded bg-primary">
                             @method('PATCH')
@@ -139,7 +139,7 @@
                 </div>
             @elseif(strpos(url()->full(),'action-list')!== false)
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
-                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">アクションリスト</h2>
+                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">アクションリスト<span class="text-red-500">（※編集画面）</span></h2>
                     @if($store_memo->actionlist1_content)
                         <form action="{{route('action-list.update', ['id'=>$id])}}" method="POST" name="form">
                             @method('PATCH')
@@ -213,7 +213,7 @@
                 </div>
             @elseif(strpos(url()->full(),'feedback-list')!== false)
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
-                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">振り返り</h2>
+                    <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">振り返り<span class="text-red-500">（※編集画面）</span></h2>
                     @if($store_memo->feedback1_content)
                         <form action="{{route('feedback-list.update', ['id'=>$id])}}" method="POST" name="form">
                             @method('PATCH')
