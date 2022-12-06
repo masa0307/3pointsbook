@@ -28,6 +28,8 @@ class MemoController extends Controller
         $store_memo = Memo::where('book_id',$id)->first();
         $select_book = Book::where('id',$id)->first();
 
+        session()->forget('is_edit');
+
         if($store_memo ){
             $is_store_memo = true;
         }else{
@@ -59,6 +61,7 @@ class MemoController extends Controller
         $store_memo->user_id = Auth::id();
         $store_memo->book_id = $request->book_id;
         $store_memo->save();
+        session()->put(['is_edit' => true]);
 
         if($request->before_reading_content || $request->reading_content || $request->after_reading_content){
             return redirect()->route('book-memo.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
@@ -89,6 +92,7 @@ class MemoController extends Controller
         }
 
         $store_memo->save();
+        session()->put(['is_edit' => true]);
 
         if($request->before_reading_content || $request->reading_content || $request->after_reading_content){
             return redirect()->route('book-memo.show', [$store_memo->book_id, str_replace('?', '', mb_strstr(url()->previous(), '?'))]);
