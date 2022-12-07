@@ -7,7 +7,7 @@ var dropdowns = document.querySelectorAll(".dropdown");
 var markers = document.querySelectorAll(".marker");
 var bookMemo = document.getElementById("book-memo");
 markers.forEach(function (marker) {
-  if (marker.textContent == bookMemo.textContent) {
+  if (bookMemo.textContent.match(marker.textContent)) {
     marker.style.backgroundColor = "#5d5a79";
     marker.style.color = "#ddd";
   }

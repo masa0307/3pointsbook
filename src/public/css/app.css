@@ -1859,10 +1859,6 @@ select {
     width: 8.333333%;
   }
 
-  .md\:w-2\/5 {
-    width: 40%;
-  }
-
   .md\:basis-1\/5 {
     flex-basis: 20%;
   }
