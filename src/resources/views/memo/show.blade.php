@@ -61,11 +61,11 @@
                     @endif
 
                     @if($is_store_memo)
-                        @if(strpos(url()->previous(),'book-memo/before/edit'))
+                        @if(strpos(url()->previous(),'book-memo/before/edit') && session()->get('is_edit'))
                             <p class="text-red-600 pt-2 pl-4">読書前メモの保存に成功しました！</p>
-                        @elseif(strpos(url()->previous(),'book-memo/during/edit'))
+                        @elseif(strpos(url()->previous(),'book-memo/during/edit') && session()->get('is_edit'))
                             <p class="text-red-600 pt-2 pl-4">読書中メモの保存に成功しました！</p>
-                        @elseif(strpos(url()->previous(),'book-memo/after/edit'))
+                        @elseif(strpos(url()->previous(),'book-memo/after/edit') && session()->get('is_edit'))
                             <p class="text-red-600 pt-2 pl-4">読書後メモの保存に成功しました！</p>
                         @endif
 
@@ -139,7 +139,7 @@
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
                     <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">アクションリスト</h2>
 
-                    @if(strpos(url()->previous(),'action-list/edit'))
+                    @if(strpos(url()->previous(),'action-list/edit') && session()->get('is_edit'))
                         <p class="text-red-600 pt-2 pl-4">アクションリストメモの保存に成功しました！</p>
                     @endif
 
@@ -209,7 +209,7 @@
                 <div class="px-4 md:px-0 md:pl-12 pb-4">
                     <h2 id="book-memo" class="hidden md:block pt-4 font-medium text-xl">振り返り</h2>
 
-                    @if(strpos(url()->previous(),'feedback-list/edit'))
+                    @if(strpos(url()->previous(),'feedback-list/edit') && session()->get('is_edit'))
                         <p class="text-red-600 pt-2 pl-4">振り返りメモの保存に成功しました！</p>
                     @endif
 
