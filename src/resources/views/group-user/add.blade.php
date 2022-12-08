@@ -32,8 +32,8 @@
 
                     <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4">
                         @csrf
-                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12">
-                        <button type="submit" class="ml-2 px-2 py-2 bg-slate-200 rounded text-black">検索</button>
+                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12 text-black">
+                        <button type="submit" class="ml-2 px-2 py-2 bg-slate-200 rounded text-black hover:bg-sky-500 hover:text-slate-50">検索</button>
                     </form>
 
                     @error('user_id')
