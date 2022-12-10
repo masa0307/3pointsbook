@@ -5,7 +5,7 @@
                 <h3 class="pl-4 md:text-subtitle">検索結果</h3>
                 <button class=" text-cyan-600"><a href="{{ route('book.index') }}">検索解除</a></button>
             </div>
-            <p class="pl-6 pt-2">読書中</p>
+            <p class="pl-6 pt-2">{{ App\Models\Book::STATE_READING }}</p>
             <ul class="pl-10">
                 @foreach (session("search_books") as $book_reading)
                     <li class="mt-2">

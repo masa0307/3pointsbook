@@ -1280,6 +1280,12 @@ select {
 .pb-1 {
   padding-bottom: 0.25rem;
 }
+.pl-8 {
+  padding-left: 2rem;
+}
+.pl-12 {
+  padding-left: 3rem;
+}
 .text-center {
   text-align: center;
 }

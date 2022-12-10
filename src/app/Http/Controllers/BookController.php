@@ -19,7 +19,7 @@ class BookController extends Controller
 
         if(!$selectedBook || empty($selectedBook->memo()->first())){
             $is_publish_memo = false;
-        }elseif($selectedBook->state == '読書中' && $selectedBook->memo()->first()->group_id){
+        }elseif($selectedBook->state === Book::STATE_READING && $selectedBook->memo()->first()->group_id){
             $is_publish_memo = true;
         }else{
             $is_publish_memo = false;
@@ -52,10 +52,6 @@ class BookController extends Controller
 
             return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'is_publish_memo'));
         }
-
-
-
-
     }
 
     public function search(){
@@ -112,14 +108,12 @@ class BookController extends Controller
 
     public function show(Book $book){
         $genre_name = $book->genre->genre_name;
-        $is_invited_group_users = false;
 
-        if(empty($book->memo()->first())){
-            $is_publish_memo = false;
-        }elseif($book->state == '読書中' && $book->memo()->first()->group_id){
+        $is_invited_group_users = false;
+        $is_publish_memo        = false;
+
+        if($book->state === Book::STATE_READING && $book->memo && $book->memo->group_id){
             $is_publish_memo = true;
-        }else{
-            $is_publish_memo = false;
         }
 
         return view('book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users, 'is_publish_memo'=>$is_publish_memo]);
@@ -132,7 +126,7 @@ class BookController extends Controller
     }
 
     public function update(Book $book){
-        $book->state = "読書中";
+        $book->state = Book::STATE_READING;
         $book->save();
 
         return redirect()->route('book.index');

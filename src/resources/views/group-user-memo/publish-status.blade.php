@@ -32,7 +32,7 @@
                     @if(!($not_published_groups->isEmpty()))
                         <form action="{{ route('group-user-memo.publish', [$published_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" method="POST">
                             @csrf
-                            @if(($published_book->memo)->isEmpty())
+                            @if(!($published_book->memo))
                                 <p class="pt-2 text-red-500 ml-2">※保存済みのメモがないため、公開できません</p>
                             @else
                                 <label for="group_name" class="font-semibold md:text-subtitle">メモの公開&emsp;：</label>
