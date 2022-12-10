@@ -2,7 +2,7 @@
     <ul class="pr-4 pb-5 border-b md:border-b-0">
         <li>
             <h3 class="pl-4 text-subtitle">検索結果</h3>
-            <p class="pl-6 pt-2 text-normal">読書中</p>
+            <p class="pl-6 pt-2 text-normal">{{ App\Models\Book::STATE_READING }}</p>
             <ul class="pl-10 text-normal">
                 @foreach (session("search_books") as $book_reading)
                     <li class="mt-2">

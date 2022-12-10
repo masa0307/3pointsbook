@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+    const STATE_READING = '読書中';
+    const STATE_INTERESTING = '気になる';
 
     protected $fillable = [
         'genre_id',
@@ -22,7 +24,7 @@ class Book extends Model
     }
 
     public function memo(){
-        return $this->hasMany(Memo::class);
+        return $this->hasOne(Memo::class);
     }
 
     public function user(){

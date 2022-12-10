@@ -80,10 +80,10 @@
                         </select>
                     </div>
                     <div class="border-b border-neutral-50 pb-2">
-                        <label for="state" class="block pt-2 pl-2 text-white">状態（必須）（選択式：気になる or 読書中）</label>
+                        <label for="state" class="block pt-2 pl-2 text-white">状態（必須）（選択式：{{ App\Models\Book::STATE_INTERESTING }} or {{ App\Models\Book::STATE_READING }}）</label>
                         <select name="state" id="state" class="block rounded border-none w-11/12 mt-1 bg-slate-300 border-slate-200 mx-2">
-                            <option value="読書中">読書中</option>
-                            <option value="気になる">気になる</option>
+                            <option value="{{ App\Models\Book::STATE_READING }}">{{ App\Models\Book::STATE_READING }}</option>
+                            <option value="{{ App\Models\Book::STATE_INTERESTING }}">{{ App\Models\Book::STATE_INTERESTING }}</option>
                         </select>
                     </div>
                     <div class="pt-4 bg-modal-window flex flex-row-reverse">

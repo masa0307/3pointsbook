@@ -28,10 +28,10 @@
 
         <section id="bookInformation" class="hidden md:block md:w-5/12">
             @if(isset($selectedBook))
-                @if($selectedBook->state == '読書中')
-                    <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">読書中</h2>
+                @if($selectedBook->state === App\Models\Book::STATE_READING)
+                    <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">{{ App\Models\Book::STATE_READING }}</h2>
                     <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl">
-                        @if(!($memo_groups->isEmpty()) && !($selectedBook->memo->isEmpty()))
+                        @if(!($memo_groups->isEmpty()) && $selectedBook->memo)
                             <div class="flex justify-between">
                                 <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
                                     <a href="{{ route('group-user-memo.publish_status',[$selectedBook->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="text-xl">メモの公開・非公開</a>
@@ -76,11 +76,9 @@
                                 @if($is_publish_memo)
                                     <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                         <p class="pt-2">公開中のグループ</p>
-                                        @foreach($selectedBook->memo as $memo)
-                                            @if($memo_groups->find($memo->group_id))
-                                                <p class="pt-2 pl-2">・{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                            @endif
-                                        @endforeach
+                                        @if($memo_groups->find($selectedBook->memo->group_id))
+                                            <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
+                                        @endif
                                     </div>
                                 @endif
                             </div>
@@ -89,20 +87,18 @@
                         @if($is_publish_memo)
                             <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4 text-normal">
                                 <p class="pt-2">公開中のグループ</p>
-                                @foreach($selectedBook->memo as $memo)
-                                    @if($memo_groups->find($memo->group_id))
-                                        <p class="pt-2 pl-2">・{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                    @endif
-                                @endforeach
+                                @if($memo_groups->find($selectedBook->memo->group_id))
+                                    <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
+                                @endif
                             </div>
                         @endif
 
                     </div>
-                @elseif($selectedBook->state == '気になる')
-                    <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">気になる</h2>
+                @elseif($selectedBook->state === App\Models\Book::STATE_INTERESTING)
+                    <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">{{ App\Models\Book::STATE_INTERESTING }}</h2>
                     <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl">
                         <div class="flex justify-between">
-                            <div class="hover:after:content-['「気になる」から「読書中」に移動する'] hover:after:relative hover:after:-top-10 hover:after:-left-10 hover:after:bg-gray-700 hover:after:text-stone-50 hover:after:rounded hover:after:p-2 hover:after:text-">
+                            <div class="hover:after:content-['「{{ App\Models\Book::STATE_INTERESTING }}」から「{{ App\Models\Book::STATE_READING }}」に移動する'] hover:after:relative hover:after:-top-10 hover:after:-left-10 hover:after:bg-gray-700 hover:after:text-stone-50 hover:after:rounded hover:after:p-2 hover:after:text-">
                                 <a href="{{ route('book.update', $selectedBook->id) }}" class="inline-block bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="cil:data-transfer-up" width="24" height="24"></iconify-icon></a>
                             </div>
 

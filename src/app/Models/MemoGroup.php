@@ -20,7 +20,7 @@ class MemoGroup extends Model
     }
 
     public function memo(){
-        return $this->hasMany(Memo::class);
+        return $this->hasMany(Memo::class, 'group_id');
     }
 
 }

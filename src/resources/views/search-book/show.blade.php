@@ -25,7 +25,7 @@
         </section>
 
         <section id="bookInformation" class="hidden md:block md:w-5/12">
-            <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">読書中</h2>
+            <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">{{ App\Models\Book::STATE_READING }}</h2>
             <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl md:h-1/2">
                 @if($memo_groups->isEmpty())
                     <div class="flex justify-end">
