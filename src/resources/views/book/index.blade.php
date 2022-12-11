@@ -16,11 +16,8 @@
     <div class="md:flex">
         <section class="md:w-1/4 h-screen md:bg-primary">
             <x-side-menu />
-
             <x-top-menu />
-
             <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
-
         </section>
 
         <section class="hidden md:w-5/12 md:block">
@@ -28,39 +25,25 @@
                 @if($selectedBook->state === App\Models\Book::STATE_READING)
                     <h2 class="px-10 pt-10 font-medium text-xl">{{ App\Models\Book::STATE_READING }}</h2>
                     <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                        @if(!($memo_groups->isEmpty()) && $selectedBook->memo)
-                            <div class="flex justify-between">
+                        <div class="flex justify-between">
+                            @if(!($memo_groups->isEmpty()) && $selectedBook->memo)
                                 <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
                                     <a href="{{ route('group-user-memo.publish_status',[$selectedBook->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="text-xl">メモの公開・非公開</a>
                                 </button>
-                                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="button" id="deleteBookOpen" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
-                                    <div id="deleteBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
-                                        <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 md:w-1/4 text-center text-xl rounded-2xl">
-                                            <button type="submit" class="block py-4 border-b border-gray-800 w-full rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を削除する</button>
-                                            <button type="button" id="deleteBookClose" class="block py-4 w-full rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @else
-                            <div class="flex justify-end">
-                                <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="button" id="deleteBookOpen" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
-                                    <div id="deleteBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
-                                        <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 md:w-1/4 text-center text-xl rounded-2xl">
-                                            <button type="submit" class="block py-4 border-b border-gray-800 w-full rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を削除する</button>
-                                            <button type="button" id="deleteBookClose" class="block py-4 w-full rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endif
+                            @endif
 
+                            <form action="{{route('book.destroy', $selectedBook)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="button" id="deleteBookOpen" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                <div id="deleteBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                                    <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 md:w-1/4 text-center text-xl rounded-2xl">
+                                        <button type="submit" class="block py-4 border-b border-gray-800 w-full rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を削除する</button>
+                                        <button type="button" id="deleteBookClose" class="block py-4 w-full rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <div class="flex w-full my-8">
                             <div class="w-1/3">
                                 <img src="{{$selectedBook->image_path}}" class="w-full">
@@ -92,16 +75,16 @@
                             </div>
 
                             <form action="{{route('book.destroy', $selectedBook)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="button" id="deleteBookOpen" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
-                                    <div id="deleteBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
-                                        <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 md:w-1/4 text-center text-xl rounded-2xl">
-                                            <button type="submit" class="block py-4 border-b border-gray-800 w-full rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を削除する</button>
-                                            <button type="button" id="deleteBookClose" class="block py-4 w-full rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
-                                        </div>
+                                @csrf
+                                @method('delete')
+                                <button type="button" id="deleteBookOpen" class="text-xl bg-slate-200 hover:bg-red-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="akar-icons:trash-can" width="24" height="24"></iconify-icon></button>
+                                <div id="deleteBookMenu" class="hidden fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
+                                    <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-3/4 md:w-1/4 text-center text-xl rounded-2xl">
+                                        <button type="submit" class="block py-4 border-b border-gray-800 w-full rounded-t-2xl hover:bg-sky-500 hover:text-slate-50">本を削除する</button>
+                                        <button type="button" id="deleteBookClose" class="block py-4 w-full rounded-b-2xl hover:bg-sky-500 hover:text-slate-50">キャンセル</button>
                                     </div>
-                                </form>
+                                </div>
+                            </form>
                         </div>
                         <div class="flex w-full my-8">
                             <div class="w-1/3">
@@ -126,7 +109,7 @@
                     <div class="fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
                         <div class="modal-content-setting bg-modal-window mt-40 pb-4 w-11/12 md:w-1/4 md:h-2/5 mx-auto text-center text-xl md:text-2xl rounded-xl">
                             <div class="bg-primary p-3 rounded-xl w-full text-center text-normal">招待通知</div>
-                            <p class="flex justify-start w-3/4 mx-auto pt-8 text-xl">招待ユーザー：{{ $invitee }}</p>
+                            <p class="flex justify-start w-3/4 mx-auto pt-8 text-xl">招待ユーザー：{{ $invitee_user_name }}</p>
                             <p class="flex justify-start w-3/4 mx-auto pt-6 text-xl">招待グループ名：{{ $invtee_group_name }}</p>
                             <div class="mt-8">
                                 <form action="{{ route('group-user.update') }}" method="post">
@@ -134,6 +117,7 @@
                                     @method('patch')
                                     <button type="submit" name="participation_status" value="参加中" class="block w-full py-4 bg-slate-300 border-b-2 border-slate-200 hover:bg-sky-500 hover:text-slate-50">参加</button>
                                 </form>
+
                                 <form action="{{ route('group-user.reject') }}" method="post">
                                     @csrf
                                     @method('delete')
