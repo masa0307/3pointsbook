@@ -15,14 +15,12 @@ class BookController extends Controller
     public function index()
     {
         $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
-        $memo_groups  = User::find(Auth::id())->memogroup()->get();
+        $memo_groups  = User::find(Auth::id())->memogroup;
 
-        if(!$selectedBook || empty($selectedBook->memo()->first())){
-            $is_publish_memo = false;
-        }elseif($selectedBook->state === Book::STATE_READING && $selectedBook->memo()->first()->group_id){
+        $is_publish_memo = false;
+
+        if($selectedBook && ($selectedBook->state === Book::STATE_READING) && $selectedBook->memo && $selectedBook->memo->group_id){
             $is_publish_memo = true;
-        }else{
-            $is_publish_memo = false;
         }
 
         if(!(Genre::where('user_id', Auth::id())->first())){
@@ -31,27 +29,28 @@ class BookController extends Controller
             $genre->save();
         }
 
+        $genre_name = null;
+
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-        }else{
-            $genre_name = null;
         }
+
+        $is_invited_group_users = false;
 
         if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
             $is_invited_group_users = true;
             $invited_group_users    = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
 
-            foreach ($invited_group_users as $count => $invited_group_user){
-                $invitee = User::find($memo_groups[0]->pivot->where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id)->name;
+            foreach ($invited_group_users as $invited_group_user){
+                $invitee_id        = $memo_groups[0]->pivot->where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id;
+                $invitee_user_name = User::find($invitee_id)->name;
                 $invtee_group_name = $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name;
             }
 
-            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users', 'invitee', 'invtee_group_name', 'is_publish_memo'));
-        }else{
-            $is_invited_group_users = false;
-
-            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'is_publish_memo'));
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users', 'invitee_user_name', 'invtee_group_name', 'is_publish_memo'));
         }
+
+        return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'is_publish_memo'));
     }
 
     public function search(){
