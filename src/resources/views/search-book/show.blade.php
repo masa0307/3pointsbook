@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3pointsbook</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
-    <script src="{{ asset('js/set-application.js') }}" defer></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
-</head>
-<body>
+<x-common>
+    <x-slot name="head">
+        <script src="{{ asset('js/add-book.js') }}" defer></script>
+        <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
+        <script src="{{ asset('js/set-application.js') }}" defer></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    </x-slot>
+
     <div class="md:flex">
         <section id="topMenu" class="md:w-1/4 h-screen md:bg-primary">
             <x-side-menu />
-
             <x-top-menu />
-
             <x-search-memo-list />
-
             <x-sp-hidden-search-memo-list />
-
         </section>
 
         <section id="bookInformation" class="hidden md:block md:w-5/12">
@@ -57,37 +47,27 @@
                         <p class="pt-6">{{$selectedBook->author}}</p>
                         <p class="pt-6">{{$genre_name}}</p>
 
-                        @if(!($selectedBook->memo->isEmpty()))
+                        @if($is_publish_memo)
                             <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
-                                <p class="pt-2">公開中のグループ：</p>
-                                @foreach($selectedBook->memo as $memo)
-                                    @if($memo_groups->find($memo->group_id))
-                                        <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                                    @else
-                                        <p class="pt-2 pl-6">※グループなし</p>
-                                    @endif
-                                @endforeach
+                                <p class="pt-2">公開中のグループ</p>
+                                @if($memo_groups->find($selectedBook->memo->group_id))
+                                    <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
+                                @endif
                             </div>
                         @endif
                     </div>
                 </div>
 
-                @if(!($selectedBook->memo->isEmpty()))
-                    <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4">
-                        <p class="pt-2">公開中のグループ：</p>
-                        @foreach($selectedBook->memo as $memo)
-                            @if($memo_groups->find($memo->group_id))
-                                <p class="pt-2 pl-6">{{ $memo_groups->find($memo->group_id)->group_name}}</p>
-                            @else
-                                <p class="pt-2 pl-6">※グループなし</p>
-                            @endif
-                        @endforeach
+                @if($is_publish_memo)
+                    <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4 text-normal">
+                        <p class="pt-2">公開中のグループ</p>
+                        @if($memo_groups->find($selectedBook->memo->group_id))
+                            <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
+                        @endif
                     </div>
                 @endif
+
             </div>
         </section>
     </div>
-</body>
-</html>
-
-
+</x-common>

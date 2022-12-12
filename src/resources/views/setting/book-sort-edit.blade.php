@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3pointsbook</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/set-application.js') }}" defer></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
-</head>
-<body>
+<x-common>
+    <x-slot name="head">
+        <script src="{{ asset('js/add-book.js') }}" defer></script>
+        <script src="{{ asset('js/set-application.js') }}" defer></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    </x-slot>
+
     <div class="md:flex">
         <section class="md:w-1/4 md:h-screen md:bg-primary">
             <x-side-menu />
-
             <x-top-menu>
                 <h2 class="md:px-10 md:pt-10 font-medium text-sm text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>本の並び替え</a></h2>
             </x-top-menu>
-
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
-
         </section>
 
         <section class="md:w-1/3">
@@ -45,7 +36,7 @@
                         </div>
                         <div class="pt-8">
                             <p>変更後</p>
-                            <div class="pl-3 pt-2">
+                            <div class="pt-2">
                                 <select name="sort_name" id="state" class="block border-none rounded w-full text-black" required>
                                     <option value="" selected hidden>選択してください</option>
                                     <option value="追加順（昇順）">追加順（昇順）</option>
@@ -61,10 +52,6 @@
                     </form>
                 </div>
             @endif
-
         </section>
     </div>
-</body>
-</html>
-
-
+</x-common>
