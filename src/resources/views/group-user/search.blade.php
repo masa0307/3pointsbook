@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3pointsbook</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/set-application.js') }}" defer></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
-</head>
-<body>
+<x-common>
+    <x-slot name="head">
+        <script src="{{ asset('js/add-book.js') }}" defer></script>
+        <script src="{{ asset('js/set-application.js') }}" defer></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    </x-slot>
+
     <div class="md:flex">
         <section class="md:w-1/4 md:h-screen bg-primary">
             <x-side-menu />
-
             <x-top-menu>
                 <h2 class="md:px-10 md:pt-10 font-medium text-lg text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>グループの作成</a></h2>
             </x-top-menu>
-
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
-
         </section>
 
         <section class="md:w-1/3">
@@ -45,7 +36,6 @@
                     @endif
                 </div>
 
-
                 @error('user_id')
                     <p class="text-red-600 pt-1">※{{ $message }}</p>
                 @enderror
@@ -53,7 +43,6 @@
                 @error('name')
                     <p class="text-red-600 pt-1">※{{ $message }}</p>
                 @enderror
-
 
                 <p class="pt-6 border-b border-slate-400">現在のメンバー</p>
                 @foreach($group_users as $group_user)
@@ -63,11 +52,8 @@
                         <p class="pt-2">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
                     @endif
                 @endforeach
-
             </div>
         </section>
     </div>
-</body>
-</html>
-
+</x-common>
 

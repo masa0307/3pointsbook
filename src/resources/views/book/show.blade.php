@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3pointsbook</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/delete-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
-    <script src="{{ asset('js/set-application.js') }}" defer></script>
-    <script src="{{ asset('js/show-bookinformation.js') }}" defer></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
-</head>
-<body>
+<x-common>
+    <x-slot name="head">
+        <script src="{{ asset('js/add-book.js') }}" defer></script>
+        <script src="{{ asset('js/delete-book.js') }}" defer></script>
+        <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
+        <script src="{{ asset('js/set-application.js') }}" defer></script>
+        <script src="{{ asset('js/show-bookinformation.js') }}" defer></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    </x-slot>
+
     <div class="md:flex">
         <section class="md:w-1/4 md:h-screen md:bg-primary">
             <x-top-menu>
                 <h2 class="md:px-10 md:pt-10 font-medium text-xl text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>本の詳細</a></h2>
             </x-top-menu>
-
             <div id="sideMenu">
                 <x-side-menu />
                 <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
@@ -125,33 +118,6 @@
     </div>
 
     @if($is_invited_group_users)
-        <div>
-            @foreach ($invited_group_users as $count => $invited_group_user)
-                @if($count === 0)
-                    <div class="fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
-                        <div class="modal-content-setting bg-modal-window mx-auto mt-40 w-1/4 h-2/5 text-center text-2xl rounded-2xl">
-                            <div class="bg-primary p-3 rounded-xl w-full text-center text-2lg text-white">招待通知</div>
-                            <p class="flex justify-start w-3/4 mx-auto pt-8 text-xl">招待ユーザー：{{ App\Models\User::find($memo_group->pivot->where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id)->name }}</p>
-                            <p class="flex justify-start w-3/4 mx-auto pt-6 text-xl">招待グループ名：{{  $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name }}</p>
-                            <div class="mt-8">
-                                <form action="{{ route('group-user.update') }}" method="post">
-                                    @csrf
-                                    @method('patch')
-                                    <button type="submit" name="participation_status" value="参加中" class="block w-full py-4 bg-slate-300 border-b-2 border-slate-200">参加</button>
-                                </form>
-                                <form action="{{ route('group-user.reject') }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" name="participation_status" value="非参加" class="block w-full py-4 bg-slate-300">非参加</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            @endforeach
-        </div>
+        <x-invitation :is-invited-group-users="$is_invited_group_users" :invited-group-users="$invited_group_users" :invitee-user-name="$invitee_user_name" :invtee-group-name="$invtee_group_name" />
     @endif
-</body>
-</html>
-
-
+</x-common>

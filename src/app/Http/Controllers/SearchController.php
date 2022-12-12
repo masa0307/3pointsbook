@@ -45,6 +45,12 @@ class SearchController extends Controller
     public function show(Book $book){
         $genre_name = $book->genre->genre_name;
 
-        return view('search-book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name]);
+        $is_publish_memo = false;
+
+        if($book && ($book->state === Book::STATE_READING) && $book->memo && $book->memo->group_id){
+            $is_publish_memo = true;
+        }
+
+        return view('search-book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_publish_memo'=>$is_publish_memo]);
     }
 }

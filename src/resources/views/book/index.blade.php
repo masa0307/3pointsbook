@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3pointsbook</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/delete-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
-    <script src="{{ asset('js/set-application.js') }}" defer></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
-</head>
-<body>
+<x-common>
+    <x-slot name="head">
+        <script src="{{ asset('js/add-book.js') }}" defer></script>
+        <script src="{{ asset('js/delete-book.js') }}" defer></script>
+        <script src="{{ asset('js/marker-booklist.js') }}" defer></script>
+        <script src="{{ asset('js/set-application.js') }}" defer></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    </x-slot>
+
     <div class="md:flex">
         <section class="md:w-1/4 h-screen md:bg-primary">
             <x-side-menu />
@@ -103,34 +97,6 @@
     </div>
 
     @if($is_invited_group_users)
-        <div>
-            @foreach ($invited_group_users as $count => $invited_group_user)
-                @if($count === 0)
-                    <div class="fixed left-0 top-0 z-10 overflow-auto h-full w-full bg-modal-rgba">
-                        <div class="modal-content-setting bg-modal-window mt-40 pb-4 w-11/12 md:w-1/4 md:h-2/5 mx-auto text-center text-xl md:text-2xl rounded-xl">
-                            <div class="bg-primary p-3 rounded-xl w-full text-center text-normal">招待通知</div>
-                            <p class="flex justify-start w-3/4 mx-auto pt-8 text-xl">招待ユーザー：{{ $invitee_user_name }}</p>
-                            <p class="flex justify-start w-3/4 mx-auto pt-6 text-xl">招待グループ名：{{ $invtee_group_name }}</p>
-                            <div class="mt-8">
-                                <form action="{{ route('group-user.update') }}" method="post">
-                                    @csrf
-                                    @method('patch')
-                                    <button type="submit" name="participation_status" value="参加中" class="block w-full py-4 bg-slate-300 border-b-2 border-slate-200 hover:bg-sky-500 hover:text-slate-50">参加</button>
-                                </form>
-
-                                <form action="{{ route('group-user.reject') }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" name="participation_status" value="非参加" class="block w-full py-4 bg-slate-300 mb-4 hover:bg-sky-500 hover:text-slate-50">非参加</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            @endforeach
-        </div>
+        <x-invitation :is-invited-group-users="$is_invited_group_users" :invited-group-users="$invited_group_users" :invitee-user-name="$invitee_user_name" :invtee-group-name="$invtee_group_name" />
     @endif
-</body>
-</html>
-
-
+</x-common>

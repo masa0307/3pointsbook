@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3pointsbook</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/add-book.js') }}" defer></script>
-    <script src="{{ asset('js/marker-memolist.js') }}" defer></script>
-    <script src="{{ asset('js/set-application.js') }}" defer></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
-</head>
-<body>
+<x-common>
+    <x-slot name="head">
+        <script src="{{ asset('js/add-book.js') }}" defer></script>
+        <script src="{{ asset('js/marker-memolist.js') }}" defer></script>
+        <script src="{{ asset('js/set-application.js') }}" defer></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    </x-slot>
+
     <div class="md:flex">
         <section class="md:w-1/4 md:h-screen md:bg-primary">
             <x-side-menu />
-
             <x-top-menu>
                 <div class="text-normal">
                     @if(strpos(url()->full(),'book-memo')!== false)
@@ -27,9 +20,7 @@
                     @endif
                 </div>
             </x-top-menu>
-
             <x-sp-hidden-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />
-
         </section>
 
         <section class="mb:w-1/2">
@@ -288,7 +279,4 @@
             @endif
         </section>
     </div>
-</body>
-</html>
-
-
+</x-common>
