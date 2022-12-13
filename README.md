@@ -56,6 +56,7 @@ URL：https://3pointsbook.com/
 2. グループを選択し、メモを公開   
 3. グループ内のユーザーは公開されたメモを閲覧可能  
 
+![publish-memo](https://raw.github.com/wiki/masa0307/3pointsbook/images/publish-memo.gif)
 ![share-memo](https://raw.github.com/wiki/masa0307/3pointsbook/images/share-memo.gif)
  
 # 使用技術
