@@ -14,7 +14,12 @@ class BookController extends Controller
 {
     public function index()
     {
-        $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
+        $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->where('state', Book::STATE_READING)->first();
+
+        if(!$selectedBook){
+            $selectedBook = Book::where('user_id', Auth::id())->oldest('created_at')->first();
+        }
+
         $memo_groups  = User::find(Auth::id())->memogroup;
 
         $is_publish_memo = false;
