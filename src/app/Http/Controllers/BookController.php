@@ -40,22 +40,22 @@ class BookController extends Controller
             $genre_name = $selectedBook->genre->genre_name;
         }
 
-        $is_invited_group_users = false;
+        $is_invited_group_user = false;
+        $invited_group_users   = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
 
-        if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
-            $is_invited_group_users = true;
-            $invited_group_users    = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
-
-            foreach ($invited_group_users as $invited_group_user){
-                $invitee_id        = $memo_groups[0]->pivot->where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id;
-                $invitee_user_name = User::find($invitee_id)->name;
-                $invtee_group_name = $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name;
-            }
-
-            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'invited_group_users', 'invitee_user_name', 'invtee_group_name', 'is_publish_memo'));
+        if($invited_group_users->isEmpty()){
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_user', 'is_publish_memo'));
         }
 
-        return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_users', 'is_publish_memo'));
+        $is_invited_group_user = true;
+
+        foreach($invited_group_users as $invited_group_user){
+            $invitee_user_id   = GroupUser::where('is_owner', true)->where('group_id', $invited_group_user->group_id)->first()->user_id;
+            $invitee_user_name = User::find($invitee_user_id)->name;
+            $invtee_group_name = $memo_groups->where('id', $invited_group_user->group_id)->first()->group_name;
+
+            return view('book.index', compact('selectedBook', 'genre_name', 'is_invited_group_user', 'invitee_user_name', 'invtee_group_name', 'is_publish_memo'));
+        }
     }
 
     public function search(){

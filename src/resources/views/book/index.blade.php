@@ -110,7 +110,7 @@
         </section>
     </div>
 
-    @if($is_invited_group_users)
-        <x-invitation :is-invited-group-users="$is_invited_group_users" :invited-group-users="$invited_group_users" :invitee-user-name="$invitee_user_name" :invtee-group-name="$invtee_group_name" />
+    @if($is_invited_group_user)
+        <x-invitation :invitee-user-name="$invitee_user_name" :invtee-group-name="$invtee_group_name" />
     @endif
 </x-common>

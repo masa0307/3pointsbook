@@ -11,17 +11,13 @@ class Invitation extends Component
      *
      * @return void
      */
-    public $is_invited_group_users;
-    public $invited_group_users;
     public $invitee_user_name;
     public $invtee_group_name;
 
-    public function __construct($isInvitedGroupUsers, $invitedGroupUsers, $inviteeUserName, $invteeGroupName)
+    public function __construct($inviteeUserName, $invteeGroupName)
     {
-        $this->is_invited_group_users = $isInvitedGroupUsers;
-        $this->invited_group_users    = $invitedGroupUsers;
-        $this->invitee_user_name      = $inviteeUserName;
-        $this->invtee_group_name      = $invteeGroupName;
+        $this->invitee_user_name = $inviteeUserName;
+        $this->invtee_group_name = $invteeGroupName;
     }
 
     /**
