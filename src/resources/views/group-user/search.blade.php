@@ -22,8 +22,8 @@
                     <p class="border-b border-slate-400">追加するメンバー</p>
                     <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4">
                         @csrf
-                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12 md:w-10/12 text-black">
-                        <button type="submit" class="mx-2 md:mx-1 px-2 py-2 bg-slate-200 rounded text-black">検索</button>
+                        <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12 text-black">
+                        <button type="submit" class="ml-2 px-2 py-2 bg-slate-200 rounded text-black">検索</button>
                     </form>
 
                     @if(session('search_user'))

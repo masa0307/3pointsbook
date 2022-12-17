@@ -107,7 +107,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
         Route::post('/searchResult', [GroupUserController::class, 'searchResult'])->name('searchResult');
         Route::post('/store', [GroupUserController::class, 'store'])->name('store');
-        Route::patch('/update', [GroupUserController::class, 'update'])->name('update');
+        Route::patch('/accept', [GroupUserController::class, 'accept'])->name('accept');
         Route::delete('/reject', [GroupUserController::class, 'reject'])->name('reject');
         Route::get('/add/{id}', [GroupUserController::class, 'add'])->name('add');
         Route::get('/edit/{id}', [GroupUserController::class, 'edit'])->name('edit');
