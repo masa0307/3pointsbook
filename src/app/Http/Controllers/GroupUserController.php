@@ -29,13 +29,13 @@ class GroupUserController extends Controller
             session()->forget('search_user');
         }
 
-        $group_users = GroupUser::where('group_id', session('group')->id)->get();
-        $group_user = $request->name;
-        $group_name = MemoGroup::where('id', session('group')->id)->first()->group_name;
+        $group_users      = GroupUser::where('group_id', session('group')->id)->get();
+        $group_user_name  = $request->name;
+        $group_name       = MemoGroup::where('id', session('group')->id)->first()->group_name;
 
-        if ($group_user) {
-            $space_conversioned_group_user = mb_convert_kana($group_user, 's');
-            $search_user = User::where('name', $space_conversioned_group_user)->first();
+        if ($group_user_name) {
+            $space_conversioned_group_user_name = mb_convert_kana($group_user_name, 's');
+            $search_user                        = User::where('name', $space_conversioned_group_user_name)->first();
             session()->put(['search_user' => $search_user]);
             session()->put(['group_name' => $group_name]);
         }
@@ -44,7 +44,7 @@ class GroupUserController extends Controller
     }
 
     public function store(GroupUserRequest $request){
-        $group_user = new GroupUser;
+        $group_user                       = new GroupUser;
         $group_user->group_id             = session('group')->id;
         $group_user->user_id              = $request->user_id;
         $group_user->is_owner             = false;
@@ -54,10 +54,11 @@ class GroupUserController extends Controller
         return redirect()->route('group-user.search');
     }
 
-    public function update(Request $request){
+    //招待されたユーザーがグループへの参加を選択したときの処理
+    public function accept(Request $request){
         $invited_group_users = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
-        foreach ($invited_group_users as $count => $invited_group_user){
 
+        foreach ($invited_group_users as $count => $invited_group_user){
             if($count === 0){
                 $invited_group_user->participation_status = $request->participation_status;
                 $invited_group_user->save();
@@ -65,18 +66,15 @@ class GroupUserController extends Controller
 
             return redirect()->route('book.index');
         }
-
     }
 
-    public function reject(Request $request){
-        $memo_groups = User::find(Auth::id())->memogroup;
-        foreach ($memo_groups as $memo_group){
-            if($memo_group->pivot->participation_status == '招待中'){
-                $group_user = GroupUser::where('user_id', Auth::id())->where('group_id', $memo_group->id)->first();
-                $group_user->delete();
+    //招待されたユーザーがグループへの非参加を選択したときの処理
+    public function reject(){
+        $invited_group_users = GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->get();
 
-                return redirect()->route('book.index');
-            }
+        foreach ($invited_group_users as $invited_group_user){
+            $invited_group_user->delete();
+            return redirect()->route('book.index');
         }
     }
 
