@@ -28,7 +28,7 @@
                                     <form action="{{ route('group-user.destroy', ['group_id'=>$group_user->group_id, 'user_id'=>$group_user->user_id]) }}" method="post">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="px-2 py-2 bg-slate-200 rounded text-black hover:bg-red-500 hover:text-slate-50 ">削除</button>
+                                        <button type="submit" class="px-2 py-2 bg-slate-200 rounded text-black hover:bg-red-500 hover:text-slate-50">削除</button>
                                     </form>
                                 </div>
                             @endif

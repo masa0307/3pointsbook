@@ -78,27 +78,24 @@ class GroupUserController extends Controller
         }
     }
 
-    public function add($id){
-        $group_users = GroupUser::where('group_id', $id)->get();
-        $group_name = MemoGroup::find($id)->group_name;
-
-        session()->put(['group' =>MemoGroup::find($id) ]);
-        session()->put(['group_name' => $group_name]);
-
-        return view('group-user.add', compact('group_users'));
-    }
-
     public function edit($id){
-        $group_users = GroupUser::where('group_id', $id)->get();
-        $group_name = MemoGroup::find($id)->group_name;
+        $group_users = GroupUser::with('user')->where('group_id', $id)->get();
+        $group_name  = MemoGroup::find($id)->group_name;
 
+        session()->put(['group'=>MemoGroup::find($id) ]);
         session()->put(['group_name' => $group_name]);
+
+        $current_url = url()->current();
+
+        if(strstr($current_url, "add")){
+            return view('group-user.add', compact('group_users'));
+        }
 
         return view('group-user.edit', compact('group_users'));
     }
 
     public function destroy($group_id, $user_id){
-        $group_user = GroupUser::where('group_id', $group_id)->where('user_id', $user_id)->first();
+        $group_user    = GroupUser::where('group_id', $group_id)->where('user_id', $user_id)->first();
         $deleted_group = MemoGroup::find($group_id);
         $group_user->delete();
 
