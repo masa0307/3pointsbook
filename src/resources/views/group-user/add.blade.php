@@ -34,15 +34,14 @@
                     @error('name')
                         <p class="text-red-600">※{{ $message }}</p>
                     @enderror
-
                 </div>
 
                 <p class="pt-6 border-b border-slate-400">現在のメンバー</p>
                 @foreach($group_users as $group_user)
                     @if($group_user->is_owner == true)
-                        <p class="pt-4">・{{ $group_user->user->name }}（グループオーナー）</p>
+                        <p class="pt-2">・{{ $group_user->user->name }}（グループオーナー）</p>
                     @else
-                        <p class="pt-1">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
+                        <p class="pt-2">・{{ $group_user->user->name }}（{{ $group_user->participation_status }}）</p>
                     @endif
                 @endforeach
             </div>
