@@ -109,29 +109,28 @@ class GroupUserController extends Controller
     }
 
     public function index($book_id, $group_id){
-        $selectedBook = Book::where('id', $book_id)->first();
-        $group_name = MemoGroup::find($group_id)->group_name;
-        $users = User::all();
+        $selectedBook       = Book::where('id', $book_id)->first();
+        $group_name         = MemoGroup::find($group_id)->group_name;
+        $pulished_user_name = User::find($selectedBook->memo->user_id)->name;
         $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
 
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-            return view('group-user-memo.index', compact('selectedBook', 'genre_name', 'group_name', 'users', 'group_id_parameter'));
-        }else{
-            return view('group-user-memo.index', compact('selectedBook', 'users', 'group_id_parameter'));
+            return view('group-user-memo.index', compact('selectedBook', 'genre_name', 'group_name', 'pulished_user_name', 'group_id_parameter'));
         }
+
+        return view('group-user-memo.index', compact('selectedBook', 'pulished_user_name', 'group_id_parameter'));
     }
 
     public function show($book_id, $group_id){
-        $store_memo = Memo::where('book_id',$book_id)->first();
-        $select_book = Book::where('id', $book_id)->first();
-        $group_name = MemoGroup::find($group_id)->group_name;
+        $store_memo         = Memo::where('book_id',$book_id)->first();
+        $select_book        = Book::where('id', $book_id)->first();
+        $group_name         = MemoGroup::find($group_id)->group_name;
         $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
+        $is_store_memo      = false;
 
         if($store_memo ){
-            $is_store_memo = true;
-        }else{
-            $is_store_memo = false;
+            $is_store_memo  = true;
         }
 
         return view('group-user-memo.show', compact('store_memo', 'is_store_memo', 'select_book', 'book_id', 'group_id', 'group_name', 'group_id_parameter'));

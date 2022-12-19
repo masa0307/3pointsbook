@@ -25,7 +25,7 @@
 
                 <div class="md:bg-primary md:p-8 md:ml-20 md:mt-8 rounded-xl md:h-1/2">
                     <div class="bg-primary text-xl w-5/6 mx-4 md:mx-0 md:bg-slate-50 py-2 px-10 my-2 md:px-4 rounded-xl md:mt-4 md:w-9/12 text-normal md:text-black">
-                        公開ユーザー名：{{ $users->find($selectedBook->memo->first()->user_id)->name }}
+                        公開ユーザー名：{{ $pulished_user_name }}
                     </div>
                     <div class="flex w-full md:my-8 p-4 md:p-0">
                         <div class="w-1/3">
