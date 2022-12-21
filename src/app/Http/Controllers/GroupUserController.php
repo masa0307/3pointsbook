@@ -111,7 +111,7 @@ class GroupUserController extends Controller
     public function index($book_id, $group_id){
         $selectedBook       = Book::where('id', $book_id)->first();
         $group_name         = MemoGroup::find($group_id)->group_name;
-        $pulished_user_name = User::find($selectedBook->memo->user_id)->name;
+        $pulished_user_name = User::find($selectedBook->memo()->first()->user_id)->name;
         $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
 
         if($selectedBook){
@@ -137,20 +137,8 @@ class GroupUserController extends Controller
     }
 
     public function showPublishStatus($book_id){
-        if(!Genre::where('user_id', Auth::id())->first()){
-            $genre = new Genre;
-            $genre->user_id = Auth::id();
-            $genre->save();
-
-        }
-        if(GroupUser::where('user_id', Auth::id())->where('participation_status', '招待中')->first()){
-            $group_user = GroupUser::all();
-        }else{
-            $group_user=null;
-        }
-
-        $published_book = Book::find($book_id);
-        $published_memos = $published_book->memo()->whereNotNull('group_id')->get();
+        $published_book      = Book::find($book_id);
+        $published_memos     = $published_book->memo()->whereNotNull('group_id')->get();
         $belong_to_group_ids = [];
         $published_group_ids = [];
 
@@ -165,10 +153,10 @@ class GroupUserController extends Controller
         }
 
         $not_published_groups = MemoGroup::whereIn('id', $belong_to_group_ids)->whereNotIn('id', $published_group_ids)->get();
-        $published_groups = MemoGroup::whereIn('id', $published_group_ids)->get();
-        $genre_name = $published_book->genre->genre_name;
+        $published_groups     = MemoGroup::whereIn('id', $published_group_ids)->get();
+        $genre_name           = $published_book->genre->genre_name;
 
-        return view('group-user-memo.publish-status', compact('published_book', 'genre_name', 'group_user', 'book_id', 'published_groups','not_published_groups'));
+        return view('group-user-memo.publish-status', compact('published_book', 'genre_name', 'book_id', 'published_groups','not_published_groups'));
     }
 
     public function publish(Request $request){

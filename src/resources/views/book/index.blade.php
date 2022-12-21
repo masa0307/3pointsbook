@@ -64,9 +64,12 @@
                                 @if($is_publish_memo)
                                     <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                         <p class="pt-2">公開中のグループ</p>
-                                        @if($memo_groups->find($selectedBook->memo->group_id))
-                                            <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
-                                        @endif
+
+                                        @foreach($selectedBook->memo as $published_memo)
+                                            @if($published_memo->memogroup)
+                                                <p class="pt-2 pl-2">・{{ $published_memo->memogroup->group_name }}</p>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 @endif
                             </div>

@@ -50,8 +50,8 @@
                         @if($is_publish_memo)
                             <div class="hidden md:block text-xl md:bg-slate-50 py-2 px-4 rounded-xl mt-4 text-black">
                                 <p class="pt-2">公開中のグループ</p>
-                                @if($memo_groups->find($selectedBook->memo->group_id))
-                                    <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
+                                @if($memo_groups->find($selectedBook->memo()->first()->group_id))
+                                    <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo()->first()->group_id)->group_name}}</p>
                                 @endif
                             </div>
                         @endif
@@ -61,8 +61,8 @@
                 @if($is_publish_memo)
                     <div class="md:hidden text-xl bg-primary py-2 px-4 rounded-xl mt-4 text-normal">
                         <p class="pt-2">公開中のグループ</p>
-                        @if($memo_groups->find($selectedBook->memo->group_id))
-                            <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo->group_id)->group_name}}</p>
+                        @if($memo_groups->find($selectedBook->memo()->first()->group_id))
+                            <p class="pt-2 pl-2">・{{ $memo_groups->find($selectedBook->memo()->first()->group_id)->group_name}}</p>
                         @endif
                     </div>
                 @endif

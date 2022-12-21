@@ -24,8 +24,13 @@ class BookController extends Controller
 
         $is_publish_memo = false;
 
-        if($selectedBook && ($selectedBook->state === Book::STATE_READING) && $selectedBook->memo && $selectedBook->memo->group_id){
-            $is_publish_memo = true;
+        if($selectedBook && ($selectedBook->state === Book::STATE_READING) && $selectedBook->memo){
+            foreach($selectedBook->memo as $memo){
+                if(isset($memo->group_id)){
+                    $is_publish_memo = true;
+                    break;
+                }
+            }
         }
 
         if(!(Genre::where('user_id', Auth::id())->first())){
@@ -116,8 +121,13 @@ class BookController extends Controller
         $is_invited_group_users = false;
         $is_publish_memo        = false;
 
-        if($book->state === Book::STATE_READING && $book->memo && $book->memo->group_id){
-            $is_publish_memo = true;
+        if($book && ($book->state === Book::STATE_READING) && $book->memo){
+            foreach($book->memo as $memo){
+                if(isset($memo->group_id)){
+                    $is_publish_memo = true;
+                    break;
+                }
+            }
         }
 
         return view('book.show',  ['selectedBook' => $book, 'genre_name'=>$genre_name, 'is_invited_group_users'=>$is_invited_group_users, 'is_publish_memo'=>$is_publish_memo]);
