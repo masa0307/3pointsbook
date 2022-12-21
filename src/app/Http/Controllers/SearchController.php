@@ -47,7 +47,7 @@ class SearchController extends Controller
 
         $is_publish_memo = false;
 
-        if($book && ($book->state === Book::STATE_READING) && $book->memo && $book->memo->group_id){
+        if($book && ($book->state === Book::STATE_READING) && $book->memo && $book->memo()->first()->group_id){
             $is_publish_memo = true;
         }
 

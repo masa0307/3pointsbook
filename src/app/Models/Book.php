@@ -24,7 +24,7 @@ class Book extends Model
     }
 
     public function memo(){
-        return $this->hasOne(Memo::class);
+        return $this->hasMany(Memo::class);
     }
 
     public function user(){
