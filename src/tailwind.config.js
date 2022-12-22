@@ -23,6 +23,9 @@ module.exports = {
             inset: {
                 "1/5": "20%",
             },
+            minHeight: {
+                "3/4": "75%",
+            },
         },
     },
 

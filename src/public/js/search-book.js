@@ -17329,7 +17329,7 @@ function _searchBook() {
 
           case 6:
             _context.next = 8;
-            return fetch("https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=".concat(RAKUTEN_APP_ID, "&title=").concat(titleValue, "&hits=10"));
+            return fetch("https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=".concat(RAKUTEN_APP_ID, "&title=").concat(titleValue, "&hits=8"));
 
           case 8:
             res = _context.sent;
@@ -17355,14 +17355,7 @@ function _searchBook() {
                 var inputTitle = document.createElement("input");
                 var inputTitleKana = document.createElement("input");
                 var inputAuthor = document.createElement("input");
-                div.classList.add("searchResult");
-
-                if (window.matchMedia && window.matchMedia("(max-device-width: 640px)").matches) {
-                  div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer", "flex");
-                } else {
-                  div.classList.add("basis-1/5", "pt-6", "pr-4", "cursor-pointer");
-                }
-
+                div.classList.add("searchResult", "pt-6", "pr-4", "cursor-pointer", "flex", "md:block", "md:w-1/4");
                 inputImg.classList.add("hidden");
                 inputTitle.classList.add("hidden");
                 inputTitleKana.classList.add("hidden");
@@ -17391,7 +17384,6 @@ function _searchBook() {
               searchResults.forEach(function (searchResult) {
                 searchResult.addEventListener("click", function (e) {
                   var bookElements = e.currentTarget.childNodes;
-                  console.log(bookElements);
                   var bookImageSrc = bookElements[2].value;
                   var bookTitle = bookElements[3].value;
                   var bookTitleKana = bookElements[4].value;

@@ -21,6 +21,7 @@ let RAKUTEN_APP_ID = process.env.MIX_RAKUTEN_APP_ID;
 
 async function searchBook(titleValue) {
     let res;
+
     if (
         window.matchMedia &&
         window.matchMedia("(max-device-width: 640px)").matches
@@ -30,7 +31,7 @@ async function searchBook(titleValue) {
         );
     } else {
         res = await fetch(
-            `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=${RAKUTEN_APP_ID}&title=${titleValue}&hits=10`
+            `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=${RAKUTEN_APP_ID}&title=${titleValue}&hits=8`
         );
     }
 
@@ -53,26 +54,15 @@ async function searchBook(titleValue) {
             let inputTitleKana = document.createElement("input");
             let inputAuthor = document.createElement("input");
 
-            div.classList.add("searchResult");
-            if (
-                window.matchMedia &&
-                window.matchMedia("(max-device-width: 640px)").matches
-            ) {
-                div.classList.add(
-                    "basis-1/5",
-                    "pt-6",
-                    "pr-4",
-                    "cursor-pointer",
-                    "flex"
-                );
-            } else {
-                div.classList.add(
-                    "basis-1/5",
-                    "pt-6",
-                    "pr-4",
-                    "cursor-pointer"
-                );
-            }
+            div.classList.add(
+                "searchResult",
+                "pt-6",
+                "pr-4",
+                "cursor-pointer",
+                "flex",
+                "md:block",
+                "md:w-1/4"
+            );
 
             inputImg.classList.add("hidden");
             inputTitle.classList.add("hidden");
@@ -113,7 +103,6 @@ async function searchBook(titleValue) {
         searchResults.forEach((searchResult) => {
             searchResult.addEventListener("click", (e) => {
                 let bookElements = e.currentTarget.childNodes;
-                console.log(bookElements);
                 let bookImageSrc = bookElements[2].value;
                 let bookTitle = bookElements[3].value;
                 let bookTitleKana = bookElements[4].value;
