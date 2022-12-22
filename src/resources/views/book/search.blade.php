@@ -27,7 +27,7 @@
                     検索
                 </button>
             </div>
-            <div id="resultWindow" class="md:flex md:flex-wrap p-2 md:ml-20 rounded md:w-full h-3/4 md:bg-modal-window">
+            <div id="resultWindow" class="md:flex md:flex-wrap p-2 md:ml-20 rounded md:w-full min-h-[75%] md:bg-modal-window">
                 <p class="text-red-600 hidden" id="resultMessage">※該当する本がありません</p>
             </div>
         </section>
