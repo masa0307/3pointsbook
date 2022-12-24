@@ -97,8 +97,9 @@
                     <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">{{ App\Models\Book::STATE_INTERESTING }}</h2>
                     <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl">
                         <div class="flex justify-between">
-                            <div class="hover:after:content-['「{{ App\Models\Book::STATE_INTERESTING }}」から「{{ App\Models\Book::STATE_READING }}」に移動する'] hover:after:relative hover:after:-top-10 hover:after:-left-10 hover:after:bg-gray-700 hover:after:text-stone-50 hover:after:rounded hover:after:p-2 hover:after:text-">
+                            <div class="group">
                                 <a href="{{ route('book.update', $selectedBook->id) }}" class="inline-block bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="cil:data-transfer-up" width="24" height="24"></iconify-icon></a>
+                                <p class="group-hover:block hidden text-stone-50 pt-2 pl-2">「{{ App\Models\Book::STATE_INTERESTING }}」から「{{ App\Models\Book::STATE_READING }}」に移動する</p>
                             </div>
 
                             <form action="{{route('book.destroy', $selectedBook)}}" method="post">
