@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Genre;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -20,7 +21,7 @@ class GenreComposer
     public function compose(View $view)
     {
         $view->with([
-            'genres'   => Genre::all(),
+            'genres'   => Genre::where('user_id', Auth::id())->get(),
         ]);
     }
 }
