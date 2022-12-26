@@ -1,18 +1,18 @@
-const { get } = require("lodash");
-
 let title = document.getElementById("title");
 let resultMessage = document.getElementById("resultMessage");
 
-if (location.pathname == "/book/search") {
+if (location.pathname === "/book/search") {
     let searchButton = document.getElementById("searchButton");
     searchButton.addEventListener("click", () => {
         let titleValue = title.value;
         let searchResults = document.querySelectorAll(".searchResult");
+
         if (searchResults.length != 0) {
             searchResults.forEach((searchResult) => {
                 searchResult.remove();
             });
         }
+
         searchBook(titleValue);
     });
 }
@@ -105,8 +105,16 @@ async function searchBook(titleValue) {
                 let bookElements = e.currentTarget.childNodes;
                 let bookImageSrc = bookElements[2].value;
                 let bookTitle = bookElements[3].value;
-                let bookTitleKana = bookElements[4].value;
-                let bookAuthor = bookElements[5].value;
+                let bookTitleKana = "※カナ情報なし";
+                let bookAuthor = "※著者情報なし";
+
+                if (bookElements[4].value) {
+                    bookTitleKana = bookElements[4].value;
+                }
+
+                if (bookElements[5].value) {
+                    bookAuthor = bookElements[5].value;
+                }
 
                 const postData = new FormData();
                 postData.append("img", bookImageSrc);
