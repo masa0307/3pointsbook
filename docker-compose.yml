@@ -18,13 +18,26 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: $MYSQL_DATABASE
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      TZ: $TZ
+      MYSQL_ROOT_PASSWORD: masa030737
+      MYSQL_DATABASE: database
+      MYSQL_USER: masa
+      MYSQL_PASSWORD: masa030737
+      TZ: Asia/Tokyo
     volumes:
       - db-store:/var/lib/mysql
+  db-test:
+    build: ./docker/db
+    ports:
+      - 3000:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      TZ: "Asia/Tokyo"
+    volumes:
+      - db-test-store:/var/lib/mysql
 
 volumes:
   db-store:
+  db-test-store:
