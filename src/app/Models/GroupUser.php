@@ -24,7 +24,7 @@ class GroupUser extends Model
     }
 
     public function memogroup(){
-        return $this->belongsTo(MemoGroup::class);
+        return $this->belongsTo(MemoGroup::class, 'group_id');
     }
 
     protected $primaryKey = ['group_id', 'user_id'];

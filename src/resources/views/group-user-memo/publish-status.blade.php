@@ -18,7 +18,7 @@
         <section class="md:w-5/12 text-black">
             <h2 class="hidden md:block px-10 pt-10 font-medium text-xl">メモの公開</h2>
 
-            <div class="md:bg-primary md:p-8 px-4 md:ml-20 mt-8 rounded-xl h-1/2">
+            <div class="md:bg-primary md:p-8 px-4 md:ml-20 mt-8 rounded-xl">
                 @if($memo_groups)
                     @if(!($not_published_groups->isEmpty()))
                         <form action="{{ route('group-user-memo.publish', [$published_book->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" method="POST">
