@@ -33,12 +33,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'book', 'as' => 'book.'], function () {
         Route::get('/search', [BookController::class, 'search'])->name('search');
         Route::get('/manual', [BookController::class, 'manual'])->name('manual');
-        Route::post('/temporaryStore', [BookController::class, 'temporaryStore']);
+        Route::post('/temporaryStore', [BookController::class, 'temporaryStore'])->name('temporaryStore');
         Route::get('/create', [BookController::class, 'create'])->name('create');
         Route::post('/store', [BookController::class, 'store'])->name('store');
         Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
         Route::delete('/destroy/{book}', [BookController::class, 'destroy'])->name('destroy');
-        Route::get('/update/{book}', [BookController::class, 'update'])->name('update');
+        Route::patch('/update/{book}', [BookController::class, 'update'])->name('update');
     });
 
     Route::group(['prefix' => 'book-memo', 'as' => 'book-memo.'], function () {

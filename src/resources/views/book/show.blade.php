@@ -98,8 +98,12 @@
                     <div class="md:bg-primary p-4 md:p-8 md:ml-20 mt-8 rounded-xl">
                         <div class="flex justify-between">
                             <div class="group">
-                                <a href="{{ route('book.update', $selectedBook->id) }}" class="inline-block bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="cil:data-transfer-up" width="24" height="24"></iconify-icon></a>
-                                <p class="group-hover:block hidden text-stone-50 pt-2 pl-2">「{{ App\Models\Book::STATE_INTERESTING }}」から「{{ App\Models\Book::STATE_READING }}」に移動する</p>
+                                <form action="{{ route('book.update', $selectedBook->id) }}" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <button type="submit" class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4"><iconify-icon inline icon="cil:data-transfer-up" width="24" height="24"></iconify-icon></button>
+                                    <p class="group-hover:block hidden text-stone-50 pt-2 pl-2">「{{ App\Models\Book::STATE_INTERESTING }}」から「{{ App\Models\Book::STATE_READING }}」に移動する</p>
+                                </form>
                             </div>
 
                             <form action="{{route('book.destroy', $selectedBook)}}" method="post">
