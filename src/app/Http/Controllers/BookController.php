@@ -89,7 +89,7 @@ class BookController extends Controller
     }
 
     public function store(BookRequest $request){
-        if(parse_url(url()->previous())['path'] == "/book/create"){
+        if(strpos(url()->previous(), "/book/create")){
             $temporary_store_book = Book::latest('created_at')->first();
             $temporary_store_book->title = $request->title;
             $temporary_store_book->title_kana = $request->title_kana;
@@ -112,6 +112,7 @@ class BookController extends Controller
         if(Book::where('state', null)){
             Book::where('state', null)->delete();
         };
+
         return redirect()->route('book.index');
     }
 
