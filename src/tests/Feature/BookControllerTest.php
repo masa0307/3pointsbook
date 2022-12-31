@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\GroupUser;
+use App\Models\Memo;
 use App\Models\MemoGroup;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +13,7 @@ use Tests\TestCase;
 
 class BookControllerTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     /**
      * A basic feature test example.
@@ -23,11 +24,12 @@ class BookControllerTest extends TestCase
     public function setUp():void{
         parent::setUp();
 
-        $this->user = User::factory()->create();
+        $this->user       = User::factory()->create();
         $this->memo_group = MemoGroup::factory()->create();
-        $this->genre = Genre::factory()->for($this->user)->create();
-        $this->book = Book::factory()->for($this->user)->for($this->genre)->ReadingState()->create();
-        GroupUser::factory()->for($this->user)->for($this->memo_group)->create();
+        $this->genre      = Genre::factory()->for($this->user)->create();
+        $this->book       = Book::factory()->for($this->user)->for($this->genre)->ReadingState()->create();
+        $this->memo       = Memo::factory()->for($this->user)->for($this->book)->for($this->memo_group)->create();
+        $this->group_user = GroupUser::factory()->for($this->user)->for($this->memo_group)->create();
     }
 
 
@@ -39,9 +41,21 @@ class BookControllerTest extends TestCase
     }
 
     public function test_index(){
+        $this->invitee_user       = User::factory()->create();
+        $this->invitee_group_user = GroupUser::factory()->for($this->invitee_user)->for($this->memo_group)->create(['is_owner' => 1]);
+
         $response = $this->actingAs($this->user)->get(route('book.index'));
 
+        if($this->group_user->participation_status === '招待中'){
+            $response = $this->actingAs($this->user)->get(route('book.index'));
+            $response->assertSee('招待');
+            $response->assertViewHas('invitee_user_name', $this->invitee_user->name);
+        }
+
         $response->assertSee($this->book->title);
+        $response->assertViewIs('book.index');
+        $response->assertViewHas('selectedBook', $this->book);
+        $response->assertViewHas('is_publish_memo', true);
         $response->assertOk();
     }
 
@@ -91,12 +105,14 @@ class BookControllerTest extends TestCase
             'user_id'    => $this->user
         ]));
 
+        $this->assertModelExists($this->book);
         $response->assertRedirect(route('book.index'));
     }
 
     public function test_destroy(){
         $response = $this->actingAs($this->user)->delete(route('book.destroy', $this->book));
 
+        $this->assertDeleted($this->book);
         $response->assertRedirect(route('book.index'));
     }
 
