@@ -20,14 +20,14 @@
                 <p class="font-semibold text-lg">グループ名：{{ session('group_name') }}</p>
                 <div class="pt-10">
                     <p class="border-b border-slate-400">追加するメンバー</p>
-                    <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4">
+                    <form action="{{ route('group-user.searchResult') }}" method="post" class="pt-4 pb-2">
                         @csrf
                         <input type="search" placeholder="メンバー名を入力" name="name" class="border-none rounded w-9/12 text-black">
                         <button type="submit" class="ml-2 px-2 py-2 bg-slate-200 rounded text-black">検索</button>
                     </form>
 
                     @if(session('search_user'))
-                        <form action="{{ route('group-user.store') }}" method="post" class="pt-2">
+                        <form action="{{ route('group-user.store') }}" method="post" class="pt-2 pb-2">
                             @csrf
                             <input type="text" name="user_id" class="hidden" value="{{ session('search_user')->id }}">
                             <p>・{{ session('search_user')->name }}</p>
@@ -36,6 +36,7 @@
                     @endif
                 </div>
 
+                <p class="text-red-600">{{ session('search_number_limit') }}</p>
                 @error('user_id')
                     <p class="text-red-600 pt-1">※{{ $message }}</p>
                 @enderror

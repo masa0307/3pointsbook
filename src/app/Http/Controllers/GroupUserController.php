@@ -29,6 +29,8 @@ class GroupUserController extends Controller
             session()->forget('search_user');
         }
 
+        session()->forget('search_number_limit');
+
         $group_users      = GroupUser::where('group_id', session('group')->id)->get();
         $group_user_name  = $request->name;
         $group_name       = MemoGroup::where('id', session('group')->id)->first()->group_name;
