@@ -19,7 +19,7 @@
                 @if($selectedBook->state === App\Models\Book::STATE_READING)
                     <h2 class="px-10 pt-10 font-medium text-xl">{{ App\Models\Book::STATE_READING }}</h2>
                     <div class="bg-primary p-8 ml-20 mt-8 rounded-xl">
-                        @if(!($memo_groups->isEmpty()) && $selectedBook->memo)
+                        @if(!($memo_groups->isEmpty()) && $selectedBook->memo()->first())
                             <div class="flex justify-between">
                                 <button class="bg-slate-200 hover:bg-sky-500 hover:text-slate-50 border p-1 rounded-xl px-4">
                                     <a href="{{ route('group-user-memo.publish_status',[$selectedBook->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="text-xl">メモの公開・非公開</a>
