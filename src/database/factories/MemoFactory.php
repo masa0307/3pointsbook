@@ -20,9 +20,6 @@ class MemoFactory extends Factory
             'actionlist1_content'    => $this->faker->word(),
             'actionlist2_content'    => $this->faker->word(),
             'actionlist3_content'    => $this->faker->word(),
-            'feedback1_content'      => $this->faker->word(),
-            'feedback2_content'      => $this->faker->word(),
-            'feedback3_content'      => $this->faker->word(),
         ];
     }
 }
