@@ -9,7 +9,7 @@
     </x-slot>
 
     <div class="md:flex">
-        <section class="md:w-1/4 md:h-screen md:bg-primary">
+        <section class="md:w-1/4 md:min-h-screen md:bg-primary">
             <x-top-menu>
                 <h2 class="md:px-10 md:pt-10 font-medium text-xl text-normal"><a href="{{ route('book.index') }}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>本の詳細</a></h2>
             </x-top-menu>
