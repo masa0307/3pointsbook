@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="md:flex">
-        <section class="md:w-1/4 h-screen md:bg-primary">
+        <section class="md:w-1/4 md:min-h-screen md:bg-primary">
             <x-side-menu />
             <x-top-menu />
             <x-memo-list :books-reading="$books_reading" :books-interesting="$books_interesting" :memo-groups="$memo_groups_paginate" />

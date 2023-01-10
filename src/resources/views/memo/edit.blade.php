@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="md:flex">
-        <section class="md:w-1/4 md:h-screen md:bg-primary">
+        <section class="md:w-1/4 md:min-h-screen md:bg-primary">
             <x-side-menu />
             <x-top-menu>
                 <div class="text-normal">
