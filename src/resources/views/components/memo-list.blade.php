@@ -48,7 +48,7 @@
                                     @if($memo_group->pivot->is_owner == true)
                                         <div class="flex">
                                             <a href="{{ route('group-user.add', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block text-black"><iconify-icon inline icon="material-symbols:group-add" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded mr-8"></iconify-icon>
-                                            <a href="{{ route('group-user.edit', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block text-black"><iconify-icon inline icon="material-symbols:group-remove" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded"></iconify-icon></a>
+                                            <a href="{{ route('group-user.remove', [$memo_group->id, str_replace('?', '', mb_strstr(url()->full(), '?'))]) }}" class="block text-black"><iconify-icon inline icon="material-symbols:group-remove" width="20" height="20" class="px-1.5 py-1 bg-slate-200 md:bg-slate-50 rounded"></iconify-icon></a>
                                         </div>
                                     @endif
                                 </div>
