@@ -110,7 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/accept', [GroupUserController::class, 'accept'])->name('accept');
         Route::delete('/reject', [GroupUserController::class, 'reject'])->name('reject');
         Route::get('/add/{id}', [GroupUserController::class, 'edit'])->name('add');
-        Route::get('/edit/{id}', [GroupUserController::class, 'edit'])->name('edit');
+        Route::get('/remove/{id}', [GroupUserController::class, 'edit'])->name('remove');
         Route::delete('/destroy/{group_id}/{user_id}', [GroupUserController::class, 'destroy'])->name('destroy');
     });
 

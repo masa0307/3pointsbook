@@ -13,11 +13,11 @@
             <x-top-menu>
                 <div class="text-normal">
                     @if(strpos(url()->full(),'book-memo')!== false)
-                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$book_id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$book_id, $group_id])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>読書メモ</a></h2>
                     @elseif(strpos(url()->full(),'action-list')!== false)
-                        <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-lg"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>アクションリスト</a></h2>
                     @elseif(strpos(url()->full(),'feedback-list')!== false)
-                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id_parameter])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
+                        <h2 class="md:px-10 md:pt-10 font-medium text-xl"><a href="{{route('group-user-memo.index', [$select_book->id, $group_id])}}" class="flex items-center justify-center"><iconify-icon icon="ci:external-link"></iconify-icon>振り返り</a></h2>
                     @endif
                 </div>
             </x-top-menu>

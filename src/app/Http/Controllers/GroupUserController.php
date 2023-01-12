@@ -101,41 +101,39 @@ class GroupUserController extends Controller
         $deleted_group = MemoGroup::find($group_id);
         $group_user->delete();
 
-        if(GroupUser::where('group_id', $group_id)->where('participation_status', '参加中')->get()->isNotEmpty()){
-            return redirect()->route('group-user.edit', $group_id);
-        }else{
+        if(GroupUser::where('group_id', $group_id)->where('participation_status', '参加中')->get()->isEmpty()){
             $deleted_group->delete();
+
             return redirect()->route('book.index');
         }
 
+        return redirect()->route('group-user.remove', $group_id);
     }
 
     public function index($book_id, $group_id){
         $selectedBook       = Book::where('id', $book_id)->first();
         $group_name         = MemoGroup::find($group_id)->group_name;
         $pulished_user_name = User::find($selectedBook->memo()->first()->user_id)->name;
-        $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
 
         if($selectedBook){
             $genre_name = $selectedBook->genre->genre_name;
-            return view('group-user-memo.index', compact('selectedBook', 'genre_name', 'group_name', 'pulished_user_name', 'group_id_parameter'));
+            return view('group-user-memo.index', compact('selectedBook', 'genre_name', 'group_name', 'pulished_user_name', 'group_id'));
         }
 
-        return view('group-user-memo.index', compact('selectedBook', 'pulished_user_name', 'group_id_parameter'));
+        return view('group-user-memo.index', compact('selectedBook', 'pulished_user_name', 'group_id'));
     }
 
     public function show($book_id, $group_id){
         $store_memo         = Memo::where('book_id',$book_id)->first();
         $select_book        = Book::where('id', $book_id)->first();
         $group_name         = MemoGroup::find($group_id)->group_name;
-        $group_id_parameter = substr(rtrim($_SERVER["REQUEST_URI"], '/'), strrpos(rtrim($_SERVER["REQUEST_URI"], '/'), '/') + 1);
         $is_store_memo      = false;
 
         if($store_memo ){
             $is_store_memo  = true;
         }
 
-        return view('group-user-memo.show', compact('store_memo', 'is_store_memo', 'select_book', 'book_id', 'group_id', 'group_name', 'group_id_parameter'));
+        return view('group-user-memo.show', compact('store_memo', 'is_store_memo', 'select_book', 'book_id', 'group_id', 'group_name'));
     }
 
     public function showPublishStatus($book_id){
@@ -163,19 +161,19 @@ class GroupUserController extends Controller
 
     public function publish(Request $request){
         $book = Book::find($request->id);
+
         if($request->group_id){
             $published_memo = $book->memo->where('group_id', null)->first();
-            $memo = $book->memo->first();
 
             if($published_memo){
                 $published_memo->group_id = $request->group_id;
                 $published_memo->save();
-            }elseif(!$published_memo){
-                $published_memo = $memo->replicate();
+            }else{
+                $memo                     = $book->memo->first();
+                $published_memo           = $memo->replicate();
                 $published_memo->group_id = $request->group_id;
                 $published_memo->save();
             }
-
         }elseif($request->non_group_id){
             $published_memo = $book->memo->where('group_id', $request->non_group_id)->first();
             $published_memo->group_id = null;
