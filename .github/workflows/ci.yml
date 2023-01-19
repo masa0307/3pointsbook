@@ -18,7 +18,7 @@ jobs:
         options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         env:
           MYSQL_ROOT_PASSWORD:
-          MYSQL_DATABASE: hoge_app
+          MYSQL_DATABASE: test
           MYSQL_USER: root
           MYSQL_PASSWORD:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
