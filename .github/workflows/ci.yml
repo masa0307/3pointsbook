@@ -46,5 +46,7 @@ jobs:
         working-directory: ./src
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_HOST: 127.0.0.1
         run: ./vendor/bin/phpunit
         working-directory: ./src
