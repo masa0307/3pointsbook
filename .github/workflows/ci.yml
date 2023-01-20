@@ -17,11 +17,15 @@ jobs:
           - 3306:3306
         options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         env:
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: pass
           MYSQL_DATABASE: test
-          MYSQL_USER: root
-          MYSQL_PASSWORD:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    env:
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: test
+      DB_USERNAME: root
+      DB_PASSWORD: pass
 
     steps:
       - name: Setup PHP
@@ -34,10 +38,6 @@ jobs:
 
       - name: Install Dependencies
         run: composer install -n --prefer-dist
-        working-directory: ./src
-
-      - name: copy .env
-        run: cp .env.example .env
         working-directory: ./src
 
       - name: generate key
