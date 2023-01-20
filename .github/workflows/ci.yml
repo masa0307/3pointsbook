@@ -39,6 +39,10 @@ jobs:
       - name: Install Dependencies
         run: composer install -n --prefer-dist
         working-directory: ./src
+        
+      - name: copy .env
+        run: cp .env.example .env
+        working-directory: ./src
 
       - name: generate key
         run: php artisan key:generate
